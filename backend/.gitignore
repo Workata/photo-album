@@ -3,3 +3,6 @@ __pycache__/
 
 # Virtual env
 venv/
+
+# user data
+data/

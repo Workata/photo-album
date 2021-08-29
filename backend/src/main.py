@@ -2,8 +2,10 @@ from typing import Optional
 
 from fastapi import FastAPI
 
-app = FastAPI()
+from src.routers import images
 
+app = FastAPI()
+app.include_router(images.router)
 
 @app.get("/")
 def read_root():
