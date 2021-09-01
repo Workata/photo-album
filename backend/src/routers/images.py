@@ -1,6 +1,9 @@
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
 from pathlib import Path
+import os
+
+
 
 router = APIRouter(prefix="/api/images", tags=["Images"])
 
@@ -8,8 +11,17 @@ router = APIRouter(prefix="/api/images", tags=["Images"])
 async def get_image(year : str, location : str, img_id : int):
     # filename = user["profile_picture"]
     #path = get_profile_picture_path(filename if filename is not None else "default.png")
-    print("Directory Path:", Path().absolute()) # backend
+    print("Directory Path:", Path().absolute()) # /backend
 
-    return FileResponse("./data/images/2015/Croatia/test_img.jpg")
+    path = f"./data/images/{year}/{location}"
+    try:
+        all_images = os.listdir(path)   # returns list of files (names)
+    except:
+        print("This folder doesn't exist (probably)")
+
+    # img_id: 1, 2, 3, 4, ...
+    image_name = all_images[img_id-1]
+
+    return FileResponse(f"./data/images/{year}/{location}/{image_name}")
 
     # return {"year": year, "location": location, "id": img_id}

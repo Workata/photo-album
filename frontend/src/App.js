@@ -1,7 +1,7 @@
 import React from 'react';
 import Appbar from './components/Appbar';
 import Home from './components/Home';
-import ImageViewer from './components/ImageViewer';
+import ImageSlider from './components/ImageSlider';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "./App.css";
 
@@ -19,8 +19,8 @@ function App() {
         <Switch>
 
           <Route exact path="/" component={Home} />
-
-          <Route exact path="/images/view/:year/:location/:id" component={ImageViewer} />
+          <Route exact path="/images/view/:year/:location" component={ImageSlider} />
+          <Route exact path="/images/view/:year/:location/:imgId" component={ImageSlider} />
 
           <Route>
             <div>
