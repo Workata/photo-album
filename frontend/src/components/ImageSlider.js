@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Image from 'material-ui-image'
+import "../css/ImageSlider.css";
 
 export default function ImageSlider() {
   const { year, location, imgId} = useParams();
   const [image, setImage] = useState();
-  const [currentImgId, setCurrentImgId] = useState(imgId); // imgId may be undefined, checked in useEffect
+
+  // imgId may be undefined, checked in useEffect
+  // also parsing for int is needed as otherwise it's a string (from url)
+  const [currentImgId, setCurrentImgId] = useState(imgId);
 
   const fetchImage = async (imgIdToGet) => {
     // console.log(`Triggered: ${imgIdToGet}`);
@@ -26,22 +31,21 @@ export default function ImageSlider() {
   };
 
   const nextImg = () => {
-    setCurrentImgId(currentImgId + 1);
+    setCurrentImgId(parseInt(currentImgId) + 1);
   };
 
   const prevImg = () => {
-    setCurrentImgId(currentImgId - 1);
+    setCurrentImgId(parseInt(currentImgId) - 1);
   };
 
   useEffect(() => {
-    console.log(`Img id: ${imgId}`)
-
+    // console.log(`Img id: ${imgId}`)
     if (currentImgId === undefined)
     {
       setCurrentImgId(1);
-      fetchImage(1);
+      // currentImgId was modified so useEffect will trigger again
     } 
-    else fetchImage(currentImgId);
+    else fetchImage(parseInt(currentImgId));
     
   }, [currentImgId]);
 
@@ -54,9 +58,14 @@ export default function ImageSlider() {
 
       <button onClick={prevImg}>Prev</button>
       <button onClick={nextImg}>Next</button>
-      <img src={image} alt="Girl in a jacket" width="500" height="600"></img>
 
-      {/* {image} */}
+      <div id="imageContainer">
+        <Image
+          src={image}
+        />
+      </div>
+      {/* <img src={image} alt="Girl in a jacket" width="500" height="600"></img> */}
+
     </div>
   );
 }
