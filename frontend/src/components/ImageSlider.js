@@ -6,16 +6,19 @@ import "../css/ImageSlider.css";
 export default function ImageSlider() {
   const { year, location, imgId} = useParams();
   const [image, setImage] = useState();
+  const [imagesNames, setImagesNames] = useState();
+  const [imageName, setImageName] = useState('???');
+  const [numberOfImages, setNumberOfImages] = useState();
 
   // imgId may be undefined, checked in useEffect
   // also parsing for int is needed as otherwise it's a string (from url)
   const [currentImgId, setCurrentImgId] = useState(imgId);
 
-  const fetchImage = async (imgIdToGet) => {
+  const fetchImageContent = async (imgIdToGet) => {
     // console.log(`Triggered: ${imgIdToGet}`);
     try {
       const response = await fetch(
-        `/api/images/view/${year}/${location}/${imgIdToGet}`,
+        `/api/images/content/${year}/${location}/${imgIdToGet}`,
         {
           method: "GET",
           headers: {
@@ -23,19 +26,63 @@ export default function ImageSlider() {
           },
         }
       );
-      const data = await response.blob();
-      setImage(URL.createObjectURL(data));
+      const imgData = await response.blob();
+      setImage(URL.createObjectURL(imgData));
     } catch (error) {
       console.error("Error: ", error);
     }
   };
 
+  const fetchImagesNames = async () => {
+    // console.log(`Triggered: ${imgIdToGet}`);
+    try {
+      const response = await fetch(
+        `/api/images/names/${year}/${location}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const imgData = await response.json();
+      setImagesNames(imgData['img_names']);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+
+  const fetchNumberOfImages = async () => {
+      await fetch(
+        `/api/images/count/${year}/${location}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((response) => response.json())
+      .then((data) => {
+
+        // console.log(data);
+        setNumberOfImages(parseInt(data['ImageCount']));
+        // console.log(data['ImageCount']);
+
+      }).catch((error) =>{
+        console.error('Error: ', error);
+      });
+  };
+
   const nextImg = () => {
-    setCurrentImgId(parseInt(currentImgId) + 1);
+    if(parseInt(currentImgId) + 1 <= numberOfImages)
+      setCurrentImgId(parseInt(currentImgId) + 1);
+    else setCurrentImgId(1);
   };
 
   const prevImg = () => {
-    setCurrentImgId(parseInt(currentImgId) - 1);
+    if(parseInt(currentImgId) - 1 >= 1)
+      setCurrentImgId(parseInt(currentImgId) - 1);
+    else setCurrentImgId(numberOfImages);
   };
 
   useEffect(() => {
@@ -43,18 +90,25 @@ export default function ImageSlider() {
     if (currentImgId === undefined)
     {
       setCurrentImgId(1);
+
       // currentImgId was modified so useEffect will trigger again
     } 
-    else fetchImage(parseInt(currentImgId));
+    else fetchImageContent(parseInt(currentImgId));
+
+    setImageName(imagesNames[currentImgId-1]);
     
   }, [currentImgId]);
 
+  useEffect(() => {
+    fetchNumberOfImages();
+    fetchImagesNames();
+  }, []);
+
   return (
     <div>
-      <div onClick={fetchImage}>Image slider </div>
-      <br></br>
       year {year} <br></br>
       location {location} <br></br>
+      image name {imageName} <br></br>
 
       <button onClick={prevImg}>Prev</button>
       <button onClick={nextImg}>Next</button>
@@ -64,7 +118,7 @@ export default function ImageSlider() {
           src={image}
         />
       </div>
-      {/* <img src={image} alt="Girl in a jacket" width="500" height="600"></img> */}
+      {/* <img src={image} alt="Alt text" width="500" height="600"></img> */}
 
     </div>
   );
