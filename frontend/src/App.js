@@ -1,7 +1,7 @@
 import React from 'react';
 import Appbar from './components/Appbar';
 import Footer from './components/Footer';
-import Home from './components/Home';
+import Home from './pages/Home';
 import ImageSlider from './components/ImageSlider';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "./css/App.css";
