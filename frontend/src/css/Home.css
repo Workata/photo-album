@@ -1,0 +1,25 @@
+#menuContainer
+{
+    width: 800px;
+    height: 800px;
+    /* border-style: solid; */
+}
+
+.menu-element{
+    width: 350px;
+    height: 350px;
+    margin-top: 33px;
+    margin-left: 33px;
+    /* border-style: solid; */
+    float: left;
+    background-color: white;
+    border-radius: 10%;
+}
+
+.menu-element-img{
+    width: 290px;
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
+
