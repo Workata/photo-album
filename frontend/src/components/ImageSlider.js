@@ -4,12 +4,11 @@ import Image from 'material-ui-image'
 import "../css/ImageSlider.css";
 
 export default function ImageSlider() {
-  const { year, location, imgId} = useParams();
+  const {year, location, imgId} = useParams();
   const [image, setImage] = useState();
-  const [imagesNames, setImagesNames] = useState();
+  const [imagesNames, setImagesNames] = useState(['???']);
   const [imageName, setImageName] = useState('???');
   const [numberOfImages, setNumberOfImages] = useState();
-
   // imgId may be undefined, checked in useEffect
   // also parsing for int is needed as otherwise it's a string (from url)
   const [currentImgId, setCurrentImgId] = useState(imgId);
@@ -86,23 +85,27 @@ export default function ImageSlider() {
   };
 
   useEffect(() => {
+    fetchImagesNames();
+    fetchNumberOfImages();
+  }, []);
+
+  useEffect(() => {
     // console.log(`Img id: ${imgId}`)
     if (currentImgId === undefined)
     {
       setCurrentImgId(1);
-
+      setImageName(imagesNames[0]);
       // currentImgId was modified so useEffect will trigger again
     } 
-    else fetchImageContent(parseInt(currentImgId));
-
-    setImageName(imagesNames[currentImgId-1]);
+    else{
+      fetchImageContent(parseInt(currentImgId));
+      setImageName(imagesNames[parseInt(currentImgId)-1]);
+    }
     
-  }, [currentImgId]);
+    
+  }, [currentImgId, imagesNames]);
 
-  useEffect(() => {
-    fetchNumberOfImages();
-    fetchImagesNames();
-  }, []);
+
 
   return (
     <div>
