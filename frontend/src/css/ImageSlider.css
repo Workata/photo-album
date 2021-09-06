@@ -1,6 +1,12 @@
 #imageContainer{
-    max-width: 700px;
-    max-height: 400px;
+    width: 800px;
+    height: 600px;
     margin-left: auto;
     margin-right: auto;
+    border-style: solid;
 }
+
+/* .drawer{
+    width: 300;
+    background-color: grey;
+} */

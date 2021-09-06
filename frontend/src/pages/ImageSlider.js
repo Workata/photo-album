@@ -2,10 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Image from 'material-ui-image'
 import "../css/ImageSlider.css";
+import undrawCancel from '../images/undrawCancel.svg';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import {
+  IconButton
+} from '@material-ui/core';
+import basicTheme from "../themes/basicTheme";
+import {ThemeProvider} from '@material-ui/core';
+import Drawer from '@material-ui/core/Drawer';
+import { makeStyles } from '@material-ui/core/styles';
+import { grey } from "@material-ui/core/colors";
+
+
+// import Viewer from 'viewerjs';
 
 export default function ImageSlider() {
   const {year, location, imgId} = useParams();
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(undrawCancel);
   const [imagesNames, setImagesNames] = useState(['???']);
   const [imageName, setImageName] = useState('???');
   const [numberOfImages, setNumberOfImages] = useState();
@@ -105,23 +121,82 @@ export default function ImageSlider() {
     
   }, [currentImgId, imagesNames]);
 
+  const drawerWidth = 240;
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+    },
+    appBar: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+      
+      
+    },
+    drawerPaper: {
+      width: drawerWidth,
+      background: '#bcbec2',
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.default,
+      padding: theme.spacing(3),
+    },
+  }));
+
+  const classes = useStyles();
 
   return (
     <div>
-      year {year} <br></br>
-      location {location} <br></br>
-      image name {imageName} <br></br>
 
-      <button onClick={prevImg}>Prev</button>
-      <button onClick={nextImg}>Next</button>
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="left"
+      >
+        {year} {">>"} {location}
+      </Drawer>
+
+      {imageName} <br></br>
 
       <div id="imageContainer">
         <Image
           src={image}
+          aspectRatio={4/3} // change aspect ratio per photo + css
+          // cover={true}
         />
       </div>
-      {/* <img src={image} alt="Alt text" width="500" height="600"></img> */}
+
+      <ThemeProvider theme={basicTheme}>
+        <div id="imageConsole">
+
+          <IconButton color="primary" onClick={prevImg}>
+            <NavigateBeforeIcon />
+          </IconButton>
+
+          <IconButton color="primary" onClick={nextImg}>
+            <NavigateNextIcon />
+          </IconButton>
+
+          <IconButton color="primary" onClick={null}>
+            <PlayArrowIcon />
+          </IconButton>
+
+          <IconButton color="primary" onClick={null}>
+            <PauseIcon />
+          </IconButton>
+          
+        </div>
+      </ThemeProvider>
 
     </div>
   );
