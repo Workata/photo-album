@@ -14,7 +14,6 @@ import basicTheme from "../themes/basicTheme";
 import {ThemeProvider} from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import { makeStyles } from '@material-ui/core/styles';
-import { grey } from "@material-ui/core/colors";
 
 
 // import Viewer from 'viewerjs';
@@ -28,6 +27,8 @@ export default function ImageSlider() {
   // imgId may be undefined, checked in useEffect
   // also parsing for int is needed as otherwise it's a string (from url)
   const [currentImgId, setCurrentImgId] = useState(imgId);
+  const [thumbnails, setThumbnails] = useState([]); // useState([])
+  const [lastThumbResToResolve, setLastThumbResToResolve] = useState();
 
   const fetchImageContent = async (imgIdToGet) => {
     // console.log(`Triggered: ${imgIdToGet}`);
@@ -42,6 +43,7 @@ export default function ImageSlider() {
         }
       );
       const imgData = await response.blob();
+      // console.log(response);
       setImage(URL.createObjectURL(imgData));
     } catch (error) {
       console.error("Error: ", error);
@@ -49,7 +51,6 @@ export default function ImageSlider() {
   };
 
   const fetchImagesNames = async () => {
-    // console.log(`Triggered: ${imgIdToGet}`);
     try {
       const response = await fetch(
         `/api/images/names/${year}/${location}`,
@@ -59,34 +60,53 @@ export default function ImageSlider() {
             "Content-Type": "application/json",
           },
         }
-      );
+      )
       const imgData = await response.json();
       setImagesNames(imgData['img_names']);
+      setNumberOfImages(imgData['img_names'].length);
     } catch (error) {
       console.error("Error: ", error);
     }
   };
 
-  const fetchNumberOfImages = async () => {
-      await fetch(
-        `/api/images/count/${year}/${location}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((response) => response.json())
-      .then((data) => {
 
-        // console.log(data);
-        setNumberOfImages(parseInt(data['ImageCount']));
-        // console.log(data['ImageCount']);
+  const fetchThumbnail = async (imgIdToGet) => {
+    try {
+    const response = await fetch(
+      `/api/images/thumbnail/${year}/${location}/${imgIdToGet}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+      const imgData = await response.blob();
+      setLastThumbResToResolve(response);
+      const thumbUrl = URL.createObjectURL(imgData);
 
-      }).catch((error) =>{
-        console.error('Error: ', error);
-      });
-  };
+      const thumbsTemp = thumbnails
+      thumbsTemp.push(thumbUrl);
+      setThumbnails(thumbsTemp)
+
+    }
+    catch (error) {
+      console.error('Error: ', error);
+    };
+};
+
+  const fetchThumbnails = () => {
+    for(var i=1; i <= numberOfImages; i++) fetchThumbnail(i);
+  }
+
+  const insertThumbnails = () => {
+    if(thumbnails.length === numberOfImages) // check if all thumbnails array full
+    {
+      console.log("All thumbnails loaded");
+      for(var i=0; i<thumbnails.length; i++) 
+      document.getElementById("thumbnailsContainer").innerHTML += `<Image src=${thumbnails[i]} key=${thumbnails[i]}/>`;      
+    }
+  }
 
   const nextImg = () => {
     if(parseInt(currentImgId) + 1 <= numberOfImages)
@@ -101,9 +121,17 @@ export default function ImageSlider() {
   };
 
   useEffect(() => {
-    fetchImagesNames();
-    fetchNumberOfImages();
+    fetchImagesNames(); // also set number of images
   }, []);
+
+  useEffect(() => {
+    console.log("Number of img: ".concat(numberOfImages))
+    fetchThumbnails();
+  }, [numberOfImages]);
+
+  useEffect(() => {    
+    insertThumbnails();
+  }, [lastThumbResToResolve]); // * For every resolved response thumbnail 
 
   useEffect(() => {
     // console.log(`Img id: ${imgId}`)
@@ -164,6 +192,11 @@ export default function ImageSlider() {
         anchor="left"
       >
         {year} {">>"} {location}
+
+        <div id="thumbnailsContainer"> 
+          {/* {thumbnails are laoded using inner html js} */}
+        </div>
+       
       </Drawer>
 
       {imageName} <br></br>
