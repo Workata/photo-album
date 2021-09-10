@@ -7,28 +7,26 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
-import {
-  IconButton
-} from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import basicTheme from "../themes/basicTheme";
 import {ThemeProvider} from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import { makeStyles } from '@material-ui/core/styles';
-
+import {Link} from 'react-router-dom';
 
 // import Viewer from 'viewerjs';
 
 export default function ImageSlider() {
-  const {year, location, imgId} = useParams();
+  // imgId may be undefined, checked in useEffect
+  // also parsing for int is needed as otherwise it's a string (from url)
+  const {year, location, imgId} = useParams();        // params from url e.g.: 2015/Poland/2, imgId optional
   const [image, setImage] = useState(undrawCancel);
   const [imagesNames, setImagesNames] = useState(['???']);
   const [imageName, setImageName] = useState('???');
   const [numberOfImages, setNumberOfImages] = useState();
-  // imgId may be undefined, checked in useEffect
-  // also parsing for int is needed as otherwise it's a string (from url)
-  const [currentImgId, setCurrentImgId] = useState(imgId);
+  const [currentImgId, setCurrentImgId] = useState(); //imgId
   const [thumbnails, setThumbnails] = useState([]); // useState([])
-  const [lastThumbResToResolve, setLastThumbResToResolve] = useState();
+  const [canInsertThumbnails, setCanInsertThumbnails] = useState(false);
 
   const fetchImageContent = async (imgIdToGet) => {
     // console.log(`Triggered: ${imgIdToGet}`);
@@ -42,8 +40,8 @@ export default function ImageSlider() {
           },
         }
       );
-      const imgData = await response.blob();
       // console.log(response);
+      const imgData = await response.blob();
       setImage(URL.createObjectURL(imgData));
     } catch (error) {
       console.error("Error: ", error);
@@ -69,7 +67,6 @@ export default function ImageSlider() {
     }
   };
 
-
   const fetchThumbnail = async (imgIdToGet) => {
     try {
     const response = await fetch(
@@ -82,13 +79,13 @@ export default function ImageSlider() {
       }
     );
       const imgData = await response.blob();
-      setLastThumbResToResolve(response);
       const thumbUrl = URL.createObjectURL(imgData);
+      console.log(`Fetch id: ${imgIdToGet}, Thumbnails before change: ${thumbnails}, len: ${thumbnails.length}`)
 
-      const thumbsTemp = thumbnails
-      thumbsTemp.push(thumbUrl);
-      setThumbnails(thumbsTemp)
-
+      const thumbsTemp = thumbnails;
+      thumbsTemp[imgIdToGet-1] = thumbUrl;
+      setThumbnails(thumbsTemp);
+      console.log(`Fetch id: ${imgIdToGet}, Thumbnails after change: ${thumbnails}, len: ${thumbnails.length}`)
     }
     catch (error) {
       console.error('Error: ', error);
@@ -96,17 +93,18 @@ export default function ImageSlider() {
 };
 
   const fetchThumbnails = () => {
+    //console.log("Number of imgs: ".concat(numberOfImages));
+    setThumbnails(new Array(numberOfImages).fill(undrawCancel)); //.fill(0)
+    setCanInsertThumbnails(true);  
+
+    console.log(thumbnails)
+    console.log(`Thumbnails before fetches: ${thumbnails}, len: ${thumbnails.length}`)
     for(var i=1; i <= numberOfImages; i++) fetchThumbnail(i);
+    console.log(`Thumbnails after fetches: ${thumbnails}, len: ${thumbnails.length}`)
+
+    //setCanInsertThumbnails(true); 
   }
 
-  const insertThumbnails = () => {
-    if(thumbnails.length === numberOfImages) // check if all thumbnails array full
-    {
-      console.log("All thumbnails loaded");
-      for(var i=0; i<thumbnails.length; i++) 
-      document.getElementById("thumbnailsContainer").innerHTML += `<Image src=${thumbnails[i]} key=${thumbnails[i]}/>`;      
-    }
-  }
 
   const nextImg = () => {
     if(parseInt(currentImgId) + 1 <= numberOfImages)
@@ -125,16 +123,12 @@ export default function ImageSlider() {
   }, []);
 
   useEffect(() => {
-    console.log("Number of img: ".concat(numberOfImages))
     fetchThumbnails();
-  }, [numberOfImages]);
-
-  useEffect(() => {    
-    insertThumbnails();
-  }, [lastThumbResToResolve]); // * For every resolved response thumbnail 
+  }, [numberOfImages]); //add fetchThunmbnails
 
   useEffect(() => {
     // console.log(`Img id: ${imgId}`)
+    console.log("Triggered [currentImgId, imagesNames]");
     if (currentImgId === undefined)
     {
       setCurrentImgId(1);
@@ -145,9 +139,13 @@ export default function ImageSlider() {
       fetchImageContent(parseInt(currentImgId));
       setImageName(imagesNames[parseInt(currentImgId)-1]);
     }
-    
-    
-  }, [currentImgId, imagesNames]);
+  }, [currentImgId, imagesNames]); // add fetchImageContetn
+
+  useEffect(() => {
+    console.log("Triggered [imgId]");
+    console.log(imgId);
+    setCurrentImgId(imgId); // test it out
+  }, [imgId])
 
   const drawerWidth = 240;
 
@@ -180,6 +178,20 @@ export default function ImageSlider() {
 
   const classes = useStyles();
 
+  const getThumbnails = () => {
+    let content = [];
+    for (let i = 0; i < numberOfImages; i++) {
+      content.push(
+      <Link to={`/images/view/${year}/${location}/${i+1}`} key={`/images/view/${year}/${location}/${i+1}`}> 
+        <div className="thumbnail"> 
+          <Image src={thumbnails[i]} key={thumbnails[i]} aspectRatio={4/3} alt="xd"/> 
+        </div> 
+      </Link>
+      );
+    }
+    return content;
+  };
+
   return (
     <div>
 
@@ -194,12 +206,15 @@ export default function ImageSlider() {
         {year} {">>"} {location}
 
         <div id="thumbnailsContainer"> 
-          {/* {thumbnails are laoded using inner html js} */}
+          {canInsertThumbnails ? (
+            getThumbnails()
+            ) : (console.log("Not loaded")) 
+          }
         </div>
        
       </Drawer>
 
-      {imageName} <br></br>
+      {imageName} {/*imgId*/} <br></br>
 
       <div id="imageContainer">
         <Image
