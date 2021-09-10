@@ -3,6 +3,7 @@ import Appbar from './components/Appbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import ImageSlider from './pages/ImageSlider';
+import ChooseYear from './pages/ChooseYear';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "./css/App.css";
 
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/images/view/:year/:location" component={ImageSlider} />
           <Route exact path="/images/view/:year/:location/:imgId" component={ImageSlider} />
+          <Route exact path="/years" component={ChooseYear} />
 
           <Route>
             <div>

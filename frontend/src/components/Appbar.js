@@ -40,7 +40,7 @@ export default function Appbar() {
               <Typography variant="h6" className={classes.title}>
                 Album
               </Typography>
-              <Button color="inherit">Login</Button>
+              <Button color="inherit">Admin</Button>
             </Toolbar>
           </AppBar>
         </div>
