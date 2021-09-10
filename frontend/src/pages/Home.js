@@ -11,7 +11,7 @@ export default function Home() {
     return (
       <div id="menuContainer" className="center">
 
-        <Link to="/chooseYear" className="temp">
+        <Link to="/years" className="temp">
           <div className="menu-element">
             <img className="menu-element-img"
                 src={undrawPhotos_1}

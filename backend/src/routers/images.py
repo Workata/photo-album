@@ -62,9 +62,43 @@ async def get_images_names(year : str, location : str):
     all_images = [img.split('.')[0] for img in all_images]
     return {"img_names": all_images}
 
+@router.get("/thumbnails/{year}/{location}")
+async def get_images_thumbnails(year : str, location : str):
+    """ 
+    TODO send it with one request
+    """
+    # print("Directory Path:", Path().absolute()) # /backend
+    path = f"./data/imagesThumbs/{year}/{location}"
+    try:
+        all_thumbs = os.listdir(path)   # returns list of files (names)
+    except:
+        print("This folder doesn't exist (probably)")
+
+    # img_id: 1, 2, 3, 4, ...
+    all_thumbs = [FileResponse(f"./data/imagesThumbs/{year}/{location}/{thumb}") for thumb in all_thumbs]
+    return all_thumbs
+    # return {"all_thumbs": all_thumbs}
+
+@router.get("/thumbnail/{year}/{location}/{img_id}")
+async def get_images_thumbnails(year : str, location : str, img_id : int):
+    # print("Directory Path:", Path().absolute()) # /backend
+    path = f"./data/imagesThumbs/{year}/{location}"
+    try:
+        all_thumbnails = os.listdir(path)   # returns list of files (names)
+    except:
+        print("This folder doesn't exist (probably)")
+
+    # img_id: 1, 2, 3, 4, ...
+    thumbnail_name = all_thumbnails[img_id-1]
+    thumbnail_content = FileResponse(f"./data/imagesThumbs/{year}/{location}/{thumbnail_name}")
+    return thumbnail_content
+
 
 @router.get("/count/{year}/{location}")
 async def get_image_count(year : str, location : str):
+    """
+    probably not needed anymore
+    """
     # print("Directory Path:", Path().absolute()) # /backend
 
     path = f"./data/images/{year}/{location}"

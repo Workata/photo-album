@@ -6,9 +6,9 @@ export default function Footer() {
 
     return (
       <ThemeProvider theme={basicTheme}>
-        <footer id="footer" color="primary">
-        © 2021 www.tomtol.pl Some Rights Reserved
-        </footer>
+        <div color="primary"> 
+          <footer id="footer" > © 2021 www.tomtol.pl Some Rights Reserved </footer>
+        </div>
        </ThemeProvider>
     );
   }
