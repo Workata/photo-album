@@ -1,8 +1,6 @@
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import {Link} from 'react-router-dom';
-
-import { makeStyles } from '@material-ui/core/styles';
+import {Link, useLocation} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import basicTheme from "../themes/basicTheme";
@@ -13,43 +11,35 @@ import "../css/Appbar.css";
 import "../css/General.css";
 import React, {useContext} from "react";
 import { AppContext } from './../contexts/AppContext';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
-
+import useStyles from '../styles/AppbarStyles';
 
 export default function Appbar() {
     const classes = useStyles();
-    const { backNavPage} = useContext(AppContext);
-
+    const { backNavPage } = useContext(AppContext);
+    const currentURL = useLocation();
 
     return (
       <ThemeProvider theme={basicTheme}>
         <div className={classes.root} color="primary">
           <AppBar position="static">
             <Toolbar>
-              <Button color="inherit">Admin</Button>
-
-              <Typography variant="h5" className={classes.title}>
+              
+              <Typography variant="h5" className={classes.appbarTitle}>
                 <Link to="/" className="default-black-link">
-                  TomTol 
+                  TomTol
                 </Link>
               </Typography>
-              
-                <Link to={backNavPage} id="backButtonLink"> 
+
+              <Button color="inherit" className={classes.adminButton}>Admin</Button>
+
+              {/* Render 'go-back' arrow on every page except root*/}
+              {currentURL.pathname !== '/' &&
+                <Link to={backNavPage} id="backButtonLink" className={classes.goBackButton}> 
                   <IconButton >
                     <ArrowBackIcon />
                   </IconButton>
                 </Link>
+              }
               
             </Toolbar>
           </AppBar>
