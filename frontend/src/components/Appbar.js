@@ -1,46 +1,46 @@
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-// import { useParams } from "react-router-dom";
-
-// import React, { useEffect} from "react";
-
-import { makeStyles } from '@material-ui/core/styles';
+import {Link, useLocation} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import basicTheme from "../themes/basicTheme";
 import {ThemeProvider} from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+import { IconButton } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import "../css/Appbar.css";
+import "../css/General.css";
+import React, {useContext} from "react";
+import { AppContext } from './../contexts/AppContext';
+import useStyles from '../styles/AppbarStyles';
 
 export default function Appbar() {
     const classes = useStyles();
-    // const {year, location} = useParams();
-
-    // useEffect(() => {
-    //   console.log(year);
-    // }, []);
-
+    const { backNavPage } = useContext(AppContext);
+    const currentURL = useLocation();
 
     return (
       <ThemeProvider theme={basicTheme}>
         <div className={classes.root} color="primary">
           <AppBar position="static">
             <Toolbar>
-              {/* {year} {'>>'} {location} */}
-              <Typography variant="h6" className={classes.title}>
-                Album
+              
+              <Typography variant="h5" className={classes.appbarTitle}>
+                <Link to="/" className="default-black-link">
+                  TomTol
+                </Link>
               </Typography>
-              <Button color="inherit">Login</Button>
+
+              <Button color="inherit" className={classes.adminButton}>Admin</Button>
+
+              {/* Render 'go-back' arrow on every page except root*/}
+              {currentURL.pathname !== '/' &&
+                <Link to={backNavPage} id="backButtonLink" className={classes.goBackButton}> 
+                  <IconButton >
+                    <ArrowBackIcon />
+                  </IconButton>
+                </Link>
+              }
+              
             </Toolbar>
           </AppBar>
         </div>

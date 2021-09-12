@@ -1,17 +1,11 @@
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
-from pathlib import Path
 import os
-from os.path import basename
-import json
-
-
 
 router = APIRouter(prefix="/api/images", tags=["Images"])
 
 @router.get("/content/{year}/{location}/{img_id}")
 async def get_image_content(year : str, location : str, img_id : int):
-    # print("Directory Path:", Path().absolute()) # /backend
     path = f"./data/images/{year}/{location}"
     try:
         all_images = os.listdir(path)   # returns list of files (names)
@@ -32,7 +26,6 @@ async def get_image_content(year : str, location : str, img_id : int):
 # ! not used for now, upgraded to get_images_names
 @router.get("/name/{year}/{location}/{img_id}")
 async def get__image_name(year : str, location : str, img_id : int):
-    # print("Directory Path:", Path().absolute()) # /backend
     path = f"./data/images/{year}/{location}"
     try:
         all_images = os.listdir(path)   # returns list of files (names)
@@ -51,7 +44,6 @@ async def get__image_name(year : str, location : str, img_id : int):
 
 @router.get("/names/{year}/{location}")
 async def get_images_names(year : str, location : str):
-    # print("Directory Path:", Path().absolute()) # /backend
     path = f"./data/images/{year}/{location}"
     try:
         all_images = os.listdir(path)   # returns list of files (names)
@@ -67,7 +59,6 @@ async def get_images_thumbnails(year : str, location : str):
     """ 
     TODO send it with one request
     """
-    # print("Directory Path:", Path().absolute()) # /backend
     path = f"./data/imagesThumbs/{year}/{location}"
     try:
         all_thumbs = os.listdir(path)   # returns list of files (names)
@@ -81,7 +72,6 @@ async def get_images_thumbnails(year : str, location : str):
 
 @router.get("/thumbnail/{year}/{location}/{img_id}")
 async def get_images_thumbnails(year : str, location : str, img_id : int):
-    # print("Directory Path:", Path().absolute()) # /backend
     path = f"./data/imagesThumbs/{year}/{location}"
     try:
         all_thumbnails = os.listdir(path)   # returns list of files (names)
@@ -99,7 +89,6 @@ async def get_image_count(year : str, location : str):
     """
     probably not needed anymore
     """
-    # print("Directory Path:", Path().absolute()) # /backend
 
     path = f"./data/images/{year}/{location}"
     try:

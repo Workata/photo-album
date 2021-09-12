@@ -2,10 +2,12 @@ from typing import Optional
 
 from fastapi import FastAPI
 
-from src.routers import images
+from src.routers import images, locations
 
+# https://fastapi.tiangolo.com/tutorial/bigger-applications/
 app = FastAPI()
 app.include_router(images.router)
+app.include_router(locations.router)
 
 @app.get("/")
 def read_root():
