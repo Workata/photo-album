@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AppContext } from './../contexts/AppContext';
 import { useParams } from "react-router-dom";
 import Image from 'material-ui-image'
 import "../css/ImageSlider.css";
@@ -27,6 +28,7 @@ export default function ImageSlider() {
   const [currentImgId, setCurrentImgId] = useState(); //imgId
   const [thumbnails, setThumbnails] = useState([]); // useState([])
   const [canInsertThumbnails, setCanInsertThumbnails] = useState(false);
+  const {setBackNavPage} = useContext(AppContext);
 
   const fetchImageContent = async (imgIdToGet) => {
     // console.log(`Triggered: ${imgIdToGet}`);
@@ -119,6 +121,7 @@ export default function ImageSlider() {
   };
 
   useEffect(() => {
+    setBackNavPage(`/${year}`);
     fetchImagesNames(); // also set number of images
   }, []);
 

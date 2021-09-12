@@ -3,16 +3,19 @@ import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from './../contexts/AppContext';
 import "../css/ChooseYearLocation.css";
 import "../css/General.css";
+import { useParams } from "react-router-dom";
 
-export default function ChooseYear() {
+export default function ChooseLocation() {
 
-    const [availableYears, setAvailableYears] = useState([]);
+    const {year} = useParams();
+    const [availableLocations, setAvailableLocations] = useState([]);
     const {setBackNavPage} = useContext(AppContext);
+    
 
-    const fetchYears = async () => {
+    const fetchLocations = async () => {
         try {
           const response = await fetch(
-            `/api/locations/years`,
+            `/api/locations/${year}`,
             {
               method: "GET",
               headers: {
@@ -20,24 +23,24 @@ export default function ChooseYear() {
               },
             }
           )
-          const dataYears = await response.json();
-          setAvailableYears(dataYears)
-          console.log(dataYears);
+          const dataLocations = await response.json();
+          setAvailableLocations(dataLocations);
+          console.log(dataLocations);
         } catch (error) {
           console.error("Error: ", error);
         }
       };
 
       useEffect(() => {
-        setBackNavPage('/');
-        fetchYears();   //
+        setBackNavPage('/years');
+        fetchLocations();   //
       }, []);
 
 
     return (
       <div id="yearsLocationsContainer" className="center">
-        {availableYears.map((year) => {
-            return <Link to={`/${year}`} className=""> <div className="year-location-box" key={year}>{year}</div> </Link>
+        {availableLocations.map((location) => {
+            return <Link to={`/${year}/${location}`} className=""> <div className="year-location-box" key={location}>{location}</div> </Link>
         })
         
         }

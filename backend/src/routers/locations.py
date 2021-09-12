@@ -2,7 +2,7 @@
 {'year': 2016, 'location': Greece}
 
 """
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
 import os
@@ -23,6 +23,14 @@ async def get_years():
         if location['year'] not in unique_years:
             unique_years.append(location['year'])
     return unique_years
+
+@router.get("/{year}")
+async def get_locations(year : int):
+    locations_query = LOCATIONS_DB.search(where('year') == year)
+    locations = []
+    for location_row in locations_query:
+        locations.append(location_row['location'])
+    return locations
 
 def one_time_insert():
     LOCATIONS_DB.insert({'year': 2015, 'location': 'Croatia'})
