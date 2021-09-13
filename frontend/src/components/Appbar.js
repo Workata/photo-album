@@ -23,14 +23,18 @@ export default function Appbar() {
         <div className={classes.root} color="primary">
           <AppBar position="static">
             <Toolbar>
-              
+
+              <Link to="/login" id="adminButtonLink" className="non-edited-link">
+                <Button color="inherit" className={classes.adminButton}>
+                  Admin
+                </Button>
+              </Link>
+
               <Typography variant="h5" className={classes.appbarTitle}>
                 <Link to="/" className="default-black-link">
                   TomTol
                 </Link>
               </Typography>
-
-              <Button color="inherit" className={classes.adminButton}>Admin</Button>
 
               {/* Render 'go-back' arrow on every page except root*/}
               {currentURL.pathname !== '/' &&

@@ -1,0 +1,8 @@
+#loginInputContainer{
+    background-image: url('../images/footer_lodyas.png');
+    width: 400px;
+    height: 300px;
+    border-radius: 5%;
+    border-style: solid;
+    border-color: white;
+}

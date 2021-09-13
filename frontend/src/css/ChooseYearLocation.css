@@ -3,7 +3,8 @@
     min-height: 400px;
     height: auto;
     border-style: solid;
-    border-color: black;
+    border-color: white;
+    border-radius: 5%;
     background-image: url('../images/footer_lodyas.png');
 }
 
