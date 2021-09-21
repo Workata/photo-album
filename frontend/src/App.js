@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from "react";
 import Appbar from './components/Appbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -8,15 +8,22 @@ import ChooseLocation from './pages/ChooseLocation';
 import Login from './pages/Login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "./css/App.css";
-import ContextProvider from './contexts/AppContext';
+import { AppContext } from './contexts/AppContext';
 
 // UnauthenticatedApp
 
 function App() {
+
+  const { getTokenCookie, tokenValue, setTokenValue } = useContext(AppContext);
   
+  // on app load check if token exists in cookie
+  useEffect(() => {
+    if (!tokenValue)
+      setTokenValue(getTokenCookie('token'));
+  }, []);
 
   return (
-    <ContextProvider>
+    // <ContextProvider> Context provider is in index
       <Router>
         <div className="App">
           
@@ -47,7 +54,6 @@ function App() {
 
         </div>
       </Router>
-    </ContextProvider>
   );
 }
 

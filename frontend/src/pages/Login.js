@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 
 
 export default function Login() {
-    const {setBackNavPage, setTokenCookie} = useContext(AppContext);
+    const {setBackNavPage, setTokenCookie, setTokenValue} = useContext(AppContext);
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [loginError, setLoginError] = useState(false);  //TODO GUI info about error
@@ -36,6 +36,8 @@ export default function Login() {
         .then((data) => {
           console.log(data);
           if (data.access_token && typeof data.access_token !== 'undefined') {
+            // keep token in both cookie (in case of app exit) and global variable (context)
+            setTokenValue(data.access_token);
             setTokenCookie('token', data.access_token);   //set cookie
             history.push('/');      // redirect to home page
             setLoginError(false);
