@@ -55,15 +55,6 @@ export default function Home() {
 
         <div style={{clear: "both"}}></div>
 
-        {/* <Link to="/chooseYear" className="temp">All photos</Link> <br></br>
-        <Link to="/chooseCategory" className="temp">Categories</Link> <br></br>
-        Map> <br></br>
-        <Link to="/info" className="temp">Info</Link> <br></br> */}
-        {/* <img
-            src={undrawDarkMapRed}
-            alt="UndrawMap"
-            // className={classes.homepage__undraw}
-          /> */}
       </div>
     );
   }

@@ -15,7 +15,7 @@ import useStyles from '../styles/AppbarStyles';
 
 export default function Appbar() {
     const classes = useStyles();
-    const { backNavPage } = useContext(AppContext);
+    const { backNavPage, deleteTokenCookie, tokenValue, setTokenValue } = useContext(AppContext);
     const currentURL = useLocation();
 
     return (
@@ -23,14 +23,34 @@ export default function Appbar() {
         <div className={classes.root} color="primary">
           <AppBar position="static">
             <Toolbar>
-              
+
+              {!tokenValue ? (
+                <Link to="/login" id="adminButtonLink" className="non-edited-link">
+                  <Button color="inherit" className={classes.adminButton}>
+                    Admin
+                  </Button>
+                </Link>
+              ) : 
+              (
+                <Link to="/" id="adminButtonLink" className="non-edited-link">
+                  <Button 
+                    color="inherit" 
+                    className={classes.adminButton}
+                    onClick={() => {
+                      setTokenValue();
+                      deleteTokenCookie('token', '/');
+                    }}
+                    >
+                    Logout
+                  </Button>
+                </Link>
+              )}
+
               <Typography variant="h5" className={classes.appbarTitle}>
                 <Link to="/" className="default-black-link">
                   TomTol
                 </Link>
               </Typography>
-
-              <Button color="inherit" className={classes.adminButton}>Admin</Button>
 
               {/* Render 'go-back' arrow on every page except root*/}
               {currentURL.pathname !== '/' &&

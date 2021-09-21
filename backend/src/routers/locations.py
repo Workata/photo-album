@@ -2,18 +2,14 @@
 {'year': 2016, 'location': Greece}
 
 """
-from tinydb import TinyDB, Query, where
+from tinydb import TinyDB, where
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
-import os
 
 LOCATIONS_DB_PATH = "./data/DB/locations.json"
 LOCATIONS_DB = TinyDB(LOCATIONS_DB_PATH)
 
 router = APIRouter(prefix="/api/locations", tags=["Locations"])
-
-# db.insert({'name': 'John', 'age': 22})
-
 
 @router.get("/years")
 async def get_years():

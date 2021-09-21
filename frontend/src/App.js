@@ -1,21 +1,29 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from "react";
 import Appbar from './components/Appbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import ImageSlider from './pages/ImageSlider';
 import ChooseYear from './pages/ChooseYear';
 import ChooseLocation from './pages/ChooseLocation';
+import Login from './pages/Login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "./css/App.css";
-import ContextProvider from './contexts/AppContext';
+import { AppContext } from './contexts/AppContext';
 
 // UnauthenticatedApp
 
 function App() {
+
+  const { getTokenCookie, tokenValue, setTokenValue } = useContext(AppContext);
   
+  // on app load check if token exists in cookie
+  useEffect(() => {
+    if (!tokenValue)
+      setTokenValue(getTokenCookie('token'));
+  }, []);
 
   return (
-    <ContextProvider>
+    // <ContextProvider> Context provider is in index
       <Router>
         <div className="App">
           
@@ -26,6 +34,7 @@ function App() {
           <Switch>
 
             <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/:year/:location" component={ImageSlider} />
             <Route exact path="/:year/:location/:imgId" component={ImageSlider} />
             <Route exact path="/years" component={ChooseYear} />
@@ -45,7 +54,6 @@ function App() {
 
         </div>
       </Router>
-    </ContextProvider>
   );
 }
 
