@@ -6,21 +6,45 @@ import "../css/Login.css";
 import {ThemeProvider} from '@material-ui/core';
 import formTheme from "../themes/formTheme";
 import useStyles from '../styles/LoginStyles';
+import { useHistory } from "react-router-dom";
 
 
 export default function Login() {
-    const {setBackNavPage} = useContext(AppContext);
+    const {setBackNavPage, setTokenCookie} = useContext(AppContext);
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [loginError, setLoginError] = useState(false);  //TODO GUI info about error
     const classes = useStyles();
+    const history = useHistory();
 
     useEffect(() => {
         setBackNavPage('/');
       }, []);
 
     const handleLoginButton = async() => {
-        console.log(username);
-        console.log(password);
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          username: username,
+          password: password,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.access_token && typeof data.access_token !== 'undefined') {
+            setTokenCookie('token', data.access_token);   //set cookie
+            history.push('/');      // redirect to home page
+            setLoginError(false);
+          } else setLoginError(true);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoginError(true);
+        });
     };
 
     return (
