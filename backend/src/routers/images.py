@@ -11,6 +11,7 @@ async def get_image_content(year : str, location : str, img_id : int):
         all_images = os.listdir(path)   # returns list of files (names)
     except:
         print("This folder doesn't exist (probably)")
+        return None
 
     # * img id valdiation
     if img_id > len(all_images)  or img_id < 1:
@@ -49,6 +50,7 @@ async def get_images_names(year : str, location : str):
         all_images = os.listdir(path)   # returns list of files (names)
     except:
         print("This folder doesn't exist (probably)")
+        return []
 
     # img_id: 1, 2, 3, 4, ...
     all_images = [img.split('.')[0] for img in all_images]
