@@ -37,7 +37,7 @@ export default function Appbar() {
                     color="inherit" 
                     className={classes.adminButton}
                     onClick={() => {
-                      setTokenValue();
+                      setTokenValue(); // set Token value for undefined
                       deleteTokenCookie('token', '/');
                     }}
                     >
