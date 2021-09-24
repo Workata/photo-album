@@ -1,6 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import FileResponse
 import os
+from typing import List
 
 router = APIRouter(prefix="/api/images", tags=["Images"])
 
@@ -24,25 +25,6 @@ async def get_image_content(year : str, location : str, img_id : int):
     image_content = FileResponse(f"./data/images/{year}/{location}/{image_name}")
     return image_content
 
-# ! not used for now, upgraded to get_images_names
-@router.get("/name/{year}/{location}/{img_id}")
-async def get__image_name(year : str, location : str, img_id : int):
-    path = f"./data/images/{year}/{location}"
-    try:
-        all_images = os.listdir(path)   # returns list of files (names)
-    except:
-        print("This folder doesn't exist (probably)")
-
-    # * img id valdiation
-    if img_id > len(all_images)  or img_id < 1:
-        print("index out of range")
-        # set default value
-        img_id = 1
-
-    # img_id: 1, 2, 3, 4, ...
-    image_name = all_images[img_id-1].split('.')[0]
-    return {"img_name": image_name}
-
 @router.get("/names/{year}/{location}")
 async def get_images_names(year : str, location : str):
     path = f"./data/images/{year}/{location}"
@@ -50,7 +32,7 @@ async def get_images_names(year : str, location : str):
         all_images = os.listdir(path)   # returns list of files (names)
     except:
         print("This folder doesn't exist (probably)")
-        return []
+        return {"img_names": []}
 
     # img_id: 1, 2, 3, 4, ...
     all_images = [img.split('.')[0] for img in all_images]
@@ -85,20 +67,18 @@ async def get_images_thumbnails(year : str, location : str, img_id : int):
     thumbnail_content = FileResponse(f"./data/imagesThumbs/{year}/{location}/{thumbnail_name}")
     return thumbnail_content
 
-
-@router.get("/count/{year}/{location}")
-async def get_image_count(year : str, location : str):
+# add token
+@router.post("/upload") # /{year}/{location} , year : str, location : str
+async def upload_images(new_pictures: List [UploadFile] = File(...)): # List [UploadFile]
     """
     probably not needed anymore
     """
+    for img in new_pictures:
+        print(img.filename)
+    # print("XD")
+    # print(new_pictures.filename)
+    # for image in images:
+    #     print(image)
 
-    path = f"./data/images/{year}/{location}"
-    try:
-        all_images = os.listdir(path)   # returns list of files (names)
-    except:
-        print("This folder doesn't exist (probably)")
-
-    number_of_images = len(all_images)
-
-    return {"ImageCount": number_of_images}
+    return "ok"
 

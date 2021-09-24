@@ -12,23 +12,26 @@ import { IconButton } from '@material-ui/core';
 import basicTheme from "../themes/basicTheme";
 import {ThemeProvider} from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
-import { makeStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
-
+import useStyles from '../styles/ImageSliderStyles';
+import ImageUploading from 'react-images-uploading';
+import Button from '@material-ui/core/Button';
 // import Viewer from 'viewerjs';
 
 export default function ImageSlider() {
+  const classes = useStyles();
   // imgId may be undefined, checked in useEffect
   // also parsing for int is needed as otherwise it's a string (from url)
   const {year, location, imgId} = useParams();        // params from url e.g.: 2015/Poland/2, imgId optional
   const [image, setImage] = useState(undrawCancel);
   const [imagesNames, setImagesNames] = useState(['???']);
   const [imageName, setImageName] = useState('???');
-  const [numberOfImages, setNumberOfImages] = useState();
+  const [numberOfImages, setNumberOfImages] = useState(0); // None
   const [currentImgId, setCurrentImgId] = useState(); //imgId
   const [thumbnails, setThumbnails] = useState([]); // useState([])
   const [canInsertThumbnails, setCanInsertThumbnails] = useState(false);
-  const {setBackNavPage} = useContext(AppContext);
+  const {setBackNavPage, tokenValue} = useContext(AppContext);
+  const [uploadedImages, setUploadedImages] = useState([]);
 
   const fetchImageContent = async (imgIdToGet) => {
     // console.log(`Triggered: ${imgIdToGet}`);
@@ -62,8 +65,20 @@ export default function ImageSlider() {
         }
       )
       const imgData = await response.json();
-      setImagesNames(imgData['img_names']);
-      setNumberOfImages(imgData['img_names'].length);
+      console.log("Images names");
+      console.log(imgData['img_names'])
+      if (Array.isArray(imgData['img_names']) && imgData['img_names'].length)
+      {
+        setImagesNames(imgData['img_names']);
+        setNumberOfImages(imgData['img_names'].length);
+      }
+      else
+      {
+        setImagesNames([]);
+        setNumberOfImages(0);
+      }
+      console.log(`Number of imgs: ${numberOfImages}`)
+
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -95,17 +110,41 @@ export default function ImageSlider() {
 };
 
   const fetchThumbnails = () => {
-    //console.log("Number of imgs: ".concat(numberOfImages));
-    setThumbnails(new Array(numberOfImages).fill(undrawCancel)); //.fill(0)
+    setThumbnails(new Array(numberOfImages).fill(undrawCancel)); 
     setCanInsertThumbnails(true);  
 
     console.log(thumbnails)
     console.log(`Thumbnails before fetches: ${thumbnails}, len: ${thumbnails.length}`)
     for(var i=1; i <= numberOfImages; i++) fetchThumbnail(i);
     console.log(`Thumbnails after fetches: ${thumbnails}, len: ${thumbnails.length}`)
-
-    //setCanInsertThumbnails(true); 
   }
+
+  // TODO add token bearer and years/locations
+  const uploadImages = async () => {
+    // console.log("uploaded on front: ");
+    // console.log(uploadedImages);
+    const formData = new FormData();
+    for(var i=0;i<uploadedImages.length;i++) formData.append('new_pictures', uploadedImages[i].file);
+    
+    try {
+      const response = await fetch(
+        `/api/images/upload`, // /${year}/${location}
+        {
+          method: "POST",
+          headers: {
+            // "Content-Type": "application/json",
+          },
+          body: formData
+        }
+      );
+      // console.log(response);
+      console.log(response);
+      
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+
 
 
   const nextImg = () => {
@@ -130,8 +169,9 @@ export default function ImageSlider() {
   }, [numberOfImages]); //add fetchThunmbnails
 
   useEffect(() => {
+    if (!numberOfImages) return; // ! do not make a request if there are no images
     // console.log(`Img id: ${imgId}`)
-    console.log("Triggered [currentImgId, imagesNames]");
+    //console.log("Triggered [currentImgId, imagesNames]");
     if (currentImgId === undefined)
     {
       setCurrentImgId(1);
@@ -150,42 +190,12 @@ export default function ImageSlider() {
     setCurrentImgId(imgId); // test it out
   }, [imgId])
 
-  const drawerWidth = 240;
-
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-    },
-    appBar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-      
-      
-    },
-    drawerPaper: {
-      width: drawerWidth,
-      background: '#bcbec2',
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.default,
-      padding: theme.spacing(3),
-    },
-  }));
-
-  const classes = useStyles();
 
   const getThumbnails = () => {
     let content = [];
     for (let i = 0; i < numberOfImages; i++) {
       content.push(
-      <Link to={`/images/view/${year}/${location}/${i+1}`} key={`/images/view/${year}/${location}/${i+1}`}> 
+      <Link to={`/${year}/${location}/${i+1}`} key={`/${year}/${location}/${i+1}`}> 
         <div className="thumbnail"> 
           <Image src={thumbnails[i]} key={thumbnails[i]} aspectRatio={4/3} alt="xd"/> 
         </div> 
@@ -195,9 +205,73 @@ export default function ImageSlider() {
     return content;
   };
 
+  const onUploadChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setUploadedImages(imageList);
+  };
+
+
+  if (tokenValue && !numberOfImages)
+  {
+    return (
+      <>
+        <div>
+          <ImageUploading
+            multiple
+            value={uploadedImages}
+            onChange={onUploadChange}
+            maxNumber={69}
+            dataURLKey="data_url"
+          >
+            {({
+              imageList,
+              onImageUpload,
+              onImageRemoveAll,
+              onImageUpdate,
+              onImageRemove,
+              isDragging,
+              dragProps,
+            }) => (
+              // write your building UI
+              <div className="upload__image-wrapper">
+                <button
+                  style={isDragging ? { color: 'red' } : undefined}
+                  onClick={onImageUpload}
+                  {...dragProps}
+                >
+                  Click or Drop here
+                </button>
+                &nbsp;
+                <button onClick={onImageRemoveAll}>Remove all images</button>
+
+                {imageList.map((image, index) => (
+                  <div key={index} className="image-item">
+                    <img src={image['data_url']} alt="" width="100" />
+                    <div className="image-item__btn-wrapper">
+                      <button onClick={() => onImageUpdate(index)}>Update</button>
+                      <button onClick={() => onImageRemove(index)}>Remove</button>
+                    </div>
+                  </div>
+                ))}
+
+              </div>
+            )}
+          </ImageUploading>
+        </div>
+        <Button 
+        color="inherit" 
+        // className={classes.adminButton}
+        onClick={uploadImages}
+        >
+        Upload images
+      </Button>
+     </>
+    );
+  }
+
   return (
     <div>
-
       <Drawer
         className={classes.drawer}
         variant="permanent"
