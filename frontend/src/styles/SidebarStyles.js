@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
+      position: 'relative',
+      zIndex:  - 1,
       
       
     },

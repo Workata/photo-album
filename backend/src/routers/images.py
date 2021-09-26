@@ -1,4 +1,4 @@
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter, File, UploadFile, Depends
 from fastapi.responses import FileResponse
 import os
 from typing import List
@@ -6,6 +6,7 @@ from typing import List
 import shutil
 from src.utils.thumbnailsGenerator import create_thumbnails
 from src.utils.general import create_dir_if_not_exists
+from src.routers.auth import get_current_user
 
 router = APIRouter(prefix="/api/images", tags=["Images"])
 
@@ -71,9 +72,8 @@ async def get_images_thumbnails(year : str, location : str, img_id : int):
     thumbnail_content = FileResponse(f"./data/imagesThumbs/{year}/{location}/{thumbnail_name}")
     return thumbnail_content
 
-# add token
 @router.post("/upload/{year}/{location}") 
-async def upload_images(year : str, location : str, new_pictures: List [UploadFile] = File(...)): 
+async def upload_images(year : str, location : str, new_pictures: List [UploadFile] = File(...), user: dict = Depends(get_current_user)): 
     """
     probably not needed anymore
     """
@@ -85,5 +85,5 @@ async def upload_images(year : str, location : str, new_pictures: List [UploadFi
 
     create_thumbnails(path)
 
-    return "ok"
+    return f"Added new photos by {user['username']}"
 

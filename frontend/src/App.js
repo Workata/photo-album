@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import Appbar from './components/Appbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import ImageSlider from './pages/ImageSlider';
+import ImageSlider from './pages/ViewImages';
 import ChooseYear from './pages/ChooseYear';
 import ChooseLocation from './pages/ChooseLocation';
 import Login from './pages/Login';
