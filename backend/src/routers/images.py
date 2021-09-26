@@ -2,6 +2,10 @@ from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import FileResponse
 import os
 from typing import List
+# from PIL import Image
+import shutil
+from src.utils.thumbnailsGenerator import create_thumbnails
+from src.utils.general import create_dir_if_not_exists
 
 router = APIRouter(prefix="/api/images", tags=["Images"])
 
@@ -68,17 +72,18 @@ async def get_images_thumbnails(year : str, location : str, img_id : int):
     return thumbnail_content
 
 # add token
-@router.post("/upload") # /{year}/{location} , year : str, location : str
-async def upload_images(new_pictures: List [UploadFile] = File(...)): # List [UploadFile]
+@router.post("/upload/{year}/{location}") 
+async def upload_images(year : str, location : str, new_pictures: List [UploadFile] = File(...)): 
     """
     probably not needed anymore
     """
-    for img in new_pictures:
-        print(img.filename)
-    # print("XD")
-    # print(new_pictures.filename)
-    # for image in images:
-    #     print(image)
+    path = f"./data/images/{year}/{location}"
+    create_dir_if_not_exists(path)
+    for image in new_pictures:
+        with open(f"{path}/{image.filename}", "wb") as buffer:
+            shutil.copyfileobj(image.file, buffer)
+
+    create_thumbnails(path)
 
     return "ok"
 

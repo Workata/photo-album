@@ -128,7 +128,7 @@ export default function ImageSlider() {
     
     try {
       const response = await fetch(
-        `/api/images/upload`, // /${year}/${location}
+        `/api/images/upload/${year}/${location}`, // /${year}/${location}
         {
           method: "POST",
           headers: {
