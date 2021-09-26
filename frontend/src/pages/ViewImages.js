@@ -92,6 +92,10 @@ export default function ImageSlider() {
       thumbsTemp[imgIdToGet-1] = thumbUrl;
       setThumbnails(thumbsTemp);
       console.log(`Fetch id: ${imgIdToGet}, Thumbnails after change: ${thumbnails}, len: ${thumbnails.length}`)
+      // return thumbUrl;
+      // if(thumbnails.length === numberOfImages && numberOfImages !== 0) setCanInsertThumbnails(true);
+
+
     }
     catch (error) {
       console.error('Error: ', error);
@@ -99,16 +103,15 @@ export default function ImageSlider() {
 };
 
   const fetchThumbnails = () => {
-    setThumbnails(new Array(numberOfImages).fill(undrawCancel)); 
-    setCanInsertThumbnails(true);  
+    //setThumbnails(new Array(numberOfImages).fill(undrawCancel)); 
+    //setCanInsertThumbnails(true);  
 
     console.log(thumbnails)
     console.log(`Thumbnails before fetches: ${thumbnails}, len: ${thumbnails.length}`)
     for(var i=1; i <= numberOfImages; i++) fetchThumbnail(i);
     console.log(`Thumbnails after fetches: ${thumbnails}, len: ${thumbnails.length}`)
+    // if(numberOfImages !== 0) setCanInsertThumbnails(true);
   }
-
-
 
   const nextImg = () => {
     if(parseInt(currentImgId) + 1 <= numberOfImages)
@@ -128,6 +131,18 @@ export default function ImageSlider() {
   }, []);
 
   useEffect(() => {
+    console.log("!!!! use Effect with thumbnails size ")
+    console.log(thumbnails.length);
+    if(thumbnails.length === numberOfImages && numberOfImages !== 0)  
+    {
+      console.log("thumbs len == number of imgs");
+      setCanInsertThumbnails(true); 
+    }
+  }, [thumbnails.length]);
+
+  useEffect(() => {
+    console.log("ile razy");
+    console.log(numberOfImages);
     fetchThumbnails();
   }, [numberOfImages]); //add fetchThunmbnails
 
@@ -175,6 +190,7 @@ export default function ImageSlider() {
         canInsertThumbnails = {canInsertThumbnails}
         numberOfImages = {numberOfImages}
         thumbnails = {thumbnails}
+        fetchThumbnail = {fetchThumbnail}
       />
 
       <ImageViewer
