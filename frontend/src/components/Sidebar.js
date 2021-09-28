@@ -1,40 +1,45 @@
-import useStyles from '../styles/SidebarStyles';
 import "../css/Sidebar.css";
 import {Link} from 'react-router-dom';
 import Image from 'material-ui-image'
+import React, { useEffect, useState} from "react";
 
 export default function Sidebar(props) {
 
-    const classes = useStyles();
+  const [thumbnails, setThumbnails] = useState([]);
+  const [canInsert, setCanInsert] = useState(false);
+  let thumbs = []
+  
+  const fetchThumbnail = async (imgIdToGet) => {
+    try {
 
-    const getThumbnails = () => {
-        let content = [];
-        for (let i = 0; i < props.numberOfImages; i++) {
-          content.push(
-          <Link to={`/${props.year}/${props.location}/${i+1}`} key={`/${props.year}/${props.location}/${i+1}`}> 
-            <div className="thumbnail"> 
-              <Image src={props.thumbnails[i]} key={i} aspectRatio={4/3} alt="xd"/> 
-            </div> 
-          </Link>
-          );
-        }
-        return content;
-      };
+    const response = await fetch(
+      `/api/images/thumbnail/${props.year}/${props.location}/${imgIdToGet}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+      const imgData = await response.blob();
+      const thumbUrl = URL.createObjectURL(imgData);
+      thumbs[imgIdToGet-1] = thumbUrl
 
-      const getThumbnails2 = () => {
-        let content = [];
-        for (let i = 0; i < props.numberOfImages; i++) {
-          let thumbUrl = props.fetchThumbnail(i);
-          content.push(
-          <Link to={`/${props.year}/${props.location}/${i+1}`} key={`/${props.year}/${props.location}/${i+1}`}> 
-            <div className="thumbnail"> 
-              <Image src={thumbUrl} key={i} aspectRatio={4/3} alt="xd"/> 
-            </div> 
-          </Link>
-          );
-        }
-        return content;
-      };
+    }
+    catch (error) {
+      console.error('Error: ', error);
+    };
+};
+
+  const fetchThumbnailsOneByOne = async () => {
+    for(var i=1; i <= props.numberOfImages; i++) await fetchThumbnail(i);
+    setThumbnails(thumbs);
+  };
+
+  useEffect(() => {
+    fetchThumbnailsOneByOne();
+    if(props.numberOfImages !== 0) setCanInsert(true);
+  }, [props.numberOfImages]);
 
     return (
         <>
@@ -42,33 +47,18 @@ export default function Sidebar(props) {
                 {props.year} {">>"} {props.location}
 
                 <div id="thumbnailsContainer"> 
-                {props.canInsertThumbnails ? (
-                    //getThumbnails()
-                     props.thumbnails.map((thumbnail, i) => {
+                {
+                    canInsert ? ( 
+                    thumbnails.map((thumbnail, i) => {
                     return (
                     <Link to={`/${props.year}/${props.location}/${i+1}`} key={`/${props.year}/${props.location}/${i+1}`}> 
                       <div className="thumbnail"> 
                         <Image src={thumbnail} key={i} aspectRatio={4/3} alt="xd"/> 
                       </div> 
                     </Link>
-                    )}) 
-                    ) : (console.log("Not loaded")) 
+                    )})   
+                    ) : (console.log("Not loaded"))  
                 }
-                {/* {
-                   props.thumbnails.map((thumbnail, i) => {
-                    return (   
-                    <Link to={`/${props.year}/${props.location}/${i+1}`} key={`/${props.year}/${props.location}/${i+1}`}> 
-                      <div className="thumbnail"> 
-                        <Image src={thumbnail} key={i} aspectRatio={4/3} alt="xd"/> 
-                      </div> 
-                    </Link>
-                    )
-                  })
-                
-                } */}
-                {/* {
-                  getThumbnails2()
-                } */}
                 </div>
             </div>
         </>

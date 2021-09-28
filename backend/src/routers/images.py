@@ -47,6 +47,7 @@ async def get_images_names(year : str, location : str):
 async def get_images_thumbnails(year : str, location : str):
     """ 
     TODO send it with one request
+    https://stackoverflow.com/questions/61163024/return-multiple-files-from-fastapi
     """
     path = f"./data/imagesThumbs/{year}/{location}"
     try:
@@ -55,6 +56,7 @@ async def get_images_thumbnails(year : str, location : str):
         print("This folder doesn't exist (probably)")
 
     # img_id: 1, 2, 3, 4, ...
+    # ! this is wrong, it should be zipped
     all_thumbs = [FileResponse(f"./data/imagesThumbs/{year}/{location}/{thumb}") for thumb in all_thumbs]
     return all_thumbs
     # return {"all_thumbs": all_thumbs}
