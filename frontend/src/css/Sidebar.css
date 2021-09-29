@@ -1,0 +1,9 @@
+#sidebar{
+    position: absolute;
+    left: 0px;
+    width: 200px;
+    height: 100%;
+    border-right: solid;
+    border-color: black;
+    background-image: url("../images/footer_lodyas.png");
+}

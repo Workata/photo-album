@@ -35,6 +35,8 @@
 
     /* animation */
     transition: transform .2s;
+
+    cursor: pointer;
 }
 
 /* animation*/
