@@ -13,21 +13,27 @@ export default function Home() {
 
         <Link to="/years" className="temp">
           <div className="menu-element">
-            <img className="menu-element-img"
+            <img id="menuElementImgPictures" className="menu-element-img"
                 src={undrawPhotos_1}
                 alt="UndrawPhotos_1"
-                // className={classes.homepage__undraw}
               />
+            <br></br>
+            <span className="menu-element-title">
+               Pictures
+            </span>
           </div>
         </Link>
 
         <Link to="/chooseCategory" className="temp">
           <div className="menu-element">
-            <img className="menu-element-img"
+            <img id="menuElementImgCategories" className="menu-element-img"
                 src={undrawPhotos_2}
                 alt="UndrawMap"
-                // className={classes.homepage__undraw}
               />
+              <br></br>
+              <span className="menu-element-title">
+                Categories
+              </span>
           </div>
         </Link>
 
@@ -35,21 +41,27 @@ export default function Home() {
 
         <Link to="/map" className="temp">
           <div className="menu-element">
-            <img className="menu-element-img"
+            <img id="menuElementImgMap" className="menu-element-img"
                 src={undrawAdventure}
-                alt="UndrawPhotos_1"
-                // className={classes.homepage__undraw}
+                alt="ndrawAdventure"
               />
+            <br></br>
+            <span className="menu-element-title">
+              Map
+            </span>
           </div>
         </Link>
 
         <Link to="/info" className="temp">
           <div className="menu-element">
-            <img className="menu-element-img"
+            <img id="menuElementImgInfo" className="menu-element-img"
                 src={undrawMyAnswer}
-                alt="UndrawMap"
-                // className={classes.homepage__undraw}
+                alt="undrawMyAnswer"
               />
+            <br></br>
+            <span className="menu-element-title">
+              Info
+            </span>
           </div>
         </Link>
 
