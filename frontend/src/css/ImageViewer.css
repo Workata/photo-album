@@ -1,4 +1,19 @@
 #imageViewerContainer{
-  
+    width: 900px;
+    height: 600px;
+    border: solid;
+    border-radius: 5%;
+    background-image:url("../images/footer_lodyas.png");
 }
 
+#imageViewerImg{
+    height: auto;
+    width: auto;
+    max-width: 900px;
+    max-height: 600px;
+}
+
+#imgTitle{
+    margin-bottom: 20px;
+    font-size: 24px;
+}

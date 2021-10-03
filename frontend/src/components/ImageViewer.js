@@ -15,7 +15,6 @@ export default function ImageViewer(props) {
 
     const [image, setImage] = useState(undrawCancel);
     const [imageName, setImageName] = useState('???');
-    const [currentImgId, setCurrentImgId] = useState(); //imgId
 
     const fetchImageContent = async (imgIdToGet) => {
         // console.log(`Triggered: ${imgIdToGet}`);
@@ -41,49 +40,47 @@ export default function ImageViewer(props) {
         if (!props.numberOfImages) return; // ! do not make a request if there are no images
         // console.log(`Img id: ${imgId}`)
         //console.log("Triggered [currentImgId, imagesNames]");
-        if (!currentImgId)
+        if (!props.currentImgId)
         {
-          setCurrentImgId(1);
+          props.setCurrentImgId(1);
           setImageName(props.imagesNames[0]);
           // currentImgId was modified so useEffect will trigger again
         } 
-        else{
-        fetchImageContent((parseInt(currentImgId)));
-          setImageName(props.imagesNames[parseInt(currentImgId)-1]);
+        else
+        {
+          fetchImageContent((parseInt(props.currentImgId)));
+          setImageName(props.imagesNames[parseInt(props.currentImgId)-1]);
         }
-      }, [currentImgId, props.imagesNames, props.numberOfImages]); // add fetchImageContetn
+      }, [props.currentImgId, props.imagesNames, props.numberOfImages]); // add fetchImageContetn
     
 
       useEffect(() => {
         // console.log("Triggered [imgId]");
         // console.log(imgId);
-        setCurrentImgId(props.choosenImgId); // test it out
+        props.setCurrentImgId(props.choosenImgId); // test it out
       }, [props.choosenImgId])
 
 
     const nextImg = () => {
-        if(parseInt(currentImgId) + 1 <= props.numberOfImages)
-          setCurrentImgId(parseInt(currentImgId) + 1);
-        else setCurrentImgId(1);
+        if(parseInt(props.currentImgId) + 1 <= props.numberOfImages)
+          props.setCurrentImgId(parseInt(props.currentImgId) + 1);
+        else props.setCurrentImgId(1);
       };
     
       const prevImg = () => {
-        if(parseInt(currentImgId) - 1 >= 1)
-          setCurrentImgId(parseInt(currentImgId) - 1);
-        else setCurrentImgId(props.numberOfImages);
+        if(parseInt(props.currentImgId) - 1 >= 1)
+          props.setCurrentImgId(parseInt(props.currentImgId) - 1);
+        else props.setCurrentImgId(props.numberOfImages);
       };
 
+      // TODO add loading animation
     return (
         <>
-            <div id="imageViewerContainer" className="center">
-                {imageName} <br></br>
+            <div className="center">
+                <div id="imgTitle">{imageName}</div>
 
-                <div id="imageContainer">
-                    <Image
-                        src={image}
-                        aspectRatio={4/3} // change aspect ratio per photo + css
-                        // cover={true}
-                    />
+                <div id="imageViewerContainer">
+                    <img id="imageViewerImg" src={image} alt="Main content" className="center"/>
                 </div>
 
                 <ThemeProvider theme={basicTheme}>
