@@ -17,7 +17,7 @@ export default function ImageViewer(props) {
     const [imageName, setImageName] = useState('???');
 
     const fetchImageContent = async (imgIdToGet) => {
-        // console.log(`Triggered: ${imgIdToGet}`);
+        console.log(`Triggered fetchImageContent: ${imgIdToGet}`);
         try {
           const response = await fetch(
             `/api/images/content/${props.year}/${props.location}/${imgIdToGet}`,
@@ -38,25 +38,24 @@ export default function ImageViewer(props) {
     
       useEffect(() => {
         if (!props.numberOfImages) return; // ! do not make a request if there are no images
-        // console.log(`Img id: ${imgId}`)
-        //console.log("Triggered [currentImgId, imagesNames]");
+        var fetchId;
+
         if (!props.currentImgId)
         {
+          // ! currentImgId was modified so useEffect will trigger again 
+          // !  or it will not trigger cause state will change too late hence temp var (fetchId)
           props.setCurrentImgId(1);
-          setImageName(props.imagesNames[0]);
-          // currentImgId was modified so useEffect will trigger again
+          fetchId = 1;
         } 
-        else
-        {
-          fetchImageContent((parseInt(props.currentImgId)));
-          setImageName(props.imagesNames[parseInt(props.currentImgId)-1]);
-        }
-      }, [props.currentImgId, props.imagesNames, props.numberOfImages]); // add fetchImageContetn
+        else fetchId = parseInt(props.currentImgId);
+
+        fetchImageContent(fetchId);
+        setImageName(props.imagesNames[fetchId-1]);
+
+      }, [props.currentImgId, props.imagesNames, props.numberOfImages]); // add fetchImageContetn ,
     
 
       useEffect(() => {
-        // console.log("Triggered [imgId]");
-        // console.log(imgId);
         props.setCurrentImgId(props.choosenImgId); // test it out
       }, [props.choosenImgId])
 

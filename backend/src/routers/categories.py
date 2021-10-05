@@ -15,11 +15,16 @@ router = APIRouter(prefix="/api/categories", tags=["Categories"])
 
 @router.post("/add/{category}/{year}/{location}/{image_name}")
 async def add_image_to_category(category : str, year : int, location : str, image_name : str, user: dict = Depends(get_current_user)):
-    categories_query = CATEGORIES_DB.search(where('category') == category and where('year') == year and where('location') == location and where('image_name') == image_name) # ? change query format? XD
+    categories_query = CATEGORIES_DB.search(Query().fragment({'category': category, 'year': year, 'location': location, 'image_name': image_name}))
     if categories_query:
         return f"Picture {image_name} already exists in this category"
     CATEGORIES_DB.insert({'category': category, 'year': year, 'location': location, 'image_name': image_name})
-    return f"Added new picture {image_name} to {category} category by {user['username']}" # TODO change for response
+    return f"Added new picture {image_name} to {category} category by {user['username']}"   # TODO change for response
+
+@router.post("/delete/{category}/{year}/{location}/{image_name}")
+async def delete_image_from_category(category : str, year : int, location : str, image_name : str, user: dict = Depends(get_current_user)):
+    CATEGORIES_DB.remove(Query().fragment({'category': category, 'year': year, 'location': location, 'image_name': image_name}))
+    return f"Removed picture {image_name} from {category} category by {user['username']}"   # TODO change for response
 
 @router.get("/get/{year}/{location}/{image_name}")
 async def get_image_categories(year : int, location : str, image_name : str):

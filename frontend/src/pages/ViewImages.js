@@ -15,7 +15,7 @@ export default function ImageSlider() {
  
   const [numberOfImages, setNumberOfImages] = useState(0); // None
   const [imagesNames, setImagesNames] = useState(['???']);
-  const [currentImgId, setCurrentImgId] =useState();
+  const [currentImgId, setCurrentImgId] =useState(imgId);
   const {setBackNavPage, tokenValue} = useContext(AppContext);
 
 
