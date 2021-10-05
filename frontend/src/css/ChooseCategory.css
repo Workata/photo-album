@@ -1,0 +1,72 @@
+#chooseCategoryMenuContainer
+{
+    width: 1050px;
+    height: 700px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 5%;
+    background-image: url("../images/footer_lodyas.png");
+}
+
+.category-menu-element{
+    width: 300px;
+    height: 300px;
+    margin-top: 33px;
+    margin-left: 33px;
+    float: left;
+    background-color: white;
+    border-radius: 10%;
+
+    transition: transform .2s; /* Animation */
+}
+
+.category-menu-element:hover{
+    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.category-menu-element-img{
+    width: 200px;
+    margin-top: 80px;
+    margin-left: 30px;
+}
+
+.category-menu-element-title{
+    color:black;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+#menuElementImgLandscape{
+    width: 260px;
+    margin-left: 15px;
+    padding-bottom: 25px;
+}
+
+#menuElementImgCars{
+    width: 260px;
+    margin-left: 15px;
+    margin-top: 30px;
+}
+
+#menuElementImgFlora{
+    width: 190px;
+    margin-left: 15px;
+    margin-top: 30px;
+}
+
+#menuElementBird{
+    margin-left: 200px;
+}
+
+#menuElementImgBird{
+    margin-left: 15px;
+    margin-top: 40px;
+    padding-bottom: 15px;
+}
+
+#menuElementImgWildlife{
+    width: 280px;
+    margin-left: 15px;
+    margin-top: 100px;
+    padding-bottom: 30px;
+}

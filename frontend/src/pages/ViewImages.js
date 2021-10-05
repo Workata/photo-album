@@ -5,6 +5,7 @@ import "../css/ImageSlider.css";
 import Sidebar from '../components/Sidebar';
 import ImageViewer from '../components/ImageViewer';
 import ImageUploader from '../components/ImageUploader';
+import AdminPanel from '../components/AdminPanel';
 // import Viewer from 'viewerjs';
 
 export default function ImageSlider() {
@@ -14,6 +15,7 @@ export default function ImageSlider() {
  
   const [numberOfImages, setNumberOfImages] = useState(0); // None
   const [imagesNames, setImagesNames] = useState(['???']);
+  const [currentImgId, setCurrentImgId] =useState(imgId);
   const {setBackNavPage, tokenValue} = useContext(AppContext);
 
 
@@ -81,7 +83,20 @@ export default function ImageSlider() {
         numberOfImages = {numberOfImages}
         imagesNames = {imagesNames}
         choosenImgId = {imgId}
+        currentImgId = {currentImgId}
+        setCurrentImgId = {setCurrentImgId}
       />
+
+      {tokenValue && 
+        <AdminPanel
+          year = {year}
+          location = {location}
+          imagesNames = {imagesNames}
+          currentImgId = {currentImgId}
+          tokenValue = {tokenValue}
+        />
+      }
+
     </>
   );
 }

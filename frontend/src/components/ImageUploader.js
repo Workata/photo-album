@@ -26,7 +26,6 @@ export default function ImageUploader(props) {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${props.tokenValue}`,
-                // "Content-Type": "application/json",
             },
             body: formData
             }

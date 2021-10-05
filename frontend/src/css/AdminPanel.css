@@ -1,0 +1,9 @@
+#adminPanelContainer{
+    position: absolute;
+    right: 0px;
+    width: 200px;
+    height: 100%;
+    border-left: solid;
+    border-color: black;
+    background-image: url("../images/footer_lodyas.png");
+}
