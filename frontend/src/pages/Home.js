@@ -43,7 +43,7 @@ export default function Home() {
           <div className="menu-element">
             <img id="menuElementImgMap" className="menu-element-img"
                 src={undrawAdventure}
-                alt="ndrawAdventure"
+                alt="undrawAdventure"
               />
             <br></br>
             <span className="menu-element-title">

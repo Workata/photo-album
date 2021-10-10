@@ -15,7 +15,7 @@ export default function ContextProvider(props) {
   const [backNavPage, setBackNavPage] = useState('/');
   const [tokenValue, setTokenValue] = useState();
 
-  const setTokenCookie = (name, value, minutes, path = '/') => {
+  const setTokenCookie = (name, value, minutes = 1440, path = '/') => {
     console.log("Set token");
     const dt = new Date();
     dt.setMinutes(dt.getMinutes() + minutes);
