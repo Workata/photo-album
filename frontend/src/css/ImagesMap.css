@@ -1,0 +1,25 @@
+#mapContainer{
+  width: 1200px;
+  height: 800px;
+  border: solid;
+  border-radius: 5px;
+  /* background-image:url("../images/footer_lodyas.png"); */
+}
+
+#mapContent{
+  width: 1200px;
+  height: 800px;
+  border-radius: 5%;
+}
+
+#markerMenu{
+  width: 180px;
+  height: 150px;
+  border-style: solid;
+  border-color: white;
+  border-radius: 5%;
+  background-image: url("../images/footer_lodyas.png");
+  position: absolute;
+  right: 20px;
+  padding-top: 30px;
+}
