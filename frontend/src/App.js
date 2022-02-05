@@ -1,6 +1,11 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+// * components
 import Appbar from './components/Appbar';
 import Footer from './components/Footer';
+
+// * pages
 import Home from './pages/Home';
 import ImageSlider from './pages/ViewImages';
 import ChooseYear from './pages/ChooseYear';
@@ -8,7 +13,7 @@ import ChooseLocation from './pages/ChooseLocation';
 import ChooseCategory from './pages/ChooseCategory';
 import ImagesMap from './pages/ImagesMap';
 import Login from './pages/Login';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import "./css/App.css";
 import { AppContext } from './contexts/AppContext';
 
@@ -25,13 +30,10 @@ function App() {
   }, []);
 
   return (
-    // <ContextProvider> Context provider is in index
       <Router>
         <div className="App">
           
-          <div className="Appbar">
-            <Appbar/>
-          </div>
+          <Appbar/>
 
           <Switch>
 
@@ -53,9 +55,7 @@ function App() {
             
           </Switch>
 
-          <div className="Footer">
-            <Footer />
-          </div>
+          <Footer />
 
         </div>
       </Router>
