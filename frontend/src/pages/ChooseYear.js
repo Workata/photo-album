@@ -7,13 +7,13 @@ import {
   DialogContent,
   DialogTitle
 }
-from '@material-ui/core';
+from '@mui/material';
 import {Link} from 'react-router-dom';
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from './../contexts/AppContext';
 import "../css/ChooseYearLocation.css";
 import "../css/General.css";
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@mui/icons-material/Add';
 import useStyles from '../styles/ChooseYearLocationStyles';
 
 export default function ChooseYear() {

@@ -1,6 +1,6 @@
 import "../css/Sidebar.css";
 import {Link} from 'react-router-dom';
-import Image from 'material-ui-image'
+// import Image from 'material-ui-image' // ! it uses old version of MUI (v4 instead of v5 :()
 import React, { useEffect, useState} from "react";
 
 export default function Sidebar(props) {
@@ -53,7 +53,7 @@ export default function Sidebar(props) {
                     return (
                     <Link to={`/${props.year}/${props.location}/${i+1}`} key={`/${props.year}/${props.location}/${i+1}`}> 
                       <div className="thumbnail"> 
-                        <Image src={thumbnail} key={i} aspectRatio={4/3} alt="xd"/> 
+                        <img src={thumbnail} key={i} alt="xd"/> 
                       </div> 
                     </Link>
                     )})   

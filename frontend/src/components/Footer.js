@@ -1,6 +1,6 @@
 import "../css/Footer.css";
 import basicTheme from "../themes/basicTheme";
-import {ThemeProvider} from '@material-ui/core';
+import { ThemeProvider } from '@mui/styles';
 
 export default function Footer() {
 

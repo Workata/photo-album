@@ -1,11 +1,11 @@
-import Image from 'material-ui-image'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
-import { IconButton } from '@material-ui/core';
+// import Image from 'material-ui-image' // ! it uses old version of MUI (v4 instead of v5 :()
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
+import IconButton from '@mui/material/IconButton';
 import basicTheme from "../themes/basicTheme";
-import {ThemeProvider} from '@material-ui/core';
+import { ThemeProvider } from '@mui/styles';
 import "../css/ImageViewer.css";
 import "../css/General.css";
 import React, { useEffect, useState} from "react";

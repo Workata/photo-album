@@ -1,9 +1,9 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from './../contexts/AppContext';
 import "../css/General.css";
 import "../css/Login.css";
-import {ThemeProvider} from '@material-ui/core';
+import { ThemeProvider } from '@mui/styles';
 import formTheme from "../themes/formTheme";
 import useStyles from '../styles/LoginStyles';
 import { useHistory } from "react-router-dom";
