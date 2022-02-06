@@ -4,5 +4,14 @@ __pycache__/
 # Virtual env
 venv/
 
-# user data
-data/
+# user data (tinydb)
+data/DB/*
+!data/DB/README.md
+
+# images
+data/images/*
+!data/images/README.md
+
+# thumbs
+data/imagesThumbs/*
+!data/imagesThumbs/README.md
