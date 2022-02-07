@@ -1,6 +1,8 @@
-// import Image from 'material-ui-image' // ! it uses old version of MUI (v4 instead of v5 :()
-
 // * material UI
+import {
+  Box,
+  Typography,
+} from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -9,6 +11,9 @@ import IconButton from '@mui/material/IconButton';
 
 // * navigation
 import { useHistory } from "react-router-dom";
+
+// * images
+import backgroundImage from '../images/footer_lodyas.png';
 
 import "../css/ImageViewer.css";
 import "../css/General.css";
@@ -81,19 +86,47 @@ export default function ImageViewer(props) {
   return (
     <>
       <div className="center">
-        <div id="imgTitle">{imageName}</div>
 
-        <div id="imageViewerContainer">
-          <img id="imageViewerImg" src={image} alt="Main content" className="center" />
-        </div>
+        <Typography
+          sx={{
+            marginBottom: "10px",
+          }}
+          variant="h5"
+        >
+          {imageName}
+        </Typography>
+
+        {/* https://stackoverflow.com/questions/7273338/how-to-vertically-align-an-image-inside-a-div */}
+        <Box
+          sx={{
+            width: "900px",
+            height: "600px",
+            border: "solid",
+            borderRadius: "5%",
+            backgroundImage: `url(${backgroundImage})`,
+          }}
+        >
+          {/* This span is a hack for image aligning, check linked stack post */}
+          <span style={{ display: "inline-block", height: "100%", verticalAlign: "middle" }} />
+          <img
+            style={{
+              height: "auto",
+              width: "auto",
+              maxWidth: "900px",
+              maxHeight: "600px", 
+              borderRadius: "5%",
+              verticalAlign: "middle"
+            }}
+            src={image} 
+            alt="Main content should be here"
+          />
+        </Box>
 
         <div id="imageConsole">
 
-          {/* <Link to={`/${props.year}/${props.location}/${props.imgNumber}`}> */}
           <IconButton color="secondary" onClick={prevImg}>
             <NavigateBeforeIcon />
           </IconButton>
-          {/* </Link> */}
 
           <IconButton color="secondary" onClick={nextImg}>
             <NavigateNextIcon />
