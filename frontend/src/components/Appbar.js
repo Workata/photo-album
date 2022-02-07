@@ -38,10 +38,6 @@ export default function Appbar() {
             <Link to="/" id="adminButtonLink" className="non-edited-link">
               <Button 
                 color="inherit" 
-                sx= {{
-                  position: 'absolute',
-                  left: 10,
-                }}
                 onClick={() => {
                   setTokenValue(); // set Token value for undefined
                   deleteTokenCookie('token', '/');
