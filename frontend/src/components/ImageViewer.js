@@ -15,7 +15,6 @@ import { useHistory } from "react-router-dom";
 // * images
 import backgroundImage from '../images/footer_lodyas.png';
 
-import "../css/ImageViewer.css";
 import "../css/General.css";
 import React, { useEffect, useState } from "react";
 import undrawCancel from '../images/undrawCancel.svg';
