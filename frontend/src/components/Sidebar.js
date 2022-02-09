@@ -59,9 +59,9 @@ export default function Sidebar(props) {
     <Box
       sx={{
         // ! absolute out !!!
-        position: "absolute",
-        top: "110px",
-        left: "50px",
+        // position: "absolute",
+        // top: "110px",
+        // left: "50px",
         // ! absolute out !!!
 
         width: "200px",

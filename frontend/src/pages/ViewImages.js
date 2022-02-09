@@ -1,3 +1,9 @@
+// * material UI
+import {
+  Box,
+  Typography,
+} from '@mui/material';
+
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from '../contexts/AppContext';
 import { useParams } from "react-router-dom";
@@ -75,33 +81,50 @@ export default function ImageSlider() {
   }
 
   return (
-    <>
-      <Sidebar
-        year={year}
-        location={location}
-        numberOfImages={numberOfImages}
-      />
+    <Box
+      className="center"
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "100px",
+          // flexShrink: 0,
+          // flexBasis: "100%",
+          // flexGrow: 0,
+          // alignContent: "flex-start",
+          alignItems: "center",
 
-      <ImageViewer
-        year={year}
-        location={location}
-        numberOfImages={numberOfImages}
-        imagesNames={imagesNames}
-        choosenImgId={imgId}
-        currentImgId={currentImgId}
-        setCurrentImgId={setCurrentImgId}
-      />
+          height: "1000px",
+        }}
+      >
 
-      {tokenValue &&
-        <AdminPanel
+        <Sidebar
           year={year}
           location={location}
-          imagesNames={imagesNames}
-          currentImgId={currentImgId}
-          tokenValue={tokenValue}
+          numberOfImages={numberOfImages}
         />
-      }
 
-    </>
+        <ImageViewer
+          year={year}
+          location={location}
+          numberOfImages={numberOfImages}
+          imagesNames={imagesNames}
+          choosenImgId={imgId}
+          currentImgId={currentImgId}
+          setCurrentImgId={setCurrentImgId}
+        />
+
+        {tokenValue &&
+          <AdminPanel
+            year={year}
+            location={location}
+            imagesNames={imagesNames}
+            currentImgId={currentImgId}
+            tokenValue={tokenValue}
+          />
+        }
+      </Box>
+    </Box>
   );
 }

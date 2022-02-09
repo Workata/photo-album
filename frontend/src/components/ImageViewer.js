@@ -83,64 +83,68 @@ export default function ImageViewer(props) {
 
   // TODO add loading animation
   return (
-    <>
-      <div className="center">
+    <Box
+      sx={{
+        width: "910px",
+        height: "700px",
+      }}
+      //className="center"
+    >
 
-        <Typography
-          sx={{
-            marginBottom: "10px",
-          }}
-          variant="h5"
-        >
-          {imageName}
-        </Typography>
+      <Typography
+        sx={{
+          marginBottom: "10px",
+        }}
+        variant="h5"
+      >
+        {imageName}
+      </Typography>
 
-        {/* https://stackoverflow.com/questions/7273338/how-to-vertically-align-an-image-inside-a-div */}
-        <Box
-          sx={{
-            width: "900px",
-            height: "600px",
-            border: "solid",
+      {/* https://stackoverflow.com/questions/7273338/how-to-vertically-align-an-image-inside-a-div */}
+      <Box
+        sx={{
+          width: "900px",
+          height: "600px",
+          border: "solid",
+          borderRadius: "5%",
+          backgroundImage: `url(${backgroundImage})`,
+        }}
+      >
+        {/* This span is a hack for image aligning, check linked stack post */}
+        <span style={{ display: "inline-block", height: "100%", verticalAlign: "middle" }} />
+        <img
+          style={{
+            height: "auto",
+            width: "auto",
+            maxWidth: "900px",
+            maxHeight: "600px",
             borderRadius: "5%",
-            backgroundImage: `url(${backgroundImage})`,
+            verticalAlign: "middle"
           }}
-        >
-          {/* This span is a hack for image aligning, check linked stack post */}
-          <span style={{ display: "inline-block", height: "100%", verticalAlign: "middle" }} />
-          <img
-            style={{
-              height: "auto",
-              width: "auto",
-              maxWidth: "900px",
-              maxHeight: "600px", 
-              borderRadius: "5%",
-              verticalAlign: "middle"
-            }}
-            src={image} 
-            alt="Main content should be here"
-          />
-        </Box>
+          src={image}
+          alt="Main content should be here"
+        />
+      </Box>
 
-        <div id="imageConsole">
+      <Box>
 
-          <IconButton color="secondary" onClick={prevImg}>
-            <NavigateBeforeIcon />
-          </IconButton>
+        <IconButton color="secondary" onClick={prevImg}>
+          <NavigateBeforeIcon />
+        </IconButton>
 
-          <IconButton color="secondary" onClick={nextImg}>
-            <NavigateNextIcon />
-          </IconButton>
+        <IconButton color="secondary" onClick={nextImg}>
+          <NavigateNextIcon />
+        </IconButton>
 
-          <IconButton color="secondary" onClick={null}>
-            <PlayArrowIcon />
-          </IconButton>
+        <IconButton color="secondary" onClick={null}>
+          <PlayArrowIcon />
+        </IconButton>
 
-          <IconButton color="secondary" onClick={null}>
-            <PauseIcon />
-          </IconButton>
+        <IconButton color="secondary" onClick={null}>
+          <PauseIcon />
+        </IconButton>
 
-        </div>
-      </div>
-    </>
+      </Box>
+    </Box>
   );
 }

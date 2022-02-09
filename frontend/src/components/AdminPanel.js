@@ -127,9 +127,9 @@ export default function AdminPanel(props) {
     <Box 
       sx={{
         // ! absolute out !!!
-        position: "absolute",
-        right: "100px",
-        top: "400px",
+        // position: "absolute",
+        // right: "100px",
+        // top: "400px",
         // ! absolute out !!!
 
         width: "150px",
