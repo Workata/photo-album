@@ -33,6 +33,10 @@
   color: black;
 }
 
+.non-decorated-link{
+  text-decoration: none;
+}
+
 .non-edited-link{
   all: initial;
 }

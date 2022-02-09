@@ -1,25 +1,32 @@
+// * material UI
 import {
   Button,
   Typography,
   TextField,
+  Box,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle
 }
   from '@mui/material';
-import { Link } from 'react-router-dom';
+
+// * components
+import YearLocationBox from '../components/YearLocationBox';
+import YearLocationAddBox from '../components/YearLocationAddBox';
+
+// * images
+import backgroundImage from '../images/footer_lodyas.png';
+
+import uniqid from 'uniqid';
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from './../contexts/AppContext';
-import "../css/ChooseYearLocation.css";
 import "../css/General.css";
-import AddIcon from '@mui/icons-material/Add';
+
 import { useParams } from "react-router-dom";
-import useStyles from '../styles/ChooseYearLocationStyles';
 
 export default function ChooseLocation() {
 
-  const classes = useStyles();
   const { year } = useParams();
   const [availableLocations, setAvailableLocations] = useState([]);
   const [isAddLocationDialogOpen, setIsAddLocationDialogOpen] = useState(false);
@@ -80,25 +87,37 @@ export default function ChooseLocation() {
 
   return (
     <>
-      <div id="yearsLocationsContainer" className="center">
+      <Box 
+        sx={{
+          width: "700px",
+          minHeight: "400px",
+          height: "auto",
+          borderStyle: "solid",
+          borderColor: "white",
+          borderRadius: "5%",
+          backgroundImage: `url(${backgroundImage})`,
+
+          // layout
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignContent: "flex-start",
+        }}
+        className="center"
+      >
         {availableLocations.map((location) => {
-          return <Link to={`/${year}/${location}`} className=""> <div className="year-location-box" key={location}>{location}</div> </Link>
-        })
-
+            return( 
+              <YearLocationBox
+                key={uniqid()}
+                link={`/${year}/${location}`}
+                text={location}
+              />
+            )
+          })
         }
-        {
-          tokenValue &&
+        { tokenValue && <YearLocationAddBox action={setIsAddLocationDialogOpen}/> }
+      </Box>
 
-          <div className="year-location-box" key="addYear" onClick={() => { setIsAddLocationDialogOpen(true) }}>
-            <AddIcon
-              fontSize="large"
-              className={classes.addIcon}
-            />
-          </div>
-
-        }
-        <div style={{ clear: "both" }}></div>
-      </div>
       <Dialog
         open={isAddLocationDialogOpen}
         onClose={handleLocationDialogExit}
