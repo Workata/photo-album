@@ -1,7 +1,18 @@
-import "../css/Sidebar.css";
+// * material UI
+import {
+  Box,
+  Typography,
+} from '@mui/material';
+
+// * others
 import React, { useEffect, useState } from "react";
-import Thumbnail from './Thumbnail';
 import uniqid from 'uniqid';
+
+// * components
+import Thumbnail from './Thumbnail';
+
+// * images
+import backgroundImage from '../images/footer_lodyas.png';
 
 // ! it uses old version of MUI (v4 instead of v5 :()
 // import Image from 'material-ui-image' 
@@ -45,30 +56,58 @@ export default function Sidebar(props) {
   }, [props.numberOfImages]);
 
   return (
-    <>
-      <div id="sidebar">
-        {props.year} {">>"} {props.location}
+    <Box
+      sx={{
+        // ! absolute out !!!
+        position: "absolute",
+        top: "110px",
+        left: "50px",
+        // ! absolute out !!!
 
-        <div id="thumbnailsContainer">
-          {
-            canInsert ? (
-              thumbnails.map((thumbnail, i) => {
-                return (
-                  <Thumbnail
-                    year={props.year}
-                    location={props.location}
-                    imgNumber={i + 1}
-                    thumbnail={thumbnail}
-                    key={uniqid()}
-                  />
-                )
-              })
-            ) : (
-              console.log("Not loaded")
+        width: "200px",
+        height: "80%",
+
+        border: "solid",
+        borderColor: "white",
+        borderRadius: "10px",
+        borderWidth: "2px",
+
+        backgroundImage: `url(${backgroundImage})`,
+        display: "flex",
+        flexDirection: "column",
+
+      }}
+    >
+      <Typography
+        variant="h6"
+      >
+        {props.year} {">>"} {props.location}
+      </Typography>
+
+      {/* Thumbnail container */}
+      <Box
+        sx={{
+          // backgroundColor: "gray",
+          overflowY: 'auto', // display scroll bar after overflow
+        }}
+      >
+        {canInsert ? (
+          thumbnails.map((thumbnail, i) => {
+            return (
+              <Thumbnail
+                year={props.year}
+                location={props.location}
+                imgNumber={i + 1}
+                thumbnail={thumbnail}
+                key={uniqid()}
+              />
             )
-          }
-        </div>
-      </div>
-    </>
+          })
+        ) : (
+          console.log("Not loaded")
+        )
+        }
+      </Box>
+    </Box>
   );
 }

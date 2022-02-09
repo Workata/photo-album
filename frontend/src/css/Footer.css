@@ -1,6 +1,7 @@
 #footer {
     position: fixed;
-    height: 30px;
+    /* height 2% */
+    height: 30px; 
     left: 0;
     bottom: 0;
     width: 100%;

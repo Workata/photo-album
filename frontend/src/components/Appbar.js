@@ -23,7 +23,7 @@ export default function Appbar() {
         <Toolbar 
           sx={{
             // appbar color here
-            bgcolor: "secondary.main"
+            bgcolor: "secondary.main",
           }}
         > 
 
