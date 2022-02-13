@@ -14,6 +14,10 @@ import ChooseCategory from './pages/ChooseCategory';
 import ImagesMap from './pages/ImagesMap';
 import Login from './pages/Login';
 
+// * html tags in head part - title of page
+// Helmet not needed, changes in public/index.html
+// import {Helmet} from "react-helmet";
+
 import "./css/App.css";
 import { AppContext } from './contexts/AppContext';
 
@@ -31,6 +35,7 @@ function App() {
 
   return (
       <Router>
+
         <div className="App">
           
           <Appbar/>
