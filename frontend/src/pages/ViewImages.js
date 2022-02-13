@@ -11,7 +11,7 @@ import "../css/ImageSlider.css";
 import Sidebar from '../components/Sidebar';
 import ImageViewer from '../components/ImageViewer';
 import ImageUploader from '../components/ImageUploader';
-import AdminPanel from '../components/AdminPanel';
+import ImageAdminPanel from '../components/ImageAdminPanel';
 // import Viewer from 'viewerjs';
 // * navigation
 import { useHistory } from "react-router-dom";
@@ -116,7 +116,7 @@ export default function ImageSlider() {
         />
 
         {tokenValue &&
-          <AdminPanel
+          <ImageAdminPanel
             year={year}
             location={location}
             imagesNames={imagesNames}

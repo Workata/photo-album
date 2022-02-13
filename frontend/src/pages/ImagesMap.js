@@ -256,11 +256,9 @@ export default function ImagesMap() {
   }, []);
 
   useEffect(() => {
-    // TODO -> bug map not visible if no markers added
-    // if (availableMarkers.length !== 0) setupMap();
-    // if(!mapLoaded) setupMap();
     if(mapContainsMarkers === false && mapLoaded !== true) setupMap();
-    if(mapContainsMarkers === true && availableMarkers.length !== 0 && mapLoaded !== true) setupMap();
+    if(mapContainsMarkers === true &&
+       availableMarkers.length !== 0 && mapLoaded !== true) setupMap();
   }, [mapContainsMarkers, availableMarkers]);
 
   return (

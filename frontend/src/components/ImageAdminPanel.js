@@ -14,7 +14,7 @@ import Checkbox from '@mui/material/Checkbox';
 // * images
 import backgroundImage from '../images/footer_lodyas.png';
 
-export default function AdminPanel(props) {
+export default function ImageAdminPanel(props) {
 
   const [landscapeChecked, setLandscapeChecked] = useState(false);            // state used for updating category
   const [carsChecked, setCarsChecked] = useState(false);
