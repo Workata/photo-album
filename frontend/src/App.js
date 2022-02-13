@@ -13,6 +13,7 @@ import ChooseLocation from './pages/ChooseLocation';
 import ChooseCategory from './pages/ChooseCategory';
 import ImagesMap from './pages/ImagesMap';
 import Login from './pages/Login';
+import Info from './pages/Info';
 
 // * html tags in head part - title of page
 // Helmet not needed, changes in public/index.html
@@ -44,6 +45,7 @@ function App() {
 
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/info" component={Info} />
             <Route exact path="/chooseCategory" component={ChooseCategory} />
             <Route exact path="/map" component={ImagesMap} />
             <Route exact path="/:year/:location" component={ImageSlider} />
