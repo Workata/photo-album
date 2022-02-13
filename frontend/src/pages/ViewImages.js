@@ -8,11 +8,15 @@ import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from '../contexts/AppContext';
 import { useParams } from "react-router-dom";
 import "../css/ImageSlider.css";
+
+// * components
+import NoImages from '../components/NoImages';
 import Sidebar from '../components/Sidebar';
 import ImageViewer from '../components/ImageViewer';
 import ImageUploader from '../components/ImageUploader';
 import ImageAdminPanel from '../components/ImageAdminPanel';
 // import Viewer from 'viewerjs';
+
 // * navigation
 import { useHistory } from "react-router-dom";
 
@@ -67,16 +71,21 @@ export default function ImageSlider() {
     fetchImagesNames(); // also set number of images
   }, []);
 
-
+  // * return "image uploader" if no images in folder and logged in
   if (tokenValue && !numberOfImages) {
     return (
-      <>
-        <ImageUploader
-          year={year}
-          location={location}
-          tokenValue={tokenValue}
-        />
-      </>
+      <ImageUploader
+        year={year}
+        location={location}
+        tokenValue={tokenValue}
+      />
+    );
+  }
+
+  // * return "no images in folder" if no images in folder and not logged in
+  if (!tokenValue && !numberOfImages) {
+    return (
+      <NoImages/>
     );
   }
 
