@@ -28,7 +28,7 @@ export default function ImageSlider() {
   const [numberOfImages, setNumberOfImages] = useState(0); // None
   const [imagesNames, setImagesNames] = useState(['???']);
   const [currentImgId, setCurrentImgId] = useState(imgId);
-  const { setBackNavPage, tokenValue } = useContext(AppContext);
+  const {tokenValue} = useContext(AppContext);
 
   let history = useHistory();
 
@@ -65,9 +65,8 @@ export default function ImageSlider() {
   useEffect(() => {
     // * Redirect to the first picture if no imgId specified
     if (!imgId)
-      history.push(`/${year}/${location}/1`);
-
-    setBackNavPage(`/${year}`);
+      // ! replace instead of push
+      history.replace(`/${year}/${location}/1`);
     fetchImagesNames(); // also set number of images
   }, []);
 

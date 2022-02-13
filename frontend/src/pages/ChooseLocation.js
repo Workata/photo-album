@@ -31,7 +31,7 @@ export default function ChooseLocation() {
   const [availableLocations, setAvailableLocations] = useState([]);
   const [isAddLocationDialogOpen, setIsAddLocationDialogOpen] = useState(false);
   const [newLocationToAdd, setNewLocationToAdd] = useState([]);
-  const { setBackNavPage, tokenValue } = useContext(AppContext);
+  const { tokenValue } = useContext(AppContext);
 
 
   const fetchLocations = async () => {
@@ -80,7 +80,6 @@ export default function ChooseLocation() {
   };
 
   useEffect(() => {
-    setBackNavPage('/years');
     fetchLocations();   //
   }, []);
 

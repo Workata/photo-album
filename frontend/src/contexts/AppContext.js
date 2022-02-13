@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 
 export const AppContext = React.createContext({
-  backNavPage: '/',
-  setBackNavPage: () => {},
-
   tokenValue: '',
   setTokenValue: () => {},
   setTokenCookie: () => {},
@@ -12,7 +9,6 @@ export const AppContext = React.createContext({
 });
 
 export default function ContextProvider(props) {
-  const [backNavPage, setBackNavPage] = useState('/');
   const [tokenValue, setTokenValue] = useState();
 
   const setTokenCookie = (name, value, minutes = 1440, path = '/') => {
@@ -51,9 +47,6 @@ export default function ContextProvider(props) {
   return (
     <AppContext.Provider
       value={{
-        backNavPage,
-        setBackNavPage,
-
         tokenValue,
         setTokenValue,
 

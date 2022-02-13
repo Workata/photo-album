@@ -39,7 +39,7 @@ import XYZ from 'ol/source/XYZ';
 // import Circle from 'ol/geom/Circle';
 
 export default function ImagesMap() {
-  const { setBackNavPage, tokenValue } = useContext(AppContext);
+  const { tokenValue } = useContext(AppContext);
   const [isAddMarkerDialogOpen, setIsAddMarkerDialogOpen] = useState(false);
   const [isDeleteMarkerDialogOpen, setIsDeleteMarkerDialogOpen] = useState(false);
   const [newUrl, setNewUrl] = useState();
@@ -251,7 +251,6 @@ export default function ImagesMap() {
   };
 
   useEffect(() => {
-    setBackNavPage('/');
     fetchMarkers();
   }, []);
 

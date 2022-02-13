@@ -26,7 +26,7 @@ export default function ChooseYear() {
   const [availableYears, setAvailableYears] = useState([]);
   const [isAddYearDialogOpen, setIsAddYearDialogOpen] = useState(false);
   const [newYearToAdd, setNewYearToAdd] = useState();
-  const { setBackNavPage, tokenValue } = useContext(AppContext);
+  const {tokenValue } = useContext(AppContext);
 
   const fetchYears = async () => {
     try {
@@ -74,7 +74,6 @@ export default function ChooseYear() {
   };
 
   useEffect(() => {
-    setBackNavPage('/');
     fetchYears();   //
   }, []);
 

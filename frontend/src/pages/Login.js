@@ -10,16 +10,12 @@ import { useHistory } from "react-router-dom";
 
 
 export default function Login() {
-    const {setBackNavPage, setTokenCookie, setTokenValue} = useContext(AppContext);
+    const {setTokenCookie, setTokenValue} = useContext(AppContext);
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [loginError, setLoginError] = useState(false);  //TODO GUI info about error
     const classes = useStyles();
     const history = useHistory();
-
-    useEffect(() => {
-        setBackNavPage('/');
-      }, []);
 
     const handleLoginButton = async() => {
       fetch('/api/auth/login', {

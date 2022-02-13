@@ -12,10 +12,12 @@ import {Link, useLocation} from 'react-router-dom';
 import "../css/General.css";
 import React, {useContext} from "react";
 import { AppContext } from './../contexts/AppContext';
+import { useHistory } from "react-router-dom";
 
 export default function Appbar() {
   const { backNavPage, deleteTokenCookie, tokenValue, setTokenValue } = useContext(AppContext);
   const currentURL = useLocation();
+  let history = useHistory();
 
   return (
     <Box>
@@ -56,17 +58,16 @@ export default function Appbar() {
 
           {/* Render 'go-back' arrow on every page except root*/}
           {currentURL.pathname !== '/' &&
-            <Link to={backNavPage} id="backButtonLink"> 
               <IconButton 
                 sx= {{
                   position: 'absolute',
                   right: 10,
                   top: 10
                 }}
+                onClick = {() => {history.goBack()}}
               >
                 <ArrowBackIcon />
               </IconButton>
-            </Link>
           }
           
         </Toolbar>
