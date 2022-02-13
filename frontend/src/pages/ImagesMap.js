@@ -258,7 +258,7 @@ export default function ImagesMap() {
     if(mapContainsMarkers === false && mapLoaded !== true) setupMap();
     if(mapContainsMarkers === true &&
        availableMarkers.length !== 0 && mapLoaded !== true) setupMap();
-  }, [mapContainsMarkers, availableMarkers]);
+  }, [mapContainsMarkers, availableMarkers]);   // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

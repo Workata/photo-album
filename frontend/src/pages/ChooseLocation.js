@@ -81,7 +81,7 @@ export default function ChooseLocation() {
 
   useEffect(() => {
     fetchLocations();   //
-  }, []);
+  }, []);   // eslint-disable-line react-hooks/exhaustive-deps
 
 
   return (

@@ -113,7 +113,7 @@ export default function ImageAdminPanel(props) {
 
   useEffect(() => {
     if (props.currentImgId) fetchImgCategories();
-  }, [props.currentImgId])
+  }, [props.currentImgId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setLandscapeChecked(currentImgCategories.landscape);

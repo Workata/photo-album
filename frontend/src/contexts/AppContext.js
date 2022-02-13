@@ -23,7 +23,7 @@ export default function ContextProvider(props) {
   
   // https://www.w3schools.com/js/js_cookies.asp
   const getTokenCookie = (cname) => {
-    console.log("Start get token cookie");
+    // console.log("Start get token cookie");
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');

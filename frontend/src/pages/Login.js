@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material';
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AppContext } from './../contexts/AppContext';
 import "../css/General.css";
 import "../css/Login.css";

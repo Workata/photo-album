@@ -1,7 +1,6 @@
 // * material UI
 import {
   Box,
-  Typography,
 } from '@mui/material';
 
 import React, { useEffect, useState, useContext } from "react";
@@ -68,7 +67,7 @@ export default function ImageSlider() {
       // ! replace instead of push
       history.replace(`/${year}/${location}/1`);
     fetchImagesNames(); // also set number of images
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // * return "image uploader" if no images in folder and logged in
   if (tokenValue && !numberOfImages) {

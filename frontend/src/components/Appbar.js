@@ -15,7 +15,7 @@ import { AppContext } from './../contexts/AppContext';
 import { useHistory } from "react-router-dom";
 
 export default function Appbar() {
-  const { backNavPage, deleteTokenCookie, tokenValue, setTokenValue } = useContext(AppContext);
+  const { deleteTokenCookie, tokenValue, setTokenValue } = useContext(AppContext);
   const currentURL = useLocation();
   let history = useHistory();
 

@@ -61,12 +61,12 @@ export default function ImageViewer(props) {
     fetchImageContent(fetchId);
     setImageName(props.imagesNames[fetchId - 1]);
 
-  }, [props.currentImgId, props.imagesNames, props.numberOfImages]); // add fetchImageContetn ,
+  }, [props.currentImgId, props.imagesNames, props.numberOfImages]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   useEffect(() => {
     props.setCurrentImgId(props.choosenImgId); // test it out
-  }, [props.choosenImgId])
+  }, [props.choosenImgId])  // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const nextImg = () => {

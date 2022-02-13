@@ -32,7 +32,7 @@ function App() {
   useEffect(() => {
     if (!tokenValue)
       setTokenValue(getTokenCookie('token'));
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
       <Router>

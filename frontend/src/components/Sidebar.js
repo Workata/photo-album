@@ -53,7 +53,7 @@ export default function Sidebar(props) {
   useEffect(() => {
     fetchThumbnailsOneByOne();
     if (props.numberOfImages !== 0) setCanInsert(true);
-  }, [props.numberOfImages]);
+  }, [props.numberOfImages]);   // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Box
