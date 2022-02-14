@@ -27,7 +27,7 @@ export default function ImageViewer(props) {
   let history = useHistory();
 
   const fetchImageContent = async (imgIdToGet) => {
-    console.log(`Triggered fetchImageContent: ${imgIdToGet}`);
+    // console.log(`Triggered fetchImageContent: ${imgIdToGet}`);
     try {
       const response = await fetch(
         `/api/images/content/${props.year}/${props.location}/${imgIdToGet}`,

@@ -17,7 +17,12 @@ export default function Thumbnail(props) {
 					// borderColor: "white",
 				}}
 			>
-				<img src={props.thumbnail} key={props.imgNumber} alt="xd" />
+				<img 
+					style={{borderRadius: "5px"}}
+					src={props.thumbnail} 
+					key={props.imgNumber} 
+					alt="thumbnail" 
+				/>
 			</Box>
 		</Link>
 	);
