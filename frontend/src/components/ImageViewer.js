@@ -23,6 +23,8 @@ export default function ImageViewer(props) {
 
   const [image, setImage] = useState(undrawCancel);
   const [imageName, setImageName] = useState('???');
+  const [slideshowEnabled, setSlideshowEnabled] = useState(false);
+  const [intervalId, setIntervalId] = useState();
 
   let history = useHistory();
 
@@ -46,40 +48,48 @@ export default function ImageViewer(props) {
     }
   };
 
+  // TODO forward loading
   useEffect(() => {
     if (!props.numberOfImages) return; // ! do not make a request if there are no images
-    var fetchId;
 
-    if (!props.currentImgId) {
-      // ! currentImgId was modified so useEffect will trigger again 
-      // !  or it will not trigger cause state will change too late hence temp var (fetchId)
-      props.setCurrentImgId(1);
-      fetchId = 1;
-    }
-    else fetchId = parseInt(props.currentImgId);
-
+    var fetchId = parseInt(props.currentImgId);
     fetchImageContent(fetchId);
     setImageName(props.imagesNames[fetchId - 1]);
 
   }, [props.currentImgId, props.imagesNames, props.numberOfImages]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // TODO fade in/out animation
+  const slideshowIntervalTime = 5000;  // number of miliseconds between pictures
 
-  useEffect(() => {
-    props.setCurrentImgId(props.choosenImgId); // test it out
-  }, [props.choosenImgId])  // eslint-disable-line react-hooks/exhaustive-deps
-
+  const nextImgSimulated = () => {
+    document.getElementById('navigateNextButton').click();
+  }
 
   const nextImg = () => {
     if (parseInt(props.currentImgId) + 1 <= props.numberOfImages)
       history.push(`/${props.year}/${props.location}/${parseInt(props.currentImgId) + 1}`);
-    else return history.push(`/${props.year}/${props.location}/${1}`);
+    else history.push(`/${props.year}/${props.location}/${1}`);
   };
 
   const prevImg = () => {
     if (parseInt(props.currentImgId) - 1 >= 1)
       history.push(`/${props.year}/${props.location}/${parseInt(props.currentImgId) - 1}`);
-    else return history.push(`/${props.year}/${props.location}/${props.numberOfImages}`);
+    else history.push(`/${props.year}/${props.location}/${props.numberOfImages}`);
   };
+
+  const startSlideshow = () => {
+    if (!slideshowEnabled) {
+      setSlideshowEnabled(true);
+      setIntervalId(setInterval(nextImgSimulated, slideshowIntervalTime));
+    }
+  }
+
+  const stopSlideshow = () => {
+    if (slideshowEnabled) {
+      if(intervalId) clearInterval(intervalId);
+      setSlideshowEnabled(false);
+    }
+  }
 
   // TODO add loading animation
   return (
@@ -88,7 +98,6 @@ export default function ImageViewer(props) {
         width: "910px",
         height: "700px",
       }}
-      //className="center"
     >
 
       <Typography
@@ -132,15 +141,29 @@ export default function ImageViewer(props) {
           <NavigateBeforeIcon />
         </IconButton>
 
-        <IconButton color="secondary" onClick={nextImg}>
+        <IconButton 
+          color="secondary"
+          onClick={nextImg}
+          id="navigateNextButton"
+        >
           <NavigateNextIcon />
         </IconButton>
 
-        <IconButton color="secondary" onClick={null}>
+        <IconButton
+          sx={{
+            color: slideshowEnabled ? "primary.gray" : "secondary.main"
+          }}
+          onClick={startSlideshow}
+        >
           <PlayArrowIcon />
         </IconButton>
 
-        <IconButton color="secondary" onClick={null}>
+        <IconButton
+          sx={{
+            color: slideshowEnabled ? "secondary.main" : "primary.gray"
+          }}
+          onClick={stopSlideshow}
+        >
           <PauseIcon />
         </IconButton>
 

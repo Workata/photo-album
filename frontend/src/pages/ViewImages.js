@@ -3,7 +3,7 @@ import {
   Box,
 } from '@mui/material';
 
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext} from "react";
 import { AppContext } from '../contexts/AppContext';
 import { useParams } from "react-router-dom";
 import "../css/ImageSlider.css";
@@ -25,12 +25,11 @@ export default function ImageSlider() {
   const { year, location, imgId } = useParams();        // params from url e.g.: 2015/Poland/2, imgId optional
 
   const [numberOfImages, setNumberOfImages] = useState(0); // None
-  const [imagesNames, setImagesNames] = useState(['???']);
-  const [currentImgId, setCurrentImgId] = useState(imgId);
+  const [imagesNames, setImagesNames] = useState(['img name']);
+
   const {tokenValue} = useContext(AppContext);
 
   let history = useHistory();
-
 
   const fetchImagesNames = async () => {
     try {
@@ -117,9 +116,7 @@ export default function ImageSlider() {
           location={location}
           numberOfImages={numberOfImages}
           imagesNames={imagesNames}
-          choosenImgId={imgId}
-          currentImgId={currentImgId}
-          setCurrentImgId={setCurrentImgId}
+          currentImgId={imgId} //currentImgId
         />
 
         {tokenValue &&
@@ -127,7 +124,7 @@ export default function ImageSlider() {
             year={year}
             location={location}
             imagesNames={imagesNames}
-            currentImgId={currentImgId}
+            currentImgId={imgId}
             tokenValue={tokenValue}
           />
         }
