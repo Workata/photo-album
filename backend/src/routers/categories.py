@@ -28,12 +28,18 @@ async def delete_image_from_category(category : str, year : int, location : str,
 
 @router.get("/get/{year}/{location}/{image_name}")
 async def get_image_categories(year : int, location : str, image_name : str):
+    """
+        TODO docstring
+        Get choosen categories for a specific image.
+    """
     landscape_query = CATEGORIES_DB.search(Query().fragment({'category': 'landscape', 'year': year, 'location': location, 'image_name': image_name}))
     cars_query = CATEGORIES_DB.search(Query().fragment({'category': 'cars', 'year': year, 'location': location, 'image_name': image_name}))
     flora_query = CATEGORIES_DB.search(Query().fragment({'category': 'flora', 'year': year, 'location': location, 'image_name': image_name}))
     birds_query = CATEGORIES_DB.search(Query().fragment({'category': 'birds', 'year': year, 'location': location, 'image_name': image_name}))
     wildlife_query = CATEGORIES_DB.search(Query().fragment({'category': 'wildlife', 'year': year, 'location': location, 'image_name': image_name}))
     return {'landscape': landscape_query != [], 'cars': cars_query != [], 'flora': flora_query != [], 'birds': birds_query != [], 'wildlife': wildlife_query != []}
+
+
 
 @router.get("/content/{category}/{img_id}")
 async def get_image_from_category(category : str, img_id : int):
@@ -42,4 +48,28 @@ async def get_image_from_category(category : str, img_id : int):
         return f"There is no image"
     image_data = categories_query[img_id-1]
     image_content = FileResponse(f"./data/images/{image_data['year']}/{image_data['location']}/{image_data['image_name']}")
+    return image_content
+
+@router.get("/names/{category}")
+async def get_images_names_from_category(category : str):
+    """
+        TODO docstring
+        Get names of all images in this specific category
+    """
+    categories_query = CATEGORIES_DB.search(where('category') == category)
+    if not categories_query:
+        return f"There are no images in this category"
+    image_names = [image_data["image_name"] for image_data in categories_query]
+    return {"img_names": image_names}
+
+@router.get("/thumbnail/{category}/{img_id}")
+async def get_thumbnail_from_category(category : str, img_id : int):
+    """
+        TODO docstring
+    """
+    categories_query = CATEGORIES_DB.search(where('category') == category)
+    if not categories_query:
+        return f"There are no images in this category"
+    image_data = categories_query[img_id-1]
+    image_content = FileResponse(f"./data/imagesThumbs/{image_data['year']}/{image_data['location']}/{image_data['image_name']}")
     return image_content

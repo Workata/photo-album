@@ -12,7 +12,7 @@ export default function NoImages() {
 				}}
 			>
 				<Typography variant="h6">
-          There are no images in this folder :(
+          There are no images here :(
         </Typography>
 			</Box>
 	);

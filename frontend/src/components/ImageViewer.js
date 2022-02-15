@@ -22,7 +22,7 @@ import undrawCancel from '../images/undrawCancel.svg';
 export default function ImageViewer(props) {
 
   const [image, setImage] = useState(undrawCancel);
-  const [imageName, setImageName] = useState('???');
+  const [imageName, setImageName] = useState('');
   const [slideshowEnabled, setSlideshowEnabled] = useState(false);
   const [intervalId, setIntervalId] = useState();
 
@@ -31,8 +31,12 @@ export default function ImageViewer(props) {
   const fetchImageContent = async (imgIdToGet) => {
     // console.log(`Triggered fetchImageContent: ${imgIdToGet}`);
     try {
+      let url;
+      if(props.year === "categories") url = `/api/categories/content/${props.location}/${imgIdToGet}`;
+      else url = `/api/images/content/${props.year}/${props.location}/${imgIdToGet}`;
+
       const response = await fetch(
-        `/api/images/content/${props.year}/${props.location}/${imgIdToGet}`,
+        url,
         {
           method: "GET",
           headers: {
@@ -106,7 +110,7 @@ export default function ImageViewer(props) {
         }}
         variant="h5"
       >
-        {imageName}
+        {imageName.split(".")[0]}
       </Typography>
 
       {/* https://stackoverflow.com/questions/7273338/how-to-vertically-align-an-image-inside-a-div */}

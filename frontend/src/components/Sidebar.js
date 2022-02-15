@@ -26,8 +26,12 @@ export default function Sidebar(props) {
   const fetchThumbnail = async (imgIdToGet) => {
     try {
 
+      let url;
+      if(props.year === "categories") url = `/api/categories/thumbnail/${props.location}/${imgIdToGet}`;
+      else url =  `/api/images/thumbnail/${props.year}/${props.location}/${imgIdToGet}`;
+
       const response = await fetch(
-        `/api/images/thumbnail/${props.year}/${props.location}/${imgIdToGet}`,
+        url,
         {
           method: "GET",
           headers: {

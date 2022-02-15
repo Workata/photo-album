@@ -33,8 +33,12 @@ export default function ImageSlider() {
 
   const fetchImagesNames = async () => {
     try {
+      let url;
+      if(year === "categories") url = `/api/categories/names/${location}`;
+      else url = `/api/images/names/${year}/${location}`;
+
       const response = await fetch(
-        `/api/images/names/${year}/${location}`,
+        url,
         {
           method: "GET",
           headers: {
@@ -62,14 +66,14 @@ export default function ImageSlider() {
 
   useEffect(() => {
     // * Redirect to the first picture if no imgId specified
-    if (!imgId)
-      // ! replace instead of push
-      history.replace(`/${year}/${location}/1`);
-    fetchImagesNames(); // also set number of images
+    // ! replace instead of push
+    if (!imgId) history.replace(`/${year}/${location}/1`);
+
+    fetchImagesNames(); // * also set number of images
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // * return "image uploader" if no images in folder and logged in
-  if (tokenValue && !numberOfImages) {
+  if (tokenValue && !numberOfImages && year !== "categories") {
     return (
       <ImageUploader
         year={year}
@@ -80,7 +84,7 @@ export default function ImageSlider() {
   }
 
   // * return "no images in folder" if no images in folder and not logged in
-  if (!tokenValue && !numberOfImages) {
+  if ((!tokenValue && !numberOfImages) || (year === "categories" && !numberOfImages)) {
     return (
       <NoImages/>
     );
@@ -117,7 +121,7 @@ export default function ImageSlider() {
           currentImgId={imgId} //currentImgId
         />
 
-        {tokenValue &&
+        {tokenValue && year !== "categories" &&
           <ImageAdminPanel
             year={year}
             location={location}

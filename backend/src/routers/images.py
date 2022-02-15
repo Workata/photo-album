@@ -40,7 +40,7 @@ async def get_images_names(year : str, location : str):
         return {"img_names": []}
 
     # img_id: 1, 2, 3, 4, ...
-    all_images = [img.split('.')[0] for img in all_images]
+    all_images = [img for img in all_images]  # img.split('.')[0]
     return {"img_names": all_images}
 
 @router.get("/thumbnails/{year}/{location}")

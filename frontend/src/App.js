@@ -12,7 +12,7 @@ import Footer from './components/Footer';
 
 // * pages
 import Home from './pages/Home';
-import ImageSlider from './pages/ViewImages';
+import ViewImages from './pages/ViewImages';
 import ChooseYear from './pages/ChooseYear';
 import ChooseLocation from './pages/ChooseLocation';
 import ChooseCategory from './pages/ChooseCategory';
@@ -75,8 +75,8 @@ function App() {
               <Route exact path="/info" component={Info} />
               <Route exact path="/chooseCategory" component={ChooseCategory} />
               <Route exact path="/map" component={ImagesMap} />
-              <Route exact path="/:year/:location" component={ImageSlider} />
-              <Route exact path="/:year/:location/:imgId" component={ImageSlider} />
+              <Route exact path="/:year/:location" component={ViewImages} />
+              <Route exact path="/:year/:location/:imgId" component={ViewImages} />
               <Route exact path="/years" component={ChooseYear} />
               <Route exact path="/:year" component={ChooseLocation} />
 
