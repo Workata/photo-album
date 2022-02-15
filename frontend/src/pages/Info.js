@@ -21,7 +21,6 @@ export default function Info() {
         borderRadius: "5%",
         backgroundImage: `url(${backgroundImage})`,
       }}
-      className="center"
     >
       {/* TODO add info about this web app */}
       <Typography variant="h6">

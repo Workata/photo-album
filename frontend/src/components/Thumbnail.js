@@ -6,7 +6,8 @@ import {Link} from 'react-router-dom';
 export default function Thumbnail(props) {
 
 	return (
-		<Link 
+		<Link
+			replace
 			to={`/${props.year}/${props.location}/${props.imgNumber}`} 
 		>
 			<Box 

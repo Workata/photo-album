@@ -262,7 +262,7 @@ export default function ImagesMap() {
 
   return (
     <>
-      <div id="mapContainer" className="center">
+      <div id="mapContainer" >
         <div id="mapContent"></div>
       </div>
 

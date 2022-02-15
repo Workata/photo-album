@@ -87,9 +87,7 @@ export default function ImageSlider() {
   }
 
   return (
-    <Box
-      className="center"
-    >
+    <Box>
       <Box
         sx={{
           display: "flex",
@@ -101,7 +99,7 @@ export default function ImageSlider() {
           // alignContent: "flex-start",
           alignItems: "center",
 
-          height: "1000px",
+          height: "900px",
         }}
       >
 

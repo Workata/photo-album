@@ -21,6 +21,7 @@ export default function Appbar() {
 
   return (
     <Box>
+      {/* static */}
       <AppBar position="static">
         <Toolbar 
           sx={{

@@ -1,15 +1,33 @@
-import {Link} from 'react-router-dom';
-import "../css/General.css";
-import "../css/Home.css";
+// * material UI
+import {
+  Box,
+} from '@mui/material';
+
+// * images
+import backgroundImage from '../images/footer_lodyas.png';
 import undrawPhotos_1 from '../images/undrawPhotos_1.svg';
 import undrawPhotos_2 from '../images/undrawPhotos_2.svg';
 import undrawAdventure from '../images/undrawAdventure.svg';
 import undrawMyAnswer from '../images/undrawMyAnswer.svg';
 
+import {Link} from 'react-router-dom';
+import "../css/General.css";
+import "../css/Home.css";
+
+
 export default function Home() {
 
     return (
-      <div id="menuContainer" className="center">
+      <Box
+        sx={{
+          width: "700px",
+          height: "700px",
+          borderStyle: "solid",
+          borderColor: "white",
+          borderRadius: "5%",
+          backgroundImage: `url(${backgroundImage})`,
+        }}
+      >
 
         <Link to="/years" className="temp">
           <div className="menu-element">
@@ -67,6 +85,6 @@ export default function Home() {
 
         <div style={{clear: "both"}}></div>
 
-      </div>
+      </Box>
     );
   }

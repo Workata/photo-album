@@ -102,7 +102,6 @@ export default function ChooseLocation() {
           flexWrap: "wrap",
           alignContent: "flex-start",
         }}
-        className="center"
       >
         {availableLocations.map((location) => {
             return( 

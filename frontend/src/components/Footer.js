@@ -1,18 +1,12 @@
-import {
-  Box,
-} from '@mui/material';
-
 export default function Footer() {
   return (
-    <Box
-      color="primary"
-    >
       <footer
         style={{
           position: "fixed",
           height: "30px",
           left: "0",
           bottom: "0",
+          zIndex: "-1",
           width: "100%",
           backgroundColor: "#fafffd",
           color: "black",
@@ -22,6 +16,5 @@ export default function Footer() {
       >
         © 2022 www.tomtol.pl Some Rights Reserved
       </footer>
-    </Box>
   );
 }

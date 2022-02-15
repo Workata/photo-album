@@ -47,7 +47,9 @@ export default function Login() {
 
     return (
     <ThemeProvider theme={formTheme}>
-      <div id="loginInputContainer" className="center">
+      <div 
+        id="loginInputContainer"
+      >
           <h2>Sign In</h2>
           <TextField
             color="primary"

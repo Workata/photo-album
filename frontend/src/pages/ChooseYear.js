@@ -96,7 +96,6 @@ export default function ChooseYear() {
           flexWrap: "wrap",
           alignContent: "flex-start",
         }}
-        className="center"
       >
         {
           availableYears.map((year) => {
