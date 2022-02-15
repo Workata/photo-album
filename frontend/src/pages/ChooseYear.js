@@ -41,7 +41,7 @@ export default function ChooseYear() {
       )
       const dataYears = await response.json();
       setAvailableYears(dataYears)
-      console.log(dataYears);
+      // console.log(dataYears);
     } catch (error) {
       console.error("Error: ", error);
     }

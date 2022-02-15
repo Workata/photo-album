@@ -33,7 +33,7 @@ export default function ContextProvider(props) {
         c = c.substring(1);
       }
       if (c.indexOf(name) === 0) {
-        console.log("here");
+        // console.log("here");
         return c.substring(name.length, c.length);
       }
     }

@@ -47,7 +47,7 @@ export default function ChooseLocation() {
       )
       const dataLocations = await response.json();
       setAvailableLocations(dataLocations);
-      console.log(dataLocations);
+      // console.log(dataLocations);
     } catch (error) {
       console.error("Error: ", error);
     }
