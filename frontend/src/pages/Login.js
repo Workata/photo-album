@@ -67,8 +67,10 @@ export default function Login() {
               marginTop: "20px",
               marginBottom: "20px"
             }}
-            variant='h5'>Sign In</Typography>
-          {/* <h2>Sign In</h2> */}
+            variant='h5'
+          >
+            Sign In
+          </Typography>
 
           <TextField
             sx={{
