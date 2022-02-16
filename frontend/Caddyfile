@@ -1,0 +1,17 @@
+https://www.tomtol.com {
+	redir https://tomtol.com{uri}
+}
+
+https://tomtol.com {
+	encode gzip
+	root * /var/www/html
+
+	handle /api/* {
+		reverse_proxy backend-container:80
+	}
+
+	handle {
+		try_files {path} /index.html
+		file_server
+	}
+}
