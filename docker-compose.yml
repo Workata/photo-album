@@ -9,15 +9,15 @@ services:
     volumes:
       - "./backend/data:/backend/data"
   
-  frontend:
-    container_name: frontend-container
-    restart: always
-    build: ./frontend
-    ports:
-      - "443:443"
-      - "80:80"
-    volumes:
-      - "./caddy-data:/data"
+  # frontend:
+  #   container_name: frontend-container
+  #   restart: always
+  #   build: ./frontend
+  #   ports:
+  #     - "443:443"
+  #     - "80:80"
+  #   volumes:
+  #     - "./caddy-data:/data"
 
 # MANUAL
 # sudo docker-compose build (build images)
