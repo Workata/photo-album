@@ -1,8 +1,8 @@
-https://www.tomtol.com {
-	redir https://tomtol.com{uri}
+https://tomtol.pictures {
+	redir https://tomtol.pictures{uri}
 }
 
-https://tomtol.com {
+https://tomtol.pictures {
 	encode gzip
 	root * /var/www/html
 
