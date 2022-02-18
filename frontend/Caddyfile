@@ -1,4 +1,4 @@
-https://tomtol.pictures {
+https://www.tomtol.pictures {
 	redir https://tomtol.pictures{uri}
 }
 
