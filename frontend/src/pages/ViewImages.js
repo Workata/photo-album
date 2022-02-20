@@ -111,6 +111,7 @@ export default function ImageSlider() {
           year={year}
           location={location}
           numberOfImages={numberOfImages}
+          currentImgId={imgId}
         />
 
         <ImageViewer
@@ -118,7 +119,7 @@ export default function ImageSlider() {
           location={location}
           numberOfImages={numberOfImages}
           imagesNames={imagesNames}
-          currentImgId={imgId} //currentImgId
+          currentImgId={imgId}
         />
 
         {tokenValue && year !== "categories" &&

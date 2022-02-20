@@ -37,7 +37,7 @@ export default function ImageAdminPanel(props) {
         }
       )
       const res = await response.json();
-      console.log(res);
+      // console.log(res);
       setCurrentImgCategories(res);
 
 

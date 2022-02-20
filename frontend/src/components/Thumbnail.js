@@ -10,16 +10,22 @@ export default function Thumbnail(props) {
 			replace
 			to={`/${props.year}/${props.location}/${props.imgNumber}`} 
 		>
+			{/* thumbnail wrapper */}
 			<Box 
 				sx = {{
-					// TODO thumbnail style
 					marginTop: "5px",
-					// border: "solid",
-					// borderColor: "white",
 				}}
 			>
+				{/* thumbnail */}
 				<img 
-					style={{borderRadius: "5px"}}
+					style = {{
+						// * conditional border styling -> currently selected picture
+						// ! "===" doesnt work in this case, idk why
+						// eslint-disable-next-line eqeqeq
+						border: (props.currentImgId == props.imgNumber) && "2px dashed white",
+
+						borderRadius: "5px",
+					}}
 					src={props.thumbnail} 
 					key={props.imgNumber} 
 					alt="thumbnail" 

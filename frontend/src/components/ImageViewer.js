@@ -103,7 +103,12 @@ export default function ImageViewer(props) {
         height: "700px",
       }}
     >
-
+      <Typography
+        variant="h6"
+      >
+        {/* {`./${props.year}/${props.location}/`} */}
+        {`${props.year} > ${props.location}`}
+      </Typography>
       <Typography
         sx={{
           marginBottom: "10px",

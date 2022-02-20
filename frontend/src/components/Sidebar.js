@@ -1,7 +1,6 @@
 // * material UI
 import {
   Box,
-  Typography,
 } from '@mui/material';
 
 // * others
@@ -13,9 +12,6 @@ import Thumbnail from './Thumbnail';
 
 // * images
 import backgroundImage from '../images/footer_lodyas.png';
-
-// ! it uses old version of MUI (v4 instead of v5 :()
-// import Image from 'material-ui-image' 
 
 export default function Sidebar(props) {
 
@@ -62,12 +58,6 @@ export default function Sidebar(props) {
   return (
     <Box
       sx={{
-        // ! absolute out !!!
-        // position: "absolute",
-        // top: "110px",
-        // left: "50px",
-        // ! absolute out !!!
-
         width: "200px",
         height: "80%",
 
@@ -79,15 +69,8 @@ export default function Sidebar(props) {
         backgroundImage: `url(${backgroundImage})`,
         display: "flex",
         flexDirection: "column",
-
       }}
     >
-      <Typography
-        variant="h6"
-      >
-        {props.year} {">>"} {props.location}
-      </Typography>
-
       {/* Thumbnail container */}
       <Box
         sx={{
@@ -95,7 +78,7 @@ export default function Sidebar(props) {
           overflowY: 'auto', // display scroll bar after overflow
         }}
       >
-        {canInsert ? (
+        {canInsert &&
           thumbnails.map((thumbnail, i) => {
             return (
               <Thumbnail
@@ -104,12 +87,10 @@ export default function Sidebar(props) {
                 imgNumber={i + 1}
                 thumbnail={thumbnail}
                 key={uniqid()}
+                currentImgId={props.currentImgId}
               />
             )
           })
-        ) : (
-          console.log("Not loaded")
-        )
         }
       </Box>
     </Box>
