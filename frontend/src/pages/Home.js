@@ -18,8 +18,8 @@ export default function Home() {
   return (
     <Box
       sx={{
-        width: "700px",
-        height: "700px",
+        width: "665px",
+        height: "665px",
         borderStyle: "solid",
         borderColor: "white",
         borderRadius: "5%",
@@ -28,7 +28,9 @@ export default function Home() {
         display: "flex",
         flexDirection: "row",
         flexWrap: "wrap",
-        alignContent: "flex-start"
+        alignContent: "flex-start",
+
+        padding: "20px"
       }}
     >
       <MainMenuButton

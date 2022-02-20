@@ -23,16 +23,20 @@ export default function ChooseCategory() {
 		<Box
 			sx={{
 				width: "1050px",
-				height: "700px",
+				height: "660px",
 				borderStyle: "solid",
 				borderColor: "white",
 				borderRadius: "5%",
 				backgroundImage: `url(${backgroundImage})`,
+				
 
 				display: "flex",
         flexDirection: "row",
         flexWrap: "wrap",
-        alignContent: "flex-start"
+        alignContent: "flex-start",
+				justifyContent: "space-evenly",
+
+				padding: "20px"
 			}}
 		>
 

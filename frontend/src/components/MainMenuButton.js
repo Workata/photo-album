@@ -15,14 +15,13 @@ export default function MainMenuButton(props) {
       to={props.buttonLink}
       style={{
         textDecoration: "none",
+        margin: "15px"
       }}
     >
       <Box
         sx={{
           width: "300px",
           height: "300px",
-          marginTop: "33px",
-          marginLeft: "33px",
           backgroundColor: "white",
           borderRadius: "10%",
           transition: "transform .2s",
