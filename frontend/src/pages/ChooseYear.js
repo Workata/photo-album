@@ -1,22 +1,19 @@
+// * material UI
 import {
   Button,
   Typography,
   TextField,
-  Box,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle
 }
   from '@mui/material';
+
 // * components
-import YearLocationBox from '../components/YearLocationBox';
-import YearLocationAddBox from '../components/YearLocationAddBox';
-// * images
-import backgroundImage from '../images/footer_lodyas.png';
+import YearLocationContainer from '../components/YearLocationContainer';
 
-import uniqid from 'uniqid';
-
+// * others
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from './../contexts/AppContext';
 import "../css/General.css";
@@ -26,7 +23,7 @@ export default function ChooseYear() {
   const [availableYears, setAvailableYears] = useState([]);
   const [isAddYearDialogOpen, setIsAddYearDialogOpen] = useState(false);
   const [newYearToAdd, setNewYearToAdd] = useState();
-  const {tokenValue } = useContext(AppContext);
+  const { tokenValue } = useContext(AppContext);
 
   const fetchYears = async () => {
     try {
@@ -74,42 +71,19 @@ export default function ChooseYear() {
   };
 
   useEffect(() => {
-    fetchYears();   //
+    fetchYears();
   }, []);
 
 
   return (
     <>
-      <Box 
-        sx={{
-          width: "700px",
-          minHeight: "400px",
-          height: "auto",
-          borderStyle: "solid",
-          borderColor: "white",
-          borderRadius: "5%",
-          backgroundImage: `url(${backgroundImage})`,
-
-          // layout
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignContent: "flex-start",
-        }}
-      >
-        {
-          availableYears.map((year) => {
-            return( 
-              <YearLocationBox
-                key={uniqid()}
-                link={`/${year}`}
-                text={year}
-              />
-            )
-          })
-        }
-        { tokenValue && <YearLocationAddBox action={setIsAddYearDialogOpen}/> }
-      </Box>
+      <YearLocationContainer
+        items={availableYears}
+        tokenValue={tokenValue}
+        dialogAction={setIsAddYearDialogOpen}
+        containerTitle={"Select year"}
+        linkPrefix={""}
+      />
 
       <Dialog
         open={isAddYearDialogOpen}
@@ -127,15 +101,11 @@ export default function ChooseYear() {
         </DialogTitle>
         <DialogContent>
           <TextField
-            // onKeyPress={handleEnterPress}
             autoFocus
             margin="dense"
-            // id="name"
             label="Year"
             type="number"
-            // value={ownerToAdd}
             fullWidth
-            // className={}
             onChange={(event) => {
               setNewYearToAdd(event.target.value);
             }}
@@ -144,7 +114,6 @@ export default function ChooseYear() {
             <Button
               color="primary"
               variant="contained"
-              // className={classes.buttonAddOwner}
               onClick={addNewYear}
             >
               Add year

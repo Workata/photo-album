@@ -20,9 +20,6 @@ export default function YearLocationBox(props) {
 					marginRight: "20px",
 					borderRadius: "10%",
 
-					// /* layout */
-					// float:left;
-
 					/* font */
 					fontSize: "20px",
 					fontWeight: "700",

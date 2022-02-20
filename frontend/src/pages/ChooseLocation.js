@@ -3,7 +3,6 @@ import {
   Button,
   Typography,
   TextField,
-  Box,
   Dialog,
   DialogActions,
   DialogContent,
@@ -12,13 +11,9 @@ import {
   from '@mui/material';
 
 // * components
-import YearLocationBox from '../components/YearLocationBox';
-import YearLocationAddBox from '../components/YearLocationAddBox';
+import YearLocationContainer from '../components/YearLocationContainer';
 
-// * images
-import backgroundImage from '../images/footer_lodyas.png';
-
-import uniqid from 'uniqid';
+// * others
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from './../contexts/AppContext';
 import "../css/General.css";
@@ -80,41 +75,19 @@ export default function ChooseLocation() {
   };
 
   useEffect(() => {
-    fetchLocations();   //
+    fetchLocations();
   }, []);   // eslint-disable-line react-hooks/exhaustive-deps
 
 
   return (
     <>
-      <Box 
-        sx={{
-          width: "700px",
-          minHeight: "400px",
-          height: "auto",
-          borderStyle: "solid",
-          borderColor: "white",
-          borderRadius: "5%",
-          backgroundImage: `url(${backgroundImage})`,
-
-          // layout
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignContent: "flex-start",
-        }}
-      >
-        {availableLocations.map((location) => {
-            return( 
-              <YearLocationBox
-                key={uniqid()}
-                link={`/${year}/${location}`}
-                text={location}
-              />
-            )
-          })
-        }
-        { tokenValue && <YearLocationAddBox action={setIsAddLocationDialogOpen}/> }
-      </Box>
+      <YearLocationContainer
+        items={availableLocations}
+        tokenValue={tokenValue}
+        dialogAction={setIsAddLocationDialogOpen}
+        containerTitle={"Select location"}
+        linkPrefix={`/${year}`}
+      />
 
       <Dialog
         open={isAddLocationDialogOpen}
