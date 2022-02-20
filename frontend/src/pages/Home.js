@@ -3,6 +3,9 @@ import {
   Box,
 } from '@mui/material';
 
+// * components
+import MainMenuButton from '../components/MainMenuButton';
+
 // * images
 import backgroundImage from '../images/footer_lodyas.png';
 import undrawPhotos_1 from '../images/undrawPhotos_1.svg';
@@ -10,81 +13,47 @@ import undrawPhotos_2 from '../images/undrawPhotos_2.svg';
 import undrawAdventure from '../images/undrawAdventure.svg';
 import undrawMyAnswer from '../images/undrawMyAnswer.svg';
 
-import {Link} from 'react-router-dom';
-import "../css/General.css";
-import "../css/Home.css";
-
-
 export default function Home() {
 
-    return (
-      <Box
-        sx={{
-          width: "700px",
-          height: "700px",
-          borderStyle: "solid",
-          borderColor: "white",
-          borderRadius: "5%",
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
+  return (
+    <Box
+      sx={{
+        width: "700px",
+        height: "700px",
+        borderStyle: "solid",
+        borderColor: "white",
+        borderRadius: "5%",
+        backgroundImage: `url(${backgroundImage})`,
 
-        <Link to="/years" className="temp">
-          <div className="menu-element">
-            <img id="menuElementImgPictures" className="menu-element-img"
-                src={undrawPhotos_1}
-                alt="UndrawPhotos_1"
-              />
-            <br></br>
-            <span className="menu-element-title">
-               Pictures
-            </span>
-          </div>
-        </Link>
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignContent: "flex-start"
+      }}
+    >
+      <MainMenuButton
+        buttonLink={"/years"}
+        buttonImage={undrawPhotos_1}
+        buttonTitle={"Pictures"}
+      />
 
-        <Link to="/chooseCategory" className="temp">
-          <div className="menu-element">
-            <img id="menuElementImgCategories" className="menu-element-img"
-                src={undrawPhotos_2}
-                alt="UndrawMap"
-              />
-              <br></br>
-              <span className="menu-element-title">
-                Categories
-              </span>
-          </div>
-        </Link>
+      <MainMenuButton
+        buttonLink={"/chooseCategory"}
+        buttonImage={undrawPhotos_2}
+        buttonTitle={"Categories"}
+      />
 
-        <div style={{clear: "both"}}></div>
+      <MainMenuButton
+        buttonLink={"/map"}
+        buttonImage={undrawAdventure}
+        buttonTitle={"Map"}
+      />
 
-        <Link to="/map" className="temp">
-          <div className="menu-element">
-            <img id="menuElementImgMap" className="menu-element-img"
-                src={undrawAdventure}
-                alt="undrawAdventure"
-              />
-            <br></br>
-            <span className="menu-element-title">
-              Map
-            </span>
-          </div>
-        </Link>
-
-        <Link to="/info" className="temp">
-          <div className="menu-element">
-            <img id="menuElementImgInfo" className="menu-element-img"
-                src={undrawMyAnswer}
-                alt="undrawMyAnswer"
-              />
-            <br></br>
-            <span className="menu-element-title">
-              Info
-            </span>
-          </div>
-        </Link>
-
-        <div style={{clear: "both"}}></div>
-
-      </Box>
-    );
-  }
+      <MainMenuButton
+        buttonLink={"/info"}
+        buttonImage={undrawMyAnswer}
+        buttonTitle={"Info"}
+      />
+    </Box>
+  );
+}
