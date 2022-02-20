@@ -1,6 +1,16 @@
-import { Link } from 'react-router-dom';
+// * material UI
+import {
+	Box,
+} from '@mui/material';
+
+// * components
+import MainMenuButton from '../components/MainMenuButton';
+
+// * others
 import "../css/General.css";
-import "../css/ChooseCategory.css";
+
+// * images
+import backgroundImage from '../images/footer_lodyas.png';
 import undrawLandscapeMode from '../images/undrawLandscapeMode.svg';
 import undrawOffRoad from '../images/undrawOffRoad.svg';
 import undrawGardening from '../images/undrawGardening.svg';
@@ -9,79 +19,53 @@ import undrawPlayfulCat from '../images/undrawPlayfulCat.svg';
 
 export default function ChooseCategory() {
 
-	// TODO change menu items for components
 	return (
-		<div id="chooseCategoryMenuContainer" >
+		<Box
+			sx={{
+				width: "1050px",
+				height: "700px",
+				borderStyle: "solid",
+				borderColor: "white",
+				borderRadius: "5%",
+				backgroundImage: `url(${backgroundImage})`,
 
-			<Link to="/categories/landscape" className="temp">
-				<div className="category-menu-element">
-					<img id="menuElementImgLandscape" className="category-menu-element-img"
-						src={undrawLandscapeMode}
-						alt="undrawLandscapeMode"
-					/>
-					<br></br>
-					<span className="category-menu-element-title">
-						Landscape
-					</span>
-				</div>
-			</Link>
+				display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignContent: "flex-start"
+			}}
+		>
 
-			<Link to="/categories/cars" className="temp">
-				<div className="category-menu-element">
-					<img id="menuElementImgCars" className="category-menu-element-img"
-						src={undrawOffRoad}
-						alt="undrawOffRoad"
-					/>
-					<br></br>
-					<span className="category-menu-element-title">
-						Cars
-					</span>
-				</div>
-			</Link>
+			<MainMenuButton
+				buttonLink={"/categories/landscape"}
+				buttonImage={undrawLandscapeMode}
+				buttonTitle={"Landscape"}
+			/>
 
-			<Link to="/categories/flora" className="temp">
-				<div className="category-menu-element">
-					<img id="menuElementImgFlora" className="category-menu-element-img"
-						src={undrawGardening}
-						alt="undrawGardening"
-					/>
-					<br></br>
-					<span className="category-menu-element-title">
-						Flora
-					</span>
-				</div>
-			</Link>
+			<MainMenuButton
+				buttonLink={"/categories/cars"}
+				buttonImage={undrawOffRoad}
+				buttonTitle={"Cars"}
+			/>
 
-			<div style={{ clear: "both" }}></div>
+			<MainMenuButton
+				buttonLink={"/categories/flora"}
+				buttonImage={undrawGardening}
+				buttonTitle={"Flora"}
+			/>
 
-			<Link to="/categories/birds" className="temp">
-				<div id="menuElementBird" className="category-menu-element">
-					<img id="menuElementImgBird" className="category-menu-element-img"
-						src={undrawMusicBird}
-						alt="undrawMusicBird"
-					/>
-					<br></br>
-					<span className="category-menu-element-title">
-						Birds
-					</span>
-				</div>
-			</Link>
+			<MainMenuButton
+				buttonLink={"/categories/birds"}
+				buttonImage={undrawMusicBird}
+				buttonTitle={"Birds"}
+			/>
 
-			<Link to="/categories/wildlife" className="temp">
-				<div className="category-menu-element">
-					<img id="menuElementImgWildlife" className="category-menu-element-img"
-						src={undrawPlayfulCat}
-						alt="undrawPlayfulCat"
-					/>
-					<br></br>
-					<span className="category-menu-element-title">
-						Wildlife
-					</span>
-				</div>
-			</Link>
+			<MainMenuButton
+				buttonLink={"/categories/wildlife"}
+				buttonImage={undrawPlayfulCat}
+				buttonTitle={"Wildlife"}
+			/>
 
-			<div style={{ clear: "both" }}></div>
-
-		</div>
+		</Box>
 	);
 }
