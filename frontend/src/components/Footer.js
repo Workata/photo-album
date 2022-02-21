@@ -2,11 +2,10 @@ export default function Footer() {
   return (
       <footer
         style={{
-          // position: "fixed",
-          // left: "0",
-          // bottom: "0",
-          // zIndex: "-1",
           height: "30px",
+
+          // https://stackoverflow.com/questions/55541850/how-to-make-footer-stay-at-bottom-of-the-page-with-flex-box
+          // ! keep footer at the bottom
           marginTop: "auto",
 
           width: "100%",
