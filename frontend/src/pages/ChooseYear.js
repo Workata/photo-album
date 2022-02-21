@@ -23,7 +23,9 @@ export default function ChooseYear() {
   const [availableYears, setAvailableYears] = useState([]);
   const [isAddYearDialogOpen, setIsAddYearDialogOpen] = useState(false);
   const [newYearToAdd, setNewYearToAdd] = useState();
+  const [yearErrorMsg, setYearErrorMsg] = useState('');
   const { tokenValue } = useContext(AppContext);
+
 
   const fetchYears = async () => {
     try {
@@ -45,6 +47,8 @@ export default function ChooseYear() {
   };
 
   const addNewYear = async () => {
+    if(yearErrorMsg || !newYearToAdd) return;
+
     try {
       const response = await fetch(
         `/api/locations/create/year/${newYearToAdd}`,
@@ -62,6 +66,7 @@ export default function ChooseYear() {
     } catch (error) {
       console.error("Error: ", error);
     }
+    setNewYearToAdd();
     handleYearDialogExit();
   };
 
@@ -90,42 +95,74 @@ export default function ChooseYear() {
         onClose={handleYearDialogExit}
         aria-labelledby="form-dialog-title"
       >
+
         <DialogTitle id="form-dialog-title">
-          <div>
-            <div>
-              <Typography variant="h6">
-                Add new year
-              </Typography>
-            </div>
-          </div>
+          <Typography variant="h6">
+            Add new year
+          </Typography>
         </DialogTitle>
-        <DialogContent>
+
+        <DialogContent
+          sx={{
+            width: "250px",
+            height: "100px"
+          }}
+        >
           <TextField
+            sx = {{
+              width: "200px",
+            }}
             autoFocus
             margin="dense"
             label="Year"
             type="number"
+
             fullWidth
             onChange={(event) => {
-              setNewYearToAdd(event.target.value);
+              var value = event.target.value;
+
+              // console.log(typeof value); // string
+
+              if (value === '') setYearErrorMsg('');
+              else if (value.includes("-")) // TODO fix this
+                setYearErrorMsg('Value must be a positive integer!');
+              else if (parseInt(value) < 1800 || parseInt(value) > 2300)
+                setYearErrorMsg('Value must be between 1800 and 2300!');
+              else  setYearErrorMsg('');
+
+              setNewYearToAdd(value);
             }}
           />
-          <div>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={addNewYear}
-            >
-              Add year
-            </Button>
-          </div>
+
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "13px"
+            }}
+          >
+            {yearErrorMsg}
+          </Typography>
 
         </DialogContent>
+
         <DialogActions>
-          <Button onClick={handleYearDialogExit} color="primary">
+
+          <Button
+            color="primary"
+            onClick={addNewYear}
+          >
+            Add year
+          </Button>
+
+          <Button
+            color="primary"
+            onClick={handleYearDialogExit}
+          >
             Close
           </Button>
+
         </DialogActions>
+
       </Dialog>
     </>
   );
