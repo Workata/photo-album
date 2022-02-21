@@ -102,7 +102,7 @@ export default function ImageSlider() {
         // alignContent: "flex-start",
         alignItems: "center",
 
-        height: "900px",
+        height: "750px",
       }}
     >
 
