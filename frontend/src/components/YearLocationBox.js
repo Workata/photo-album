@@ -6,19 +6,25 @@ import { Link } from 'react-router-dom';
 export default function YearLocationBox(props) {
 
 	return (
-		<Link to={props.link} className="non-decorated-link">
+		<Link
+			style={{
+				textDecoration: "none",
+				margin: "20px"
+			}}
+			to={props.link} 
+		>
 			<Box
 				sx={{
-					width: "100px",
+					minWidth: "80px",
 					height: "100px",
+					paddingLeft: "10px",
+					paddingRight: "10px",
+
+					// overflowWrap: "break-word",
 
 					backgroundColor: "white",
 					color: "black",
-					marginTop: "20px",
-					marginBottom: "20px",
-					marginLeft: "20px",
-					marginRight: "20px",
-					borderRadius: "10%",
+					borderRadius: "10px",
 
 					/* font */
 					fontSize: "20px",

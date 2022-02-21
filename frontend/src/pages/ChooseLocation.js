@@ -24,6 +24,7 @@ export default function ChooseLocation() {
 
   const { year } = useParams();
   const [availableLocations, setAvailableLocations] = useState([]);
+  const [locationErrorMsg, setLocationErrorMsg] = useState('');
   const [isAddLocationDialogOpen, setIsAddLocationDialogOpen] = useState(false);
   const [newLocationToAdd, setNewLocationToAdd] = useState([]);
   const { tokenValue } = useContext(AppContext);
@@ -94,16 +95,19 @@ export default function ChooseLocation() {
         onClose={handleLocationDialogExit}
         aria-labelledby="form-dialog-title"
       >
+
         <DialogTitle id="form-dialog-title">
-          <div>
-            <div>
-              <Typography variant="h6">
-                Add new location
-              </Typography>
-            </div>
-          </div>
+          <Typography variant="h6">
+            Add new location
+          </Typography>
         </DialogTitle>
-        <DialogContent>
+
+        <DialogContent
+          sx={{
+            width: "250px",
+            height: "100px"
+          }}
+        >
           <TextField
             autoFocus
             margin="dense"
@@ -111,25 +115,42 @@ export default function ChooseLocation() {
             type="text"
             fullWidth
             onChange={(event) => {
-              setNewLocationToAdd(event.target.value);
+              var value = event.target.value;
+              // TODO validation
+              if (value === '') setLocationErrorMsg('');
+
+
+              setNewLocationToAdd(value);
             }}
           />
-          <div>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={addNewLocation}
-            >
-              Add location
-            </Button>
-          </div>
+
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "13px"
+            }}
+          >
+            {locationErrorMsg}
+          </Typography>
 
         </DialogContent>
+
         <DialogActions>
-          <Button onClick={handleLocationDialogExit} color="primary">
+          <Button
+            color="primary"
+            onClick={addNewLocation}
+          >
+            Add location
+          </Button>
+
+          <Button 
+            onClick={handleLocationDialogExit} 
+            color="primary"
+          >
             Close
           </Button>
         </DialogActions>
+
       </Dialog>
     </>
   );
