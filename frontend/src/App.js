@@ -22,12 +22,6 @@ import Info from './pages/Info';
 
 import { AppContext } from './contexts/AppContext';
 
-// * html tags in head part - title of page
-// Helmet not needed, changes in public/index.html
-// import {Helmet} from "react-helmet";
-
-
-
 function App() {
 
   const { getTokenCookie, tokenValue, setTokenValue } = useContext(AppContext);
@@ -47,6 +41,9 @@ function App() {
           textAlign: "center",
           color: "white",
           height: "100%",
+
+          display: "flex",
+          flexDirection: "column"
         }}
       >
 
@@ -56,9 +53,16 @@ function App() {
           id="switchWrapper"
           sx={{
             width: "100%",
-            height: "calc(100% - (100px + 30px))",
-            paddingTop: "30px",
-            marginBottom: "30px",
+            height: "auto",
+
+            // * gap between appbar and footer
+            paddingTop: "20px",
+            paddingBottom: "20px",
+
+            // * center content
+            marginTop: "auto",
+            marginBottom: "auto",
+            
             display: "flex",
             flexFlow: "column",
           }}
@@ -66,7 +70,7 @@ function App() {
           <Box
             sx={{
               margin: "auto",
-              paddingBottom: "50px"
+              // paddingBottom: "50px"
             }}
           >
             <Switch>

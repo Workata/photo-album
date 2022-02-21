@@ -2,11 +2,13 @@ export default function Footer() {
   return (
       <footer
         style={{
-          position: "fixed",
+          // position: "fixed",
+          // left: "0",
+          // bottom: "0",
+          // zIndex: "-1",
           height: "30px",
-          left: "0",
-          bottom: "0",
-          zIndex: "-1",
+          marginTop: "auto",
+
           width: "100%",
           backgroundColor: "#fafffd",
           color: "black",

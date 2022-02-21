@@ -3,7 +3,7 @@ import {
   Box,
 } from '@mui/material';
 
-import React, { useEffect, useState, useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from '../contexts/AppContext';
 import { useParams } from "react-router-dom";
 import "../css/ImageSlider.css";
@@ -27,14 +27,14 @@ export default function ImageSlider() {
   const [numberOfImages, setNumberOfImages] = useState(0); // None
   const [imagesNames, setImagesNames] = useState(['img name']);
 
-  const {tokenValue} = useContext(AppContext);
+  const { tokenValue } = useContext(AppContext);
 
   let history = useHistory();
 
   const fetchImagesNames = async () => {
     try {
       let url;
-      if(year === "categories") url = `/api/categories/names/${location}`;
+      if (year === "categories") url = `/api/categories/names/${location}`;
       else url = `/api/images/names/${year}/${location}`;
 
       const response = await fetch(
@@ -86,52 +86,50 @@ export default function ImageSlider() {
   // * return "no images in folder" if no images in folder and not logged in
   if ((!tokenValue && !numberOfImages) || (year === "categories" && !numberOfImages)) {
     return (
-      <NoImages/>
+      <NoImages />
     );
   }
 
   return (
-    <Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "100px",
-          // flexShrink: 0,
-          // flexBasis: "100%",
-          // flexGrow: 0,
-          // alignContent: "flex-start",
-          alignItems: "center",
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        gap: "100px",
+        // flexShrink: 0,
+        // flexBasis: "100%",
+        // flexGrow: 0,
+        // alignContent: "flex-start",
+        alignItems: "center",
 
-          height: "900px",
-        }}
-      >
+        height: "900px",
+      }}
+    >
 
-        <Sidebar
+      <Sidebar
+        year={year}
+        location={location}
+        numberOfImages={numberOfImages}
+        currentImgId={imgId}
+      />
+
+      <ImageViewer
+        year={year}
+        location={location}
+        numberOfImages={numberOfImages}
+        imagesNames={imagesNames}
+        currentImgId={imgId}
+      />
+
+      {tokenValue && year !== "categories" &&
+        <ImageAdminPanel
           year={year}
           location={location}
-          numberOfImages={numberOfImages}
-          currentImgId={imgId}
-        />
-
-        <ImageViewer
-          year={year}
-          location={location}
-          numberOfImages={numberOfImages}
           imagesNames={imagesNames}
           currentImgId={imgId}
+          tokenValue={tokenValue}
         />
-
-        {tokenValue && year !== "categories" &&
-          <ImageAdminPanel
-            year={year}
-            location={location}
-            imagesNames={imagesNames}
-            currentImgId={imgId}
-            tokenValue={tokenValue}
-          />
-        }
-      </Box>
+      }
     </Box>
   );
 }
