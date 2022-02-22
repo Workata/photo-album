@@ -4,11 +4,10 @@ import { AppContext } from '../contexts/AppContext';
 
 // * material ui
 import {
-  Typography,
   TextField,
   Button,
   IconButton,
-
+  Box,
   Dialog,
   DialogContent,
   DialogActions,
@@ -19,9 +18,9 @@ import { DataGrid } from '@mui/x-data-grid';
 
 // * styles
 import "../css/General.css";
-import "../css/ImagesMap.css";
-import formThemeV2 from "../themes/formThemeV2";
-import { ThemeProvider } from '@mui/material/styles';
+
+// * images
+import backgroundImage from '../images/footer_lodyas.png';
 
 // * openlayers
 import Map from 'ol/Map';
@@ -111,7 +110,7 @@ export default function ImagesMap() {
       )
       const dataMarkers = await response.json();
 
-      if(dataMarkers.length === 0) setMapContainsMarkers(false);
+      if (dataMarkers.length === 0) setMapContainsMarkers(false);
       else setMapContainsMarkers(true)
 
       setAvailableMarkers(dataMarkers);
@@ -119,7 +118,7 @@ export default function ImagesMap() {
       // available markers collection with id for data grid
       const dataMarkersWithId = dataMarkers.map(
         (marker) => ({
-          id: JSON.stringify({'latitude': marker.latitude, 'longitude': marker.longitude}),
+          id: JSON.stringify({ 'latitude': marker.latitude, 'longitude': marker.longitude }),
           urlField: marker.url,
           latitudeField: marker.latitude,
           longitudeField: marker.longitude,
@@ -187,11 +186,8 @@ export default function ImagesMap() {
   };
 
   const addMarkersOnMap = (mainMap) => {
-
     var featuresToAdd = [];
-
-    console.log("Add markers on map:");
-    console.log(availableMarkers);
+    // console.log(`Placing markers on map... ${availableMarkers}`);
 
     for (var i = 0; i < availableMarkers.length; i++) {
       featuresToAdd.push(new Feature({
@@ -255,67 +251,91 @@ export default function ImagesMap() {
   }, []);
 
   useEffect(() => {
-    if(mapContainsMarkers === false && mapLoaded !== true) setupMap();
-    if(mapContainsMarkers === true &&
-       availableMarkers.length !== 0 && mapLoaded !== true) setupMap();
+    if (mapContainsMarkers === false && mapLoaded !== true) setupMap();
+    if (mapContainsMarkers === true &&
+      availableMarkers.length !== 0 && mapLoaded !== true) setupMap();
   }, [mapContainsMarkers, availableMarkers]);   // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
-      <div id="mapContainer" >
-        <div id="mapContent"></div>
-      </div>
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        <Box
+          sx={{
+            width: "1200px",
+            height: "800px",
+            border: "solid",
+            borderRadius: "5px",
+          }}
+        >
+          {/* map content (div id) is a target for setupMap() */}
+          <Box
+            sx={{
+              width: "1200px",
+              height: "800px",
+              borderRadius: "5%",
+            }}
+            id="mapContent"
+          />
+        </Box>
 
-      {tokenValue &&
-        <ThemeProvider theme={formThemeV2}>
-          <div id="markerMenu" className="center-vertically">
+        {tokenValue &&
+          <Box
+            sx={{
+              width: "180px",
+              height: "170px",
+              borderStyle: "solid",
+              borderColor: "white",
+              borderRadius: "5%",
+              backgroundImage: `url(${backgroundImage})`,
+              marginTop: "auto",
+              marginBottom: "auto",
+              marginLeft: "50px",
+            }}
+          >
             <Button
-              //className={classes.markerButton}
               variant="contained"
               size="medium"
+              color="secondary"
               onClick={() => { setIsAddMarkerDialogOpen(true) }}
               sx={{
-                marginTop: 1,
-                marginBottom: 2,
+                marginTop: "30px",
               }}
             >
               Add marker
             </Button>
 
             <Button
-              //className={classes.markerButton}
+              // color="primary.main"
               variant="contained"
               size="medium"
+              color="secondary"
               onClick={() => { setIsDeleteMarkerDialogOpen(true) }}
               sx={{
-                marginTop: 2,
-                marginBottom: 2,
+                marginTop: "30px",
               }}
             >
               Delete marker
             </Button>
-          </div>
-        </ThemeProvider>
-      }
+          </Box>
+        }
+      </Box>
 
-      {/* Add marker */}
+      {/* Add marker dialog window */}
       <Dialog
         open={isAddMarkerDialogOpen}
         onClose={handleAddMarkerDialogExit}
-        aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">
-          <div>
-            <div>
-              <Typography variant="h6">
-                Add new marker
-              </Typography>
-            </div>
-          </div>
+        <DialogTitle>
+          Add new marker
         </DialogTitle>
+
         <DialogContent>
+
           <TextField
-            autoFocus
             margin="dense"
             label="URL"
             type="text"
@@ -324,8 +344,8 @@ export default function ImagesMap() {
               setNewUrl(event.target.value);
             }}
           />
+
           <TextField
-            autoFocus
             margin="dense"
             label="Latitude"
             type="text"
@@ -334,8 +354,8 @@ export default function ImagesMap() {
               setNewLatitude(event.target.value);
             }}
           />
+
           <TextField
-            autoFocus
             margin="dense"
             label="Longitude"
             type="text"
@@ -344,51 +364,38 @@ export default function ImagesMap() {
               setNewLongitude(event.target.value);
             }}
           />
-          <div>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={addMarker}
-            >
-              Add marker
-            </Button>
-          </div>
-
         </DialogContent>
+
         <DialogActions>
+          <Button
+            color="primary"
+            onClick={addMarker}
+          >
+            Add marker
+          </Button>
+
           <Button onClick={handleAddMarkerDialogExit} color="primary">
             Close
           </Button>
         </DialogActions>
+
       </Dialog>
 
       {/* Delete marker */}
       <Dialog
         open={isDeleteMarkerDialogOpen}
         onClose={handleDeleteMarkerDialogExit}
-        aria-labelledby="form-dialog-title"
         fullWidth
       >
-        <DialogTitle id="form-dialog-title">
-          <div>
-            <div>
-              <Typography variant="h6">
-                Choose marker to delete
-              </Typography>
-            </div>
-          </div>
+        <DialogTitle>
+          Choose marker to delete
         </DialogTitle>
-        <DialogContent
-        // sx = {{
-        //   minHeight: 450,
-        //   width: 600
-        // }}
-        >
-          <div>
+
+        <DialogContent>
+          <Box>
             <DataGrid
               rows={dataGridMarkers}
               columns={markersColumns}
-              pageSize={10}
               autoHeight={true}
               disableSelectionOnClick={true}
               onCellClick={(params, event) => {
@@ -403,16 +410,15 @@ export default function ImagesMap() {
                 }
               }}
             />
-          </div>
-
+          </Box>
         </DialogContent>
+
         <DialogActions>
           <Button onClick={handleDeleteMarkerDialogExit} color="primary">
             Close
           </Button>
         </DialogActions>
       </Dialog>
-
     </>
   );
 }
