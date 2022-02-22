@@ -93,19 +93,15 @@ export default function ChooseYear() {
       <Dialog
         open={isAddYearDialogOpen}
         onClose={handleYearDialogExit}
-        aria-labelledby="form-dialog-title"
       >
-
-        <DialogTitle id="form-dialog-title">
-          <Typography variant="h6">
+        <DialogTitle>
             Add new year
-          </Typography>
         </DialogTitle>
 
         <DialogContent
           sx={{
             width: "250px",
-            height: "100px"
+            height: "90px"
           }}
         >
           <TextField

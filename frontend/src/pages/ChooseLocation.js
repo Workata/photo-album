@@ -93,13 +93,9 @@ export default function ChooseLocation() {
       <Dialog
         open={isAddLocationDialogOpen}
         onClose={handleLocationDialogExit}
-        aria-labelledby="form-dialog-title"
       >
-
-        <DialogTitle id="form-dialog-title">
-          <Typography variant="h6">
-            Add new location
-          </Typography>
+        <DialogTitle>
+          Add new location
         </DialogTitle>
 
         <DialogContent
