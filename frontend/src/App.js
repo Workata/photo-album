@@ -19,6 +19,7 @@ import ChooseCategory from './pages/ChooseCategory';
 import ImagesMap from './pages/ImagesMap';
 import Login from './pages/Login';
 import Info from './pages/Info';
+import PageNotFound from './pages/PageNotFound';
 
 import { AppContext } from './contexts/AppContext';
 
@@ -86,9 +87,7 @@ function App() {
               <Route exact path="/pictures/:year/:location/:imgId" component={ViewImages} />
 
               <Route>
-                <div>
-                  Insert page not found image
-                </div>
+                <PageNotFound/> 
               </Route>
 
             </Switch>
