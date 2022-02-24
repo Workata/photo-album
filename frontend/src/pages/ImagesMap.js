@@ -16,9 +16,6 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from '@mui/x-data-grid';
 
-// * styles
-import "../css/General.css";
-
 // * images
 import backgroundImage from '../images/footer_lodyas.png';
 
@@ -32,10 +29,12 @@ import { fromLonLat } from 'ol/proj';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import XYZ from 'ol/source/XYZ';
-// import Style from 'ol/style/Style';
-// import Fill from 'ol/style/Fill';
-// import Stroke from 'ol/style/Stroke';
-// import Circle from 'ol/geom/Circle';
+
+// * openlayers styles
+import Style from 'ol/style/Style';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+import RegularShape from 'ol/style/RegularShape';
 
 export default function ImagesMap() {
   const { tokenValue } = useContext(AppContext);
@@ -50,19 +49,6 @@ export default function ImagesMap() {
   // ! workaround for displaying map (w/wo markers)
   const [mapLoaded, setMapLoaded] = useState(false);
   const [mapContainsMarkers, setMapContainsMarkers] = useState(null);
-
-
-  // TODO style marker (red pin)(feature.setStyle() ???)
-  // var markerStyle = new Style({
-  //   image: new Circle({
-  //     radius: 7,
-  //     fill: new Fill({color: 'black'}),
-  //     stroke: new Stroke({
-  //       color: [255,0,0], width: 2
-  //     })
-  //   })
-
-  // })
 
   const markersColumns = [
     {
@@ -150,8 +136,14 @@ export default function ImagesMap() {
       )
       const res = await response.json();
       console.log(res);
-      fetchMarkers();
+
       handleAddMarkerDialogExit();
+      // TODO get rid of this workaround
+      // ! force refresh to reload map
+      window.location.reload();
+      // fetchMarkers();
+      
+
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -178,8 +170,14 @@ export default function ImagesMap() {
       )
       const res = await response.json();
       console.log(res);
-      fetchMarkers();
+
+      
       handleAddMarkerDialogExit();
+      // TODO get rid of this workaround
+      // ! force refresh to reload map
+      window.location.reload();
+      // fetchMarkers();
+      
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -190,14 +188,38 @@ export default function ImagesMap() {
     // console.log(`Placing markers on map... ${availableMarkers}`);
 
     for (var i = 0; i < availableMarkers.length; i++) {
-      featuresToAdd.push(new Feature({
-        name: availableMarkers[i].url,
-        geometry: new Point(fromLonLat([availableMarkers[i].longitude, availableMarkers[i].latitude]))
-      }))
+      featuresToAdd.push(
+        new Feature({
+          name: availableMarkers[i].url,
+          geometry: new Point(
+            fromLonLat([availableMarkers[i].longitude, availableMarkers[i].latitude])
+          ),
+        })
+      )
     }
 
-    // TODO style markers
-    //marker1.setStyle(markerStyle);
+    // * create marker style
+    let markerStyle = new Style({
+      image: new RegularShape({
+        fill: new Fill({
+          color: 'red' // general color
+        }),
+        // * border
+        stroke: new Stroke({
+          color: 'black',
+          width: 1
+        }),
+        // * shape
+        points: 3,  // 3 - triangle, 4 - rectangle
+        //  * size
+        radius: 6,
+        // * rotation
+        // angle: Math.PI / 4 
+      }),
+    });
+
+    // * add marker style for each marker
+    featuresToAdd.forEach((marker) => {marker.setStyle(markerStyle);});
 
     // * create layer with features (markers)
     const layer = new VectorLayer({
