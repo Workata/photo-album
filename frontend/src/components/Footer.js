@@ -15,7 +15,7 @@ export default function Footer() {
           boxShadow: "0 -5px grey",
         }}
       >
-        © 2022 www.tomtol.pl Some Rights Reserved
+        © 2022 www.tomtol.picutres Some Rights Reserved
       </footer>
   );
 }
