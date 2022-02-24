@@ -71,14 +71,14 @@ export default function ImageViewer(props) {
 
   const nextImg = () => {
     if (parseInt(props.currentImgId) + 1 <= props.numberOfImages)
-      history.replace(`/${props.year}/${props.location}/${parseInt(props.currentImgId) + 1}`);
-    else history.replace(`/${props.year}/${props.location}/${1}`);
+      history.replace(`/pictures/${props.year}/${props.location}/${parseInt(props.currentImgId) + 1}`);
+    else history.replace(`/pictures/${props.year}/${props.location}/${1}`);
   };
 
   const prevImg = () => {
     if (parseInt(props.currentImgId) - 1 >= 1)
-      history.replace(`/${props.year}/${props.location}/${parseInt(props.currentImgId) - 1}`);
-    else history.replace(`/${props.year}/${props.location}/${props.numberOfImages}`);
+      history.replace(`/pictures/${props.year}/${props.location}/${parseInt(props.currentImgId) - 1}`);
+    else history.replace(`/pictures/${props.year}/${props.location}/${props.numberOfImages}`);
   };
 
   const startSlideshow = () => {

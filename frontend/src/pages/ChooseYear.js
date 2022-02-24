@@ -87,7 +87,7 @@ export default function ChooseYear() {
         tokenValue={tokenValue}
         dialogAction={setIsAddYearDialogOpen}
         containerTitle={"Select year"}
-        linkPrefix={""}
+        linkPrefix={"/pictures"}
       />
 
       <Dialog

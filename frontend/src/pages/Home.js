@@ -34,7 +34,7 @@ export default function Home() {
       }}
     >
       <MainMenuButton
-        buttonLink={"/years"}
+        buttonLink={"/pictures"}
         buttonImage={undrawPhotos_1}
         buttonTitle={"Pictures"}
       />

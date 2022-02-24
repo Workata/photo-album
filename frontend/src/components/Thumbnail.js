@@ -8,7 +8,7 @@ export default function Thumbnail(props) {
 	return (
 		<Link
 			replace
-			to={`/${props.year}/${props.location}/${props.imgNumber}`} 
+			to={`/pictures/${props.year}/${props.location}/${props.imgNumber}`} 
 		>
 			{/* thumbnail wrapper */}
 			<Box 

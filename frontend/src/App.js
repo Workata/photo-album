@@ -79,10 +79,11 @@ function App() {
               <Route exact path="/info" component={Info} />
               <Route exact path="/chooseCategory" component={ChooseCategory} />
               <Route exact path="/map" component={ImagesMap} />
-              <Route exact path="/:year/:location" component={ViewImages} />
-              <Route exact path="/:year/:location/:imgId" component={ViewImages} />
-              <Route exact path="/years" component={ChooseYear} />
-              <Route exact path="/:year" component={ChooseLocation} />
+
+              <Route exact path="/pictures" component={ChooseYear} />
+              <Route exact path="/pictures/:year" component={ChooseLocation} />
+              <Route exact path="/pictures/:year/:location" component={ViewImages} />
+              <Route exact path="/pictures/:year/:location/:imgId" component={ViewImages} />
 
               <Route>
                 <div>

@@ -66,10 +66,11 @@ export default function ImageSlider() {
 
   useEffect(() => {
     // * Redirect to the first picture if no imgId specified
-    // ! replace instead of push
-    if (!imgId) history.replace(`/${year}/${location}/1`);
+    // ! it has to be replace instead of push
+    if (!imgId) history.replace(`/pictures/${year}/${location}/1`);
 
-    fetchImagesNames(); // * also set number of images
+    // * set number of images
+    fetchImagesNames(); 
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // * return "image uploader" if no images in folder and logged in

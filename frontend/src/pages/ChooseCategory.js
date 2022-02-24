@@ -41,31 +41,31 @@ export default function ChooseCategory() {
 		>
 
 			<MainMenuButton
-				buttonLink={"/categories/landscape"}
+				buttonLink={"/pictures/categories/landscape"}
 				buttonImage={undrawLandscapeMode}
 				buttonTitle={"Landscape"}
 			/>
 
 			<MainMenuButton
-				buttonLink={"/categories/cars"}
+				buttonLink={"/pictures/categories/cars"}
 				buttonImage={undrawOffRoad}
 				buttonTitle={"Cars"}
 			/>
 
 			<MainMenuButton
-				buttonLink={"/categories/flora"}
+				buttonLink={"/pictures/categories/flora"}
 				buttonImage={undrawGardening}
 				buttonTitle={"Flora"}
 			/>
 
 			<MainMenuButton
-				buttonLink={"/categories/birds"}
+				buttonLink={"/pictures/categories/birds"}
 				buttonImage={undrawMusicBird}
 				buttonTitle={"Birds"}
 			/>
 
 			<MainMenuButton
-				buttonLink={"/categories/wildlife"}
+				buttonLink={"/pictures/categories/wildlife"}
 				buttonImage={undrawPlayfulCat}
 				buttonTitle={"Wildlife"}
 			/>

@@ -126,12 +126,6 @@ export default function ImageAdminPanel(props) {
   return (
     <Box 
       sx={{
-        // ! absolute out !!!
-        // position: "absolute",
-        // right: "100px",
-        // top: "400px",
-        // ! absolute out !!!
-
         width: "150px",
         height: "300px",
         border: "solid",
@@ -145,7 +139,6 @@ export default function ImageAdminPanel(props) {
       <FormGroup
         sx={{
           marginLeft: "20px"
-          // alignItems: 'center'
         }}
       >
         <Typography variant="h6">Category</Typography>
