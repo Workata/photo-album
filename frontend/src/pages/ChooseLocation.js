@@ -76,7 +76,8 @@ export default function ChooseLocation() {
   };
 
   useEffect(() => {
-    fetchLocations();
+    let isnum = /^\d+$/.test(year);
+    if(isnum) fetchLocations();
   }, []);   // eslint-disable-line react-hooks/exhaustive-deps
 
 
