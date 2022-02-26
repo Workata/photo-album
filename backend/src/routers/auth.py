@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -6,12 +7,14 @@ from datetime import timedelta, datetime
 from passlib.hash import bcrypt
 from typing import Optional
 from jose import JWTError, jwt
+from dotenv import load_dotenv
 
+load_dotenv()
 
 USERS_DB_PATH = "./data/DB/users.json"
 USERS_DB = TinyDB(USERS_DB_PATH)
 
-SECRET_KEY = "7505d3e581d01c02fd31667cdc67cdb64173a9d4f715e73bf0a8e196fa02a15c"
+SECRET_KEY = os.getenv('SECRET_KEY_LOGIN_TOKEN')
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 1440   # 60x24 = 1day ,30
 

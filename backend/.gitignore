@@ -4,6 +4,9 @@ __pycache__/
 # Virtual env
 venv/
 
+# environment variables
+.env
+
 # user data (tinydb)
 data/DB/*
 !data/DB/README.md
