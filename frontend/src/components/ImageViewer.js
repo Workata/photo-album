@@ -31,9 +31,8 @@ export default function ImageViewer(props) {
   const fetchImageContent = async (imgIdToGet) => {
 
     // console.log(`Triggered fetchImageContent: ${imgIdToGet}`);
-    if (imagesURLs[imgIdToGet - 1] !== 0)
-    {
-      if(!imageIdInContainer || imageIdInContainer !== parseInt(props.currentImgId)){
+    if (imagesURLs[imgIdToGet - 1] !== 0) {
+      if (!imageIdInContainer || imageIdInContainer !== parseInt(props.currentImgId)) {
         setImage(imagesURLs[parseInt(props.currentImgId) - 1]);
         setImageIdInContainer(parseInt(props.currentImgId));
       }
@@ -43,7 +42,7 @@ export default function ImageViewer(props) {
 
     try {
       let url;
-      if(props.year === "categories") url = `/api/categories/content/${props.location}/${imgIdToGet}`;
+      if (props.year === "categories") url = `/api/categories/content/${props.location}/${imgIdToGet}`;
       else url = `/api/images/content/${props.year}/${props.location}/${imgIdToGet}`;
 
       const response = await fetch(
@@ -62,7 +61,7 @@ export default function ImageViewer(props) {
       tempImagesURLs[imgIdToGet - 1] = URL.createObjectURL(imgData);
       setImagesURLs(tempImagesURLs);
 
-      if(!imageIdInContainer || imageIdInContainer !== parseInt(props.currentImgId)){
+      if (!imageIdInContainer || imageIdInContainer !== parseInt(props.currentImgId)) {
         setImage(imagesURLs[parseInt(props.currentImgId) - 1]);
         setImageIdInContainer(parseInt(props.currentImgId));
       }
@@ -75,13 +74,13 @@ export default function ImageViewer(props) {
   useEffect(() => {
     if (!props.numberOfImages) return; // ! do not make a request if there are no images
 
-    if(!imagesURLs){
+    if (!imagesURLs) {
       var tempImagesURLs = new Array(props.numberOfImages);
       tempImagesURLs.fill(0);
       setImagesURLs(tempImagesURLs);
     }
 
-    if(imagesURLs){
+    if (imagesURLs) {
       var fetchId = parseInt(props.currentImgId);
       fetchImageContent(fetchId);
 
@@ -121,7 +120,7 @@ export default function ImageViewer(props) {
 
   const stopSlideshow = () => {
     if (slideshowEnabled) {
-      if(intervalId) clearInterval(intervalId);
+      if (intervalId) clearInterval(intervalId);
       setSlideshowEnabled(false);
     }
   }
@@ -181,7 +180,7 @@ export default function ImageViewer(props) {
           <NavigateBeforeIcon />
         </IconButton>
 
-        <IconButton 
+        <IconButton
           color="secondary"
           onClick={nextImg}
           id="navigateNextButton"
