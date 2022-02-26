@@ -15,7 +15,9 @@ load_dotenv()
 USERS_DB_PATH = "./data/DB/users.json"
 USERS_DB = TinyDB(USERS_DB_PATH)
 
-SECRET_KEY = os.getenv('SECRET_KEY_LOGIN_TOKEN')
+# ! using HS256 the secret key should be 
+# ! at least 32 chars but the longer the better (base64url-encode)
+SECRET_KEY = os.getenv('SECRET_KEY_LOGIN_TOKEN')  
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 1440   # 60x24 = 1day ,30
 
