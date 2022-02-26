@@ -1,4 +1,5 @@
 import os
+import requests
 from fastapi import APIRouter
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -56,17 +57,32 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+
+def validateHuman(recaptcha_value: str):
+    secret_recaptcha_token = os.getenv('SECRET_KEY_GOOGLE_RECAPTCHA')
+    response = requests.post(f"https://www.google.com/recaptcha/api/siteverify?secret={secret_recaptcha_token}&response={recaptcha_value}")
+    data = response.json()
+    return data["success"]
+
 @router.post("/login")
 async def generate_token(form_data: OAuth2PasswordRequestForm = Depends()):
     """
     TODO function docstring
     """
+    # * validate ReCaptcha
+    if not validateHuman(form_data.scopes[0]):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="BOT",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
     users_list = USERS_DB.search(where('username') == form_data.username)
 
     if not users_list:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect username or password!",
             headers={"WWW-Authenticate": "Bearer"},
         )
     
@@ -75,7 +91,7 @@ async def generate_token(form_data: OAuth2PasswordRequestForm = Depends()):
     if not bcrypt.verify(form_data.password, user_dict['hashed_password']):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect username or password!",
             headers={"WWW-Authenticate": "Bearer"},
         )
 

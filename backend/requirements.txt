@@ -25,3 +25,4 @@ uvloop==0.16.0
 watchgod==0.7
 websockets==10.1
 python-dotenv==0.19.2
+requests==2.27.1
