@@ -14,7 +14,7 @@ import Sidebar from '../components/Sidebar';
 import ImageViewer from '../components/ImageViewer';
 import ImageUploader from '../components/ImageUploader';
 import ImageAdminPanel from '../components/ImageAdminPanel';
-// import Viewer from 'viewerjs';
+import GeneralLoading from '../components/GeneralLoading';
 
 // * navigation
 import { useHistory } from "react-router-dom";
@@ -26,6 +26,7 @@ export default function ImageSlider() {
 
   const [numberOfImages, setNumberOfImages] = useState(0); // None
   const [imagesNames, setImagesNames] = useState(['img name']);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { tokenValue } = useContext(AppContext);
 
@@ -58,6 +59,7 @@ export default function ImageSlider() {
         setNumberOfImages(0);
       }
       //console.log(`Number of imgs: ${numberOfImages}`)
+      setIsLoading(false);
 
     } catch (error) {
       console.error("Error: ", error);
@@ -73,64 +75,64 @@ export default function ImageSlider() {
     fetchImagesNames(); 
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // * return "image uploader" if no images in folder and logged in
-  if (tokenValue && !numberOfImages && year !== "categories") {
-    return (
-      <ImageUploader
-        year={year}
-        location={location}
-        tokenValue={tokenValue}
-      />
-    );
-  }
-
-  // * return "no images in folder" if no images in folder and not logged in
-  if ((!tokenValue && !numberOfImages) || (year === "categories" && !numberOfImages)) {
-    return (
-      <NoImages />
-    );
-  }
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        gap: "100px",
-        // flexShrink: 0,
-        // flexBasis: "100%",
-        // flexGrow: 0,
-        // alignContent: "flex-start",
-        alignItems: "center",
-
-        height: "750px",
-      }}
-    >
-
-      <Sidebar
-        year={year}
-        location={location}
-        numberOfImages={numberOfImages}
-        currentImgId={imgId}
-      />
-
-      <ImageViewer
-        year={year}
-        location={location}
-        numberOfImages={numberOfImages}
-        imagesNames={imagesNames}
-        currentImgId={imgId}
-      />
-
-      {tokenValue && year !== "categories" &&
-        <ImageAdminPanel
+  
+  if(isLoading) return (<GeneralLoading/>); // loading
+  else {
+    // * return "image uploader" if no images in folder and logged in
+    if (tokenValue && !numberOfImages && year !== "categories") {
+      return (
+        <ImageUploader
           year={year}
           location={location}
-          imagesNames={imagesNames}
-          currentImgId={imgId}
           tokenValue={tokenValue}
         />
-      }
-    </Box>
-  );
+      );
+    }
+
+    // * return "no images in folder" if no images in folder and not logged in
+    if ((!tokenValue && !numberOfImages) || (year === "categories" && !numberOfImages)) {
+      return (
+        <NoImages />
+      );
+    }
+
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "100px",
+          alignItems: "center",
+          height: "750px",
+        }}
+      >
+
+        <Sidebar
+          year={year}
+          location={location}
+          numberOfImages={numberOfImages}
+          currentImgId={imgId}
+        />
+
+        <ImageViewer
+          year={year}
+          location={location}
+          numberOfImages={numberOfImages}
+          imagesNames={imagesNames}
+          currentImgId={imgId}
+        />
+
+        {tokenValue && year !== "categories" &&
+          <ImageAdminPanel
+            year={year}
+            location={location}
+            imagesNames={imagesNames}
+            currentImgId={imgId}
+            tokenValue={tokenValue}
+          />
+        }
+
+      </Box>
+    );
+  }
 }
