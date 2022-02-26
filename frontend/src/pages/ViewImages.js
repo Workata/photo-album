@@ -6,7 +6,6 @@ import {
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from '../contexts/AppContext';
 import { useParams } from "react-router-dom";
-import "../css/ImageSlider.css";
 
 // * components
 import NoImages from '../components/NoImages';
