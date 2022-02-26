@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+
 // * material UI
 import {
   Box,
@@ -15,21 +17,30 @@ import { useHistory } from "react-router-dom";
 // * images
 import backgroundImage from '../images/footer_lodyas.png';
 
-import "../css/General.css";
-import React, { useEffect, useState } from "react";
-import undrawCancel from '../images/undrawCancel.svg';
-
 export default function ImageViewer(props) {
 
-  const [image, setImage] = useState(undrawCancel);
+  const [image, setImage] = useState(backgroundImage);
   const [imageName, setImageName] = useState('');
   const [slideshowEnabled, setSlideshowEnabled] = useState(false);
   const [intervalId, setIntervalId] = useState();
+  const [imageIdInContainer, setImageIdInContainer] = useState();
+  const [imagesURLs, setImagesURLs] = useState();
 
   let history = useHistory();
 
   const fetchImageContent = async (imgIdToGet) => {
+
     // console.log(`Triggered fetchImageContent: ${imgIdToGet}`);
+    if (imagesURLs[imgIdToGet - 1] !== 0)
+    {
+      if(!imageIdInContainer || imageIdInContainer !== parseInt(props.currentImgId)){
+        setImage(imagesURLs[parseInt(props.currentImgId) - 1]);
+        setImageIdInContainer(parseInt(props.currentImgId));
+      }
+      return;
+    }
+    // console.log(`Not requested so make request for ${imgIdToGet}`);
+
     try {
       let url;
       if(props.year === "categories") url = `/api/categories/content/${props.location}/${imgIdToGet}`;
@@ -46,21 +57,41 @@ export default function ImageViewer(props) {
       );
       // console.log(response);
       const imgData = await response.blob();
-      setImage(URL.createObjectURL(imgData));
+
+      var tempImagesURLs = imagesURLs;
+      tempImagesURLs[imgIdToGet - 1] = URL.createObjectURL(imgData);
+      setImagesURLs(tempImagesURLs);
+
+      if(!imageIdInContainer || imageIdInContainer !== parseInt(props.currentImgId)){
+        setImage(imagesURLs[parseInt(props.currentImgId) - 1]);
+        setImageIdInContainer(parseInt(props.currentImgId));
+      }
+
     } catch (error) {
       console.error("Error: ", error);
     }
   };
 
-  // TODO forward loading
   useEffect(() => {
     if (!props.numberOfImages) return; // ! do not make a request if there are no images
 
-    var fetchId = parseInt(props.currentImgId);
-    fetchImageContent(fetchId);
-    setImageName(props.imagesNames[fetchId - 1]);
+    if(!imagesURLs){
+      var tempImagesURLs = new Array(props.numberOfImages);
+      tempImagesURLs.fill(0);
+      setImagesURLs(tempImagesURLs);
+    }
 
-  }, [props.currentImgId, props.imagesNames, props.numberOfImages]); // eslint-disable-line react-hooks/exhaustive-deps
+    if(imagesURLs){
+      var fetchId = parseInt(props.currentImgId);
+      fetchImageContent(fetchId);
+
+      setImageName(props.imagesNames[fetchId - 1]);
+
+      // * fetch for additional image
+      fetchId === props.numberOfImages ? fetchImageContent(1) : fetchImageContent(fetchId + 1);
+    }
+  }, [props.currentImgId, props.numberOfImages, imagesURLs]); // eslint-disable-line react-hooks/exhaustive-deps
+
 
   // TODO fade in/out animation
   const slideshowIntervalTime = 5000;  // number of miliseconds between pictures
