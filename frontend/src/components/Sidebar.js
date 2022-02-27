@@ -58,7 +58,7 @@ export default function Sidebar(props) {
   return (
     <Box
       sx={{
-        width: "200px",
+        width: "215px",
         height: "80%",
 
         border: "solid",
