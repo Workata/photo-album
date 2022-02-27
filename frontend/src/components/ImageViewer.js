@@ -72,6 +72,24 @@ export default function ImageViewer(props) {
   };
 
   useEffect(() => {
+
+    // * equivalent of componentWillUnmount
+    return () => {
+      // ! workaround for clearing old interval (play button) without ID number
+      // https://stackoverflow.com/questions/8635502/how-do-i-clear-all-intervals
+
+      // * create interval with empty function
+      const intervalId = window.setInterval(function () { }, Number.MAX_SAFE_INTEGER);
+
+      // * clear any timeout/interval up to that id
+      for (let i = 1; i < intervalId; i++) {
+        window.clearInterval(i);
+      }
+    }
+
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
     if (!props.numberOfImages) return; // ! do not make a request if there are no images
 
     if (!imagesURLs) {
