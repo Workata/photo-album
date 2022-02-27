@@ -102,9 +102,3 @@ async def generate_token(form_data: OAuth2PasswordRequestForm = Depends()):
         data={"username": user_dict["username"]}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
-
-def add_dummy_user():
-    hashed_password = bcrypt.hash('1234')
-    USERS_DB.insert({'username': 'tomtol', 'hashed_password': hashed_password})
-
-# add_dummy_user()
