@@ -105,7 +105,7 @@ Online album to share, categorize and map your images!
 
 #### General
 
-1. Generate [Google reCAPTCHA](https://www.google.com/recaptcha/admin/create) keys:
+1. Generate [Google reCAPTCHA](https://www.google.com/recaptcha/admin/create) keys (reCAPTCHA v2 - invisible)
 * site key 
 * secret key
 
