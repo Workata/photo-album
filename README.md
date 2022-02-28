@@ -1,6 +1,6 @@
 # Photo album
 <div id="top"></div>
-
+<!-- &nbsp; - enter -->
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -104,37 +104,65 @@ Online album to share, categorize and map your images!
 ### Prerequisites
 
 #### General
-Get API keys (TODO)
+
+1. Generate [Google reCAPTCHA](https://www.google.com/recaptcha/admin/create) keys:
+* site key 
+* secret key
+
+
+2. Generate secret key for JWT:
+    ```sh
+    openssl rand -base64 64
+    ```
 
 #### Development
 
-Install python, pip, npm 
+* [python](https://www.python.org/) (3.8.10) with [pip](https://pypi.org/) (20.0.2)
+* [node](https://nodejs.org/en/) (10.19.0) with [npm](https://docs.npmjs.com/) (6.14.4)
 
 #### Production
-Install docker / docker-compose
-<!-- This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ``` -->
+
+* [Docker](https://docs.docker.com/engine/install/)
+* [Docker Compose](https://docs.docker.com/compose/install/)
 
 &nbsp;
 
 ### Installation
+
+*Every step is done starting from project root directory.*
 
 #### General
 1. Clone the repo
    ```sh
    git clone https://github.com/Workata/photo-album.git
    ```
-2. Set API keys (TODO)
+2. Set API keys - backend
+   ```sh
+   cd backend
+   touch .env
+   echo "SECRET_KEY_LOGIN_TOKEN=\"<insert_JWT_key_here>\"" >> .env
+   echo "SECRET_KEY_GOOGLE_RECAPTCHA=\"<insert_RECAPTCHA_key_here>\"" >> .env
+   ```
+3. Set API keys - frontend
+   ```sh
+   cd frontend
+   touch .env
+   echo "REACT_APP_RECAPTCHA_SITE_KEY=\"<insert_RECAPTCHA_site_key_here>\"" >> .env
+   ```
+
 
 #### Development
 
-1. Create venv (backend) - only once
-2. Install python libs - backend (requirements.txt) - only once
+1. Create python venv - only once
    ```sh
    cd backend
+   python3 -m venv ./venv
+   ```
+
+2. Install python libs - only once
+   ```sh
+   cd backend
+   . ./venv/bin/activate
    pip install -r requirements.txt
    ```
 3. Install npm packages - only once
@@ -151,13 +179,12 @@ Install docker / docker-compose
 5. Run frontend
    ```sh
    cd frontend
-   . ./venv/bin/activate
    npm start
    ```
 
 #### Production
 
-1. Change domain in Caddyfile
+1. Change domain name in Caddyfile
 
 2. Build images using Docker Compose
    ```sh
@@ -167,24 +194,6 @@ Install docker / docker-compose
    ```sh
    sudo docker-compose up
    ```
-<!--
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ``` -->
-
-<!-- <p align="right">(<a href="#top">back to top</a>)</p> -->
-
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -220,12 +229,9 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 <!-- CONTRIBUTING -->
 ## Contributing
 
-TODO
+Me - lmao (TODO)
 
 <!-- Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -233,17 +239,10 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request -->
 
-<!-- <p align="right">(<a href="#top">back to top</a>)</p> -->
-
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See <a href="https://github.com/Workata/photo-album/blob/main/LICENSE">LICENSE</a> for more information.
-
-<!-- <p align="right">(<a href="#top">back to top</a>)</p> -->
-
 
 
 <!-- CONTACT -->
@@ -268,8 +267,7 @@ Project Link: [https://github.com/Workata/photo-album](https://github.com/Workat
 
 
 
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to the top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
