@@ -1,145 +1,135 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
 // * material UI
 import {
   Box,
-  Typography,
-} from '@mui/material';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PauseIcon from '@mui/icons-material/Pause';
-import IconButton from '@mui/material/IconButton';
+  Typography
+} from '@mui/material'
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import PauseIcon from '@mui/icons-material/Pause'
+import IconButton from '@mui/material/IconButton'
 
 // * navigation
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 
 // * images
-import backgroundImage from '../images/footer_lodyas.png';
+import backgroundImage from '../images/footer_lodyas.png'
 
-export default function ImageViewer(props) {
+export default function ImageViewer (props) {
+  const [image, setImage] = useState(backgroundImage)
+  const [imageName, setImageName] = useState('')
+  const [slideshowEnabled, setSlideshowEnabled] = useState(false)
+  const [intervalId, setIntervalId] = useState()
+  const [imageIdInContainer, setImageIdInContainer] = useState()
+  const [imagesURLs, setImagesURLs] = useState()
 
-  const [image, setImage] = useState(backgroundImage);
-  const [imageName, setImageName] = useState('');
-  const [slideshowEnabled, setSlideshowEnabled] = useState(false);
-  const [intervalId, setIntervalId] = useState();
-  const [imageIdInContainer, setImageIdInContainer] = useState();
-  const [imagesURLs, setImagesURLs] = useState();
-
-  let history = useHistory();
+  const history = useHistory()
 
   const fetchImageContent = async (imgIdToGet) => {
-
     // console.log(`Triggered fetchImageContent: ${imgIdToGet}`);
     if (imagesURLs[imgIdToGet - 1] !== 0) {
       if (!imageIdInContainer || imageIdInContainer !== parseInt(props.currentImgId)) {
-        setImage(imagesURLs[parseInt(props.currentImgId) - 1]);
-        setImageIdInContainer(parseInt(props.currentImgId));
+        setImage(imagesURLs[parseInt(props.currentImgId) - 1])
+        setImageIdInContainer(parseInt(props.currentImgId))
       }
-      return;
+      return
     }
     // console.log(`Not requested so make request for ${imgIdToGet}`);
 
     try {
-      let url;
-      if (props.year === "categories") url = `/api/categories/content/${props.location}/${imgIdToGet}`;
-      else url = `/api/images/content/${props.year}/${props.location}/${imgIdToGet}`;
+      let url
+      if (props.year === 'categories') url = `/api/categories/content/${props.location}/${imgIdToGet}`
+      else url = `/api/images/content/${props.year}/${props.location}/${imgIdToGet}`
 
       const response = await fetch(
         url,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
-          },
+            'Content-Type': 'application/json'
+          }
         }
-      );
+      )
       // console.log(response);
-      const imgData = await response.blob();
+      const imgData = await response.blob()
 
-      var tempImagesURLs = imagesURLs;
-      tempImagesURLs[imgIdToGet - 1] = URL.createObjectURL(imgData);
-      setImagesURLs(tempImagesURLs);
+      const tempImagesURLs = imagesURLs
+      tempImagesURLs[imgIdToGet - 1] = URL.createObjectURL(imgData)
+      setImagesURLs(tempImagesURLs)
 
       if (!imageIdInContainer || imageIdInContainer !== parseInt(props.currentImgId)) {
-        setImage(imagesURLs[parseInt(props.currentImgId) - 1]);
-        setImageIdInContainer(parseInt(props.currentImgId));
+        setImage(imagesURLs[parseInt(props.currentImgId) - 1])
+        setImageIdInContainer(parseInt(props.currentImgId))
       }
-
     } catch (error) {
-      console.error("Error: ", error);
+      console.error('Error: ', error)
     }
-  };
+  }
 
   useEffect(() => {
-
     // * equivalent of componentWillUnmount
     return () => {
       // ! workaround for clearing old interval (play button) without ID number
       // https://stackoverflow.com/questions/8635502/how-do-i-clear-all-intervals
 
       // * create interval with empty function
-      const intervalId = window.setInterval(function () { }, Number.MAX_SAFE_INTEGER);
+      const intervalId = window.setInterval(function () { }, Number.MAX_SAFE_INTEGER)
 
       // * clear any timeout/interval up to that id
       for (let i = 1; i < intervalId; i++) {
-        window.clearInterval(i);
+        window.clearInterval(i)
       }
     }
-
-  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!props.numberOfImages) return; // ! do not make a request if there are no images
+    if (!props.numberOfImages) return // ! do not make a request if there are no images
 
     if (!imagesURLs) {
-      var tempImagesURLs = new Array(props.numberOfImages);
-      tempImagesURLs.fill(0);
-      setImagesURLs(tempImagesURLs);
+      const tempImagesURLs = new Array(props.numberOfImages)
+      tempImagesURLs.fill(0)
+      setImagesURLs(tempImagesURLs)
     }
 
     if (imagesURLs) {
-      var fetchId = parseInt(props.currentImgId);
-      fetchImageContent(fetchId);
+      const fetchId = parseInt(props.currentImgId)
+      fetchImageContent(fetchId)
 
-      setImageName(props.imagesNames[fetchId - 1]);
+      setImageName(props.imagesNames[fetchId - 1])
 
       // * fetch for additional image
-      fetchId === props.numberOfImages ? fetchImageContent(1) : fetchImageContent(fetchId + 1);
+      fetchId === props.numberOfImages ? fetchImageContent(1) : fetchImageContent(fetchId + 1)
     }
-  }, [props.currentImgId, props.numberOfImages, imagesURLs]); // eslint-disable-line react-hooks/exhaustive-deps
-
+  }, [props.currentImgId, props.numberOfImages, imagesURLs]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // TODO fade in/out animation
-  const slideshowIntervalTime = 5000;  // number of miliseconds between pictures
+  const slideshowIntervalTime = 5000 // number of miliseconds between pictures
 
   const nextImgSimulated = () => {
-    document.getElementById('navigateNextButton').click();
+    document.getElementById('navigateNextButton').click()
   }
 
   const nextImg = () => {
-    if (parseInt(props.currentImgId) + 1 <= props.numberOfImages)
-      history.replace(`/pictures/${props.year}/${props.location}/${parseInt(props.currentImgId) + 1}`);
-    else history.replace(`/pictures/${props.year}/${props.location}/${1}`);
-  };
+    if (parseInt(props.currentImgId) + 1 <= props.numberOfImages) { history.replace(`/pictures/${props.year}/${props.location}/${parseInt(props.currentImgId) + 1}`) } else history.replace(`/pictures/${props.year}/${props.location}/${1}`)
+  }
 
   const prevImg = () => {
-    if (parseInt(props.currentImgId) - 1 >= 1)
-      history.replace(`/pictures/${props.year}/${props.location}/${parseInt(props.currentImgId) - 1}`);
-    else history.replace(`/pictures/${props.year}/${props.location}/${props.numberOfImages}`);
-  };
+    if (parseInt(props.currentImgId) - 1 >= 1) { history.replace(`/pictures/${props.year}/${props.location}/${parseInt(props.currentImgId) - 1}`) } else history.replace(`/pictures/${props.year}/${props.location}/${props.numberOfImages}`)
+  }
 
   const startSlideshow = () => {
     if (!slideshowEnabled) {
-      setSlideshowEnabled(true);
-      setIntervalId(setInterval(nextImgSimulated, slideshowIntervalTime));
+      setSlideshowEnabled(true)
+      setIntervalId(setInterval(nextImgSimulated, slideshowIntervalTime))
     }
   }
 
   const stopSlideshow = () => {
     if (slideshowEnabled) {
-      if (intervalId) clearInterval(intervalId);
-      setSlideshowEnabled(false);
+      if (intervalId) clearInterval(intervalId)
+      setSlideshowEnabled(false)
     }
   }
 
@@ -147,8 +137,8 @@ export default function ImageViewer(props) {
   return (
     <Box
       sx={{
-        width: "910px",
-        height: "700px",
+        width: '910px',
+        height: '700px'
       }}
     >
       <Typography
@@ -159,33 +149,33 @@ export default function ImageViewer(props) {
       </Typography>
       <Typography
         sx={{
-          marginBottom: "10px",
+          marginBottom: '10px'
         }}
         variant="h5"
       >
-        {imageName.split(".")[0]}
+        {imageName.split('.')[0]}
       </Typography>
 
       {/* https://stackoverflow.com/questions/7273338/how-to-vertically-align-an-image-inside-a-div */}
       <Box
         sx={{
-          width: "900px",
-          height: "600px",
-          border: "solid",
-          borderRadius: "5%",
-          backgroundImage: `url(${backgroundImage})`,
+          width: '900px',
+          height: '600px',
+          border: 'solid',
+          borderRadius: '5%',
+          backgroundImage: `url(${backgroundImage})`
         }}
       >
         {/* This span is a hack for image aligning, check linked stack post */}
-        <span style={{ display: "inline-block", height: "100%", verticalAlign: "middle" }} />
+        <span style={{ display: 'inline-block', height: '100%', verticalAlign: 'middle' }} />
         <img
           style={{
-            height: "auto",
-            width: "auto",
-            maxWidth: "900px",
-            maxHeight: "600px",
-            borderRadius: "5%",
-            verticalAlign: "middle"
+            height: 'auto',
+            width: 'auto',
+            maxWidth: '900px',
+            maxHeight: '600px',
+            borderRadius: '5%',
+            verticalAlign: 'middle'
           }}
           src={image}
           alt="Main content should be here"
@@ -208,7 +198,7 @@ export default function ImageViewer(props) {
 
         <IconButton
           sx={{
-            color: slideshowEnabled ? "primary.gray" : "secondary.main"
+            color: slideshowEnabled ? 'primary.gray' : 'secondary.main'
           }}
           onClick={startSlideshow}
         >
@@ -217,7 +207,7 @@ export default function ImageViewer(props) {
 
         <IconButton
           sx={{
-            color: slideshowEnabled ? "secondary.main" : "primary.gray"
+            color: slideshowEnabled ? 'secondary.main' : 'primary.gray'
           }}
           onClick={stopSlideshow}
         >
@@ -226,5 +216,5 @@ export default function ImageViewer(props) {
 
       </Box>
     </Box>
-  );
+  )
 }

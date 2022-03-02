@@ -1,75 +1,73 @@
 // * material UI
 import {
-	Box,
-} from '@mui/material';
+  Box
+} from '@mui/material'
 
 // * components
-import MainMenuButton from '../components/MainMenuButton';
+import MainMenuButton from '../components/MainMenuButton'
 
 // * others
-import "../css/General.css";
+import '../css/General.css'
 
 // * images
-import backgroundImage from '../images/footer_lodyas.png';
-import undrawLandscapeMode from '../images/undrawLandscapeMode.svg';
-import undrawOffRoad from '../images/undrawOffRoad.svg';
-import undrawGardening from '../images/undrawGardening.svg';
-import undrawMusicBird from '../images/undrawMusicBird.svg';
-import undrawPlayfulCat from '../images/undrawPlayfulCat.svg';
+import backgroundImage from '../images/footer_lodyas.png'
+import undrawLandscapeMode from '../images/undrawLandscapeMode.svg'
+import undrawOffRoad from '../images/undrawOffRoad.svg'
+import undrawGardening from '../images/undrawGardening.svg'
+import undrawMusicBird from '../images/undrawMusicBird.svg'
+import undrawPlayfulCat from '../images/undrawPlayfulCat.svg'
 
-export default function ChooseCategory() {
-
-	return (
+export default function ChooseCategory () {
+  return (
 		<Box
 			sx={{
-				width: "1050px",
-				height: "660px",
-				borderStyle: "solid",
-				borderColor: "white",
-				borderRadius: "5%",
-				backgroundImage: `url(${backgroundImage})`,
-				
+			  width: '1050px',
+			  height: '660px',
+			  borderStyle: 'solid',
+			  borderColor: 'white',
+			  borderRadius: '5%',
+			  backgroundImage: `url(${backgroundImage})`,
 
-				display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignContent: "flex-start",
-				justifyContent: "space-evenly",
+			  display: 'flex',
+			  flexDirection: 'row',
+			  flexWrap: 'wrap',
+			  alignContent: 'flex-start',
+			  justifyContent: 'space-evenly',
 
-				padding: "20px"
+			  padding: '20px'
 			}}
 		>
 
 			<MainMenuButton
-				buttonLink={"/pictures/categories/landscape"}
+				buttonLink={'/pictures/categories/landscape'}
 				buttonImage={undrawLandscapeMode}
-				buttonTitle={"Landscape"}
+				buttonTitle={'Landscape'}
 			/>
 
 			<MainMenuButton
-				buttonLink={"/pictures/categories/cars"}
+				buttonLink={'/pictures/categories/cars'}
 				buttonImage={undrawOffRoad}
-				buttonTitle={"Cars"}
+				buttonTitle={'Cars'}
 			/>
 
 			<MainMenuButton
-				buttonLink={"/pictures/categories/flora"}
+				buttonLink={'/pictures/categories/flora'}
 				buttonImage={undrawGardening}
-				buttonTitle={"Flora"}
+				buttonTitle={'Flora'}
 			/>
 
 			<MainMenuButton
-				buttonLink={"/pictures/categories/birds"}
+				buttonLink={'/pictures/categories/birds'}
 				buttonImage={undrawMusicBird}
-				buttonTitle={"Birds"}
+				buttonTitle={'Birds'}
 			/>
 
 			<MainMenuButton
-				buttonLink={"/pictures/categories/wildlife"}
+				buttonLink={'/pictures/categories/wildlife'}
 				buttonImage={undrawPlayfulCat}
-				buttonTitle={"Wildlife"}
+				buttonTitle={'Wildlife'}
 			/>
 
 		</Box>
-	);
+  )
 }

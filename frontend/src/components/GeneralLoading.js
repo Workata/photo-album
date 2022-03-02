@@ -1,15 +1,15 @@
-import * as React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import * as React from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
 
-export default function GeneralLoading() {
+export default function GeneralLoading () {
   return (
     <Box sx={{ display: 'flex' }}>
-      <CircularProgress 
+      <CircularProgress
         sx={{
-          color: "secondary.main"
+          color: 'secondary.main'
         }}
       />
     </Box>
-  );
+  )
 }

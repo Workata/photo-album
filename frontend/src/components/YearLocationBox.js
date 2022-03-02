@@ -1,52 +1,51 @@
 import {
-	Box,
-} from '@mui/material';
-import { Link } from 'react-router-dom';
+  Box
+} from '@mui/material'
+import { Link } from 'react-router-dom'
 
-export default function YearLocationBox(props) {
-
-	return (
+export default function YearLocationBox (props) {
+  return (
 		<Link
 			style={{
-				textDecoration: "none",
-				margin: "20px"
+			  textDecoration: 'none',
+			  margin: '20px'
 			}}
-			to={props.link} 
+			to={props.link}
 		>
 			<Box
 				sx={{
-					minWidth: "80px",
-					height: "100px",
-					paddingLeft: "10px",
-					paddingRight: "10px",
+				  minWidth: '80px',
+				  height: '100px',
+				  paddingLeft: '10px',
+				  paddingRight: '10px',
 
-					// overflowWrap: "break-word",
+				  // overflowWrap: "break-word",
 
-					backgroundColor: "white",
-					color: "black",
-					borderRadius: "10px",
+				  backgroundColor: 'white',
+				  color: 'black',
+				  borderRadius: '10px',
 
-					/* font */
-					fontSize: "20px",
-					fontWeight: "700",
+				  /* font */
+				  fontSize: '20px',
+				  fontWeight: '700',
 
-					/* align text in the center of div (one line), line-height = height*/
-					textAlign: "center",
-					verticalAlign: "middle",
-					lineHeight: "100px",
+				  /* align text in the center of div (one line), line-height = height */
+				  textAlign: 'center',
+				  verticalAlign: 'middle',
+				  lineHeight: '100px',
 
-					/* animation */
-					transition: "transform .2s",
+				  /* animation */
+				  transition: 'transform .2s',
 
-					cursor: "pointer",
+				  cursor: 'pointer',
 
-					'&:hover': {
-						transform: "scale(1.1)",
-					},
+				  '&:hover': {
+				    transform: 'scale(1.1)'
+				  }
 				}}
 			>
 				{props.text}
 			</Box>
 		</Link>
-	);
+  )
 }

@@ -8,78 +8,75 @@ import {
   DialogContent,
   DialogTitle
 }
-  from '@mui/material';
+  from '@mui/material'
 
 // * components
-import YearLocationContainer from '../components/YearLocationContainer';
+import YearLocationContainer from '../components/YearLocationContainer'
 
 // * others
-import React, { useEffect, useState, useContext } from "react";
-import { AppContext } from './../contexts/AppContext';
-import "../css/General.css";
+import React, { useEffect, useState, useContext } from 'react'
+import { AppContext } from './../contexts/AppContext'
+import '../css/General.css'
 
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom'
 
-export default function ChooseLocation() {
-
-  const { year } = useParams();
-  const [availableLocations, setAvailableLocations] = useState([]);
-  const [locationErrorMsg, setLocationErrorMsg] = useState('');
-  const [isAddLocationDialogOpen, setIsAddLocationDialogOpen] = useState(false);
-  const [newLocationToAdd, setNewLocationToAdd] = useState([]);
-  const { tokenValue } = useContext(AppContext);
-
+export default function ChooseLocation () {
+  const { year } = useParams()
+  const [availableLocations, setAvailableLocations] = useState([])
+  const [locationErrorMsg, setLocationErrorMsg] = useState('')
+  const [isAddLocationDialogOpen, setIsAddLocationDialogOpen] = useState(false)
+  const [newLocationToAdd, setNewLocationToAdd] = useState([])
+  const { tokenValue } = useContext(AppContext)
 
   const fetchLocations = async () => {
     try {
       const response = await fetch(
         `/api/locations/${year}`,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
-          },
+            'Content-Type': 'application/json'
+          }
         }
       )
-      const dataLocations = await response.json();
-      setAvailableLocations(dataLocations);
+      const dataLocations = await response.json()
+      setAvailableLocations(dataLocations)
       // console.log(dataLocations);
     } catch (error) {
-      console.error("Error: ", error);
+      console.error('Error: ', error)
     }
-  };
+  }
 
   const addNewLocation = async () => {
     try {
       const response = await fetch(
         `/api/locations/create/location/${year}/${newLocationToAdd}`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
             Authorization: `Bearer ${tokenValue}`,
-            "Content-Type": "application/json",
-          },
+            'Content-Type': 'application/json'
+          }
         }
       )
-      const res = await response.json();
-      fetchLocations();
-      console.log(res);
+      const res = await response.json()
+      fetchLocations()
+      console.log(res)
     } catch (error) {
-      console.error("Error: ", error);
+      console.error('Error: ', error)
     }
-    handleLocationDialogExit();
-  };
+    handleLocationDialogExit()
+  }
 
   const handleLocationDialogExit = () => {
-    setIsAddLocationDialogOpen(false);
+    setIsAddLocationDialogOpen(false)
     // TODO handle errors and text fields
-  };
+  }
 
   useEffect(() => {
-    let isnum = /^\d+$/.test(year);
-    if(isnum) fetchLocations();
-  }, []);   // eslint-disable-line react-hooks/exhaustive-deps
-
+    const isnum = /^\d+$/.test(year)
+    if (isnum) fetchLocations()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -87,7 +84,7 @@ export default function ChooseLocation() {
         items={availableLocations}
         tokenValue={tokenValue}
         dialogAction={setIsAddLocationDialogOpen}
-        containerTitle={"Select location"}
+        containerTitle={'Select location'}
         linkPrefix={`/pictures/${year}`}
       />
 
@@ -101,8 +98,8 @@ export default function ChooseLocation() {
 
         <DialogContent
           sx={{
-            width: "250px",
-            height: "100px"
+            width: '250px',
+            height: '100px'
           }}
         >
           <TextField
@@ -112,19 +109,18 @@ export default function ChooseLocation() {
             type="text"
             fullWidth
             onChange={(event) => {
-              var value = event.target.value;
+              const value = event.target.value
               // TODO validation
-              if (value === '') setLocationErrorMsg('');
+              if (value === '') setLocationErrorMsg('')
 
-
-              setNewLocationToAdd(value);
+              setNewLocationToAdd(value)
             }}
           />
 
           <Typography
             sx={{
-              color: "red",
-              fontSize: "13px"
+              color: 'red',
+              fontSize: '13px'
             }}
           >
             {locationErrorMsg}
@@ -140,8 +136,8 @@ export default function ChooseLocation() {
             Add location
           </Button>
 
-          <Button 
-            onClick={handleLocationDialogExit} 
+          <Button
+            onClick={handleLocationDialogExit}
             color="primary"
           >
             Close
@@ -150,5 +146,5 @@ export default function ChooseLocation() {
 
       </Dialog>
     </>
-  );
+  )
 }

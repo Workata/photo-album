@@ -1,21 +1,21 @@
-export default function Footer() {
+export default function Footer () {
   return (
       <footer
         style={{
-          height: "30px",
+          height: '30px',
 
           // https://stackoverflow.com/questions/55541850/how-to-make-footer-stay-at-bottom-of-the-page-with-flex-box
           // ! keep footer at the bottom
-          marginTop: "auto",
+          marginTop: 'auto',
 
-          width: "100%",
-          backgroundColor: "#fafffd",
-          color: "black",
-          textAlign: "center",
-          boxShadow: "0 -5px grey",
+          width: '100%',
+          backgroundColor: '#fafffd',
+          color: 'black',
+          textAlign: 'center',
+          boxShadow: '0 -5px grey'
         }}
       >
         © 2022 www.tomtol.picutres Some Rights Reserved
       </footer>
-  );
+  )
 }

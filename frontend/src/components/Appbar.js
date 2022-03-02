@@ -3,32 +3,31 @@ import {
   Button,
   Typography,
   IconButton
-} from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+} from '@mui/material'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-import {Link, useLocation} from 'react-router-dom';
-import "../css/General.css";
-import React, {useContext} from "react";
-import { AppContext } from './../contexts/AppContext';
-import { useHistory } from "react-router-dom";
+import { Link, useLocation, useHistory } from 'react-router-dom'
+import '../css/General.css'
+import React, { useContext } from 'react'
+import { AppContext } from './../contexts/AppContext'
 
-export default function Appbar() {
-  const { deleteTokenCookie, tokenValue, setTokenValue } = useContext(AppContext);
-  const currentURL = useLocation();
-  let history = useHistory();
+export default function Appbar () {
+  const { deleteTokenCookie, tokenValue, setTokenValue } = useContext(AppContext)
+  const currentURL = useLocation()
+  const history = useHistory()
 
   return (
     <Box>
       {/* static */}
       <AppBar position="static">
-        <Toolbar 
+        <Toolbar
           sx={{
             // appbar color here
-            bgcolor: "secondary.main",
+            bgcolor: 'secondary.main'
           }}
-        > 
+        >
 
           {!tokenValue ? (
             <Link to="/login" id="adminButtonLink" className="non-edited-link">
@@ -36,43 +35,43 @@ export default function Appbar() {
                 Admin
               </Button>
             </Link>
-          ) : 
-          (
+          )
+            : (
             <Link to="/" id="adminButtonLink" className="non-edited-link">
-              <Button 
-                color="inherit" 
+              <Button
+                color="inherit"
                 onClick={() => {
-                  setTokenValue(); // set Token value for undefined
-                  deleteTokenCookie('token', '/');
+                  setTokenValue() // set Token value for undefined
+                  deleteTokenCookie('token', '/')
                 }}
                 >
                 Logout
               </Button>
             </Link>
-          )}
+              )}
 
-          <Typography variant="h5" sx={{position: 'absolute', left: '48%'}}>
+          <Typography variant="h5" sx={{ position: 'absolute', left: '48%' }}>
             <Link to="/" className="default-black-link">
               TomTol
             </Link>
           </Typography>
 
-          {/* Render 'go-back' arrow on every page except root*/}
+          {/* Render 'go-back' arrow on every page except root */}
           {currentURL.pathname !== '/' &&
-              <IconButton 
+              <IconButton
                 sx= {{
                   position: 'absolute',
                   right: 10,
                   top: 10
                 }}
-                onClick = {() => {history.goBack()}}
+                onClick = {() => { history.goBack() }}
               >
                 <ArrowBackIcon />
               </IconButton>
           }
-          
+
         </Toolbar>
       </AppBar>
     </Box>
-  );
+  )
 }
