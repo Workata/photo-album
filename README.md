@@ -16,7 +16,7 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
-
+<h2 align="center" style="font-style: italic">WIP - Work in progress</h2>
 
 <!-- PROJECT LOGO -->
 <br />
@@ -78,7 +78,7 @@
 [![Product Name Screen Shot][product-screenshot]](https://tomtol.pictures)
 
 <!-- TODO change this description -->
-Online album to share, categorize and map your images! 
+Online album to share, categorize and map your images!
 
 ### Built With
 
@@ -101,12 +101,14 @@ Online album to share, categorize and map your images!
 <!-- GETTING STARTED -->
 ## Getting Started
 
+*I used Ubuntu 20.04 - WSL*
+
 ### Prerequisites
 
 #### General
 
 1. Generate [Google reCAPTCHA](https://www.google.com/recaptcha/admin/create) keys (reCAPTCHA v2 - invisible)
-* site key 
+* site key
 * secret key
 
 
@@ -129,7 +131,7 @@ Online album to share, categorize and map your images!
 
 ### Installation
 
-*Every step is done starting from project root directory.*
+*Every step is done starting from project root directory*
 
 #### General
 1. Clone the repo
@@ -147,9 +149,15 @@ Online album to share, categorize and map your images!
    ```sh
    cd frontend
    touch .env
-   echo "REACT_APP_RECAPTCHA_SITE_KEY=\"<insert_RECAPTCHA_site_key_here>\"" >> .env
+   echo "REACT_APP_RECAPTCHA_SITE_KEY=<insert_RECAPTCHA_site_key_here>" >> .env
    ```
 
+4. Create admin account (use <a href="#Development2">venv</a> with required libs)
+   ```sh
+   cd backend
+   . ./venv/bin/activate
+   python ./src/utils/addAdmin.py <username> <password>
+   ```
 
 #### Development
 
@@ -158,7 +166,7 @@ Online album to share, categorize and map your images!
    cd backend
    python3 -m venv ./venv
    ```
-
+   <div id="Development2"></div>
 2. Install python libs - only once
    ```sh
    cd backend
@@ -184,7 +192,7 @@ Online album to share, categorize and map your images!
 
 #### Production
 
-1. Change domain name in Caddyfile
+1. Change domain name in a [Caddyfile](https://github.com/Workata/photo-album/blob/main/frontend/Caddyfile)
 
 2. Build images using Docker Compose
    ```sh
@@ -229,7 +237,7 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Me - lmao (TODO)
+Me, lmao
 
 <!-- Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -246,13 +254,15 @@ Distributed under the MIT License. See <a href="https://github.com/Workata/photo
 
 
 <!-- CONTACT -->
-## Contact
+## Contact & Info
 
 <!-- Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com-->
 
 Mail: [workatagit@gmail.com](mailto:workatagit@gmail.com)
 
-Project Link: [https://github.com/Workata/photo-album](https://github.com/Workata/photo-album)
+Project source: [https://github.com/Workata/photo-album](https://github.com/Workata/photo-album)
+
+Project website: [TomTol](https://tomtol.pictures)
 
 
 <!-- ACKNOWLEDGMENTS -->
