@@ -1,11 +1,9 @@
 """
-{'year': 2016, 'location': Greece}
-
+TODO module docstring
 """
 from tinydb import TinyDB, where
 from fastapi import APIRouter, Depends
 from src.routers.auth import get_current_user
-from fastapi.responses import FileResponse
 
 LOCATIONS_DB_PATH = "./data/DB/locations.json"
 LOCATIONS_DB = TinyDB(LOCATIONS_DB_PATH)
@@ -14,6 +12,9 @@ router = APIRouter(prefix="/api/locations", tags=["Locations"])
 
 @router.get("/years")
 async def get_years():
+    """
+    TODO docstring
+    """
     all_locations = LOCATIONS_DB.all()
     unique_years = []
     for location in all_locations:
@@ -24,6 +25,9 @@ async def get_years():
 
 @router.post("/create/year/{year}")
 async def create_year(year : int, user: dict = Depends(get_current_user)):
+    """
+    TODO docstring
+    """
     locations_query = LOCATIONS_DB.search(where('year') == year)
     if locations_query:
         return f"Year {year} already exists"
@@ -32,6 +36,9 @@ async def create_year(year : int, user: dict = Depends(get_current_user)):
 
 @router.get("/{year}")
 async def get_locations(year : int):
+    """
+    TODO docstring
+    """
     locations_query = LOCATIONS_DB.search(where('year') == year)
     locations = []
     for location_row in locations_query:
@@ -42,18 +49,12 @@ async def get_locations(year : int):
     return locations
 
 @router.post("/create/location/{year}/{location}")
-async def create_year(year : int, location : str, user: dict = Depends(get_current_user)):
+async def create_location(year : int, location : str, user: dict = Depends(get_current_user)):
+    """
+    TODO docstring
+    """
     locations_query = LOCATIONS_DB.search(where('year') == year and where('location') == location)
     if locations_query:
         return f"Location {location} in year {year} already exists"
     LOCATIONS_DB.insert({'year': year, 'location': location})
-    return f"Added new location {location} in year {year} by {user['username']}" # TODO change for response
-
-def one_time_insert():
-    LOCATIONS_DB.insert({'year': 2015, 'location': 'Croatia'})
-    LOCATIONS_DB.insert({'year': 2015, 'location': 'England'})
-    LOCATIONS_DB.insert({'year': 2016, 'location': 'Germany'})
-    LOCATIONS_DB.insert({'year': 2016, 'location': 'Poland'})
-
-# one_time_insert()
-
+    return f"Added new location {location} in year {year} by {user['username']}"

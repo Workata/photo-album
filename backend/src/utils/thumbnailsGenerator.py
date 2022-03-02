@@ -1,5 +1,8 @@
-from PIL import Image
+"""
+TODO module docstring
+"""
 import os
+from PIL import Image
 from src.utils.general import create_dir_if_not_exists
 
 THUMBNAIL_SIZE = 180 # 90
@@ -12,10 +15,13 @@ def generate_thumb_path(img_path):
     return thumb_img_path
 
 def create_thumbnail(img_path):
+    """
+    TODO Docstring
+    """
     image = Image.open(img_path)
     image.thumbnail((THUMBNAIL_SIZE, THUMBNAIL_SIZE))
     thumb_img_path = generate_thumb_path(img_path)
-    image.save(thumb_img_path)      
+    image.save(thumb_img_path)
 
 def create_thumbnails(dir_path):
     """

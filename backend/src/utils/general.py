@@ -1,3 +1,6 @@
+"""
+TODO module docstring
+"""
 from pathlib import Path
 
 def create_dir_if_not_exists(directory):
