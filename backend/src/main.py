@@ -1,5 +1,6 @@
-from typing import Optional
-
+"""
+	TODO docstring
+"""
 from fastapi import FastAPI
 
 from src.routers import images, locations, auth, categories, imagesMap
@@ -13,10 +14,8 @@ app.include_router(categories.router)
 app.include_router(imagesMap.router)
 
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-  return {"item_id": item_id, "q": q}
+def test_connection():
+    """
+		Test connection
+	"""
+    return {"Connected": True}
