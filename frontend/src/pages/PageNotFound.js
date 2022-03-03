@@ -1,17 +1,17 @@
-import React from "react";
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import PageNotFoundImg from '../images/undraw_page_not_found.svg';
+import React from 'react'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import PageNotFoundImg from '../images/undraw_page_not_found.svg'
 
-export default function PageNotFound() {
+export default function PageNotFound () {
   return (
     <Box>
 
       <Typography
-        sx={{ 
+        sx={{
           marginTop: 5,
           marginBottom: 4
-        }} 
+        }}
         variant="h3"
       >
         Page not found
@@ -24,11 +24,11 @@ export default function PageNotFound() {
           backgroundRepeat: 'no-repeat',
           width: 860,
           height: 600,
-          marginBottom: 2,
+          marginBottom: 2
           // borderStyle: 'solid',
         }}
       />
 
     </Box>
-  );
+  )
 }

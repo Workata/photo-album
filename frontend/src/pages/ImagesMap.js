@@ -1,6 +1,6 @@
 // * react
-import React, { useEffect, useState, useContext } from "react";
-import { AppContext } from '../contexts/AppContext';
+import React, { useEffect, useState, useContext } from 'react'
+import { AppContext } from '../contexts/AppContext'
 
 // * material ui
 import {
@@ -11,63 +11,63 @@ import {
   Dialog,
   DialogContent,
   DialogActions,
-  DialogTitle,
-} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { DataGrid } from '@mui/x-data-grid';
+  DialogTitle
+} from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { DataGrid } from '@mui/x-data-grid'
 
 // * images
-import backgroundImage from '../images/footer_lodyas.png';
+import backgroundImage from '../images/footer_lodyas.png'
 
 // * openlayers
-import Map from 'ol/Map';
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import Feature from 'ol/Feature';
-import Point from 'ol/geom/Point';
-import { fromLonLat } from 'ol/proj';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import XYZ from 'ol/source/XYZ';
+import Map from 'ol/Map'
+import View from 'ol/View'
+import TileLayer from 'ol/layer/Tile'
+import Feature from 'ol/Feature'
+import Point from 'ol/geom/Point'
+import { fromLonLat } from 'ol/proj'
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
+import XYZ from 'ol/source/XYZ'
 
 // * openlayers styles
-import Style from 'ol/style/Style';
-import Fill from 'ol/style/Fill';
-import Stroke from 'ol/style/Stroke';
-import RegularShape from 'ol/style/RegularShape';
+import Style from 'ol/style/Style'
+import Fill from 'ol/style/Fill'
+import Stroke from 'ol/style/Stroke'
+import RegularShape from 'ol/style/RegularShape'
 
-export default function ImagesMap() {
-  const { tokenValue } = useContext(AppContext);
-  const [isAddMarkerDialogOpen, setIsAddMarkerDialogOpen] = useState(false);
-  const [isDeleteMarkerDialogOpen, setIsDeleteMarkerDialogOpen] = useState(false);
-  const [newUrl, setNewUrl] = useState();
-  const [newLatitude, setNewLatitude] = useState();
-  const [newLongitude, setNewLongitude] = useState();
-  const [availableMarkers, setAvailableMarkers] = useState([]); //
-  const [dataGridMarkers, setDataGridMarkers] = useState([]);
+export default function ImagesMap () {
+  const { tokenValue } = useContext(AppContext)
+  const [isAddMarkerDialogOpen, setIsAddMarkerDialogOpen] = useState(false)
+  const [isDeleteMarkerDialogOpen, setIsDeleteMarkerDialogOpen] = useState(false)
+  const [newUrl, setNewUrl] = useState()
+  const [newLatitude, setNewLatitude] = useState()
+  const [newLongitude, setNewLongitude] = useState()
+  const [availableMarkers, setAvailableMarkers] = useState([]) //
+  const [dataGridMarkers, setDataGridMarkers] = useState([])
 
   // ! workaround for displaying map (w/wo markers)
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const [mapContainsMarkers, setMapContainsMarkers] = useState(null);
+  const [mapLoaded, setMapLoaded] = useState(false)
+  const [mapContainsMarkers, setMapContainsMarkers] = useState(null)
 
   const markersColumns = [
     {
       field: 'urlField',
       headerName: 'Url',
       width: 280,
-      disableClickEventBubbling: true,
+      disableClickEventBubbling: true
     },
     {
       field: 'latitudeField',
       headerName: 'Latitude',
       width: 100,
-      disableClickEventBubbling: true,
+      disableClickEventBubbling: true
     },
     {
       field: 'longitudeField',
       headerName: 'Longitude',
       width: 100,
-      disableClickEventBubbling: true,
+      disableClickEventBubbling: true
     },
     {
       field: 'deleteField',
@@ -79,127 +79,123 @@ export default function ImagesMap() {
         <IconButton>
           <DeleteIcon />
         </IconButton>
-      ),
-    },
-  ];
+      )
+    }
+  ]
 
   const fetchMarkers = async () => {
     try {
       const response = await fetch(
-        `/api/map/markers`,
+        '/api/map/markers',
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
-          },
+            'Content-Type': 'application/json'
+          }
         }
       )
-      const dataMarkers = await response.json();
+      const dataMarkers = await response.json()
 
-      if (dataMarkers.length === 0) setMapContainsMarkers(false);
+      if (dataMarkers.length === 0) setMapContainsMarkers(false)
       else setMapContainsMarkers(true)
 
-      setAvailableMarkers(dataMarkers);
+      setAvailableMarkers(dataMarkers)
 
       // available markers collection with id for data grid
       const dataMarkersWithId = dataMarkers.map(
         (marker) => ({
-          id: JSON.stringify({ 'latitude': marker.latitude, 'longitude': marker.longitude }),
+          id: JSON.stringify({ latitude: marker.latitude, longitude: marker.longitude }),
           urlField: marker.url,
           latitudeField: marker.latitude,
-          longitudeField: marker.longitude,
+          longitudeField: marker.longitude
         })
-      );
-      setDataGridMarkers(dataMarkersWithId);
+      )
+      setDataGridMarkers(dataMarkersWithId)
     } catch (error) {
-      console.error("Error: ", error);
+      console.error('Error: ', error)
     }
-  };
+  }
 
   const addMarker = async () => {
     try {
       // Build formData object.
-      let formData = new FormData();
-      formData.append('url', newUrl);
-      formData.append('latitude', newLatitude);
-      formData.append('longitude', newLongitude);
+      const formData = new FormData()
+      formData.append('url', newUrl)
+      formData.append('latitude', newLatitude)
+      formData.append('longitude', newLongitude)
 
       const response = await fetch(
-        `/api/map/create/marker`,
+        '/api/map/create/marker',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            Authorization: `Bearer ${tokenValue}`,
+            Authorization: `Bearer ${tokenValue}`
           },
           body: formData
         }
       )
-      const res = await response.json();
-      console.log(res);
+      const res = await response.json()
+      console.log(res)
 
-      handleAddMarkerDialogExit();
+      handleAddMarkerDialogExit()
       // TODO get rid of this workaround
       // ! force refresh to reload map
-      window.location.reload();
+      window.location.reload()
       // fetchMarkers();
-      
-
     } catch (error) {
-      console.error("Error: ", error);
+      console.error('Error: ', error)
     }
-  };
+  }
 
   const deleteMarker = async (coords) => {
     // console.log(`lat: ${coords.latitude}`);
     // console.log(`lon: ${coords.longitude}`);
     try {
       // Build formData object.
-      let formData = new FormData();
-      formData.append('latitude', coords.latitude);
-      formData.append('longitude', coords.longitude);
+      const formData = new FormData()
+      formData.append('latitude', coords.latitude)
+      formData.append('longitude', coords.longitude)
 
       const response = await fetch(
-        `/api/map/delete/marker`,
+        '/api/map/delete/marker',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            Authorization: `Bearer ${tokenValue}`,
+            Authorization: `Bearer ${tokenValue}`
           },
           body: formData
         }
       )
-      const res = await response.json();
-      console.log(res);
+      const res = await response.json()
+      console.log(res)
 
-      
-      handleAddMarkerDialogExit();
+      handleAddMarkerDialogExit()
       // TODO get rid of this workaround
       // ! force refresh to reload map
-      window.location.reload();
+      window.location.reload()
       // fetchMarkers();
-      
     } catch (error) {
-      console.error("Error: ", error);
+      console.error('Error: ', error)
     }
-  };
+  }
 
   const addMarkersOnMap = (mainMap) => {
-    var featuresToAdd = [];
+    const featuresToAdd = []
     // console.log(`Placing markers on map... ${availableMarkers}`);
 
-    for (var i = 0; i < availableMarkers.length; i++) {
+    for (let i = 0; i < availableMarkers.length; i++) {
       featuresToAdd.push(
         new Feature({
           name: availableMarkers[i].url,
           geometry: new Point(
             fromLonLat([availableMarkers[i].longitude, availableMarkers[i].latitude])
-          ),
+          )
         })
       )
     }
 
     // * create marker style
-    let markerStyle = new Style({
+    const markerStyle = new Style({
       image: new RegularShape({
         fill: new Fill({
           color: 'red' // general color
@@ -210,33 +206,33 @@ export default function ImagesMap() {
           width: 1
         }),
         // * shape
-        points: 3,  // 3 - triangle, 4 - rectangle
+        points: 3, // 3 - triangle, 4 - rectangle
         //  * size
-        radius: 6,
+        radius: 6
         // * rotation
-        // angle: Math.PI / 4 
-      }),
-    });
+        // angle: Math.PI / 4
+      })
+    })
 
     // * add marker style for each marker
-    featuresToAdd.forEach((marker) => {marker.setStyle(markerStyle);});
+    featuresToAdd.forEach((marker) => { marker.setStyle(markerStyle) })
 
     // * create layer with features (markers)
     const layer = new VectorLayer({
       source: new VectorSource({
         features: featuresToAdd
       })
-    });
+    })
 
     // * add layer with markers and check onClick events
-    mainMap.addLayer(layer);
+    mainMap.addLayer(layer)
     mainMap.on('click', function (event) {
       mainMap.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
         // TODO maybe replace with react router (and relative links?)
-        window.location.replace(feature.getProperties().name);
-      });
-    });
-  };
+        window.location.replace(feature.getProperties().name)
+      })
+    })
+  }
 
   const setupMap = () => {
     const mainMap = new Map({
@@ -252,53 +248,53 @@ export default function ImagesMap() {
         center: [0, 0],
         zoom: 1
       })
-    });
+    })
 
-    setMapLoaded(true);
-    addMarkersOnMap(mainMap);
-  };
+    setMapLoaded(true)
+    addMarkersOnMap(mainMap)
+  }
 
   const handleAddMarkerDialogExit = () => {
-    setIsAddMarkerDialogOpen(false);
+    setIsAddMarkerDialogOpen(false)
     // TODO handle errors and text fields
-  };
+  }
 
   const handleDeleteMarkerDialogExit = () => {
-    setIsDeleteMarkerDialogOpen(false);
+    setIsDeleteMarkerDialogOpen(false)
     // TODO handle errors and text fields
-  };
+  }
 
   useEffect(() => {
-    fetchMarkers();
-  }, []);
+    fetchMarkers()
+  }, [])
 
   useEffect(() => {
-    if (mapContainsMarkers === false && mapLoaded !== true) setupMap();
+    if (mapContainsMarkers === false && mapLoaded !== true) setupMap()
     if (mapContainsMarkers === true &&
-      availableMarkers.length !== 0 && mapLoaded !== true) setupMap();
-  }, [mapContainsMarkers, availableMarkers]);   // eslint-disable-line react-hooks/exhaustive-deps
+      availableMarkers.length !== 0 && mapLoaded !== true) setupMap()
+  }, [mapContainsMarkers, availableMarkers]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
       <Box
         sx={{
-          display: "flex",
+          display: 'flex'
         }}
       >
         <Box
           sx={{
-            width: "1200px",
-            height: "800px",
-            border: "solid",
-            borderRadius: "5px",
+            width: '1200px',
+            height: '800px',
+            border: 'solid',
+            borderRadius: '5px'
           }}
         >
           {/* map content (div id) is a target for setupMap() */}
           <Box
             sx={{
-              width: "1200px",
-              height: "800px",
-              borderRadius: "5%",
+              width: '1200px',
+              height: '800px',
+              borderRadius: '5%'
             }}
             id="mapContent"
           />
@@ -307,15 +303,15 @@ export default function ImagesMap() {
         {tokenValue &&
           <Box
             sx={{
-              width: "180px",
-              height: "170px",
-              borderStyle: "solid",
-              borderColor: "white",
-              borderRadius: "5%",
+              width: '180px',
+              height: '170px',
+              borderStyle: 'solid',
+              borderColor: 'white',
+              borderRadius: '5%',
               backgroundImage: `url(${backgroundImage})`,
-              marginTop: "auto",
-              marginBottom: "auto",
-              marginLeft: "50px",
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              marginLeft: '50px'
             }}
           >
             <Button
@@ -324,7 +320,7 @@ export default function ImagesMap() {
               color="secondary"
               onClick={() => { setIsAddMarkerDialogOpen(true) }}
               sx={{
-                marginTop: "30px",
+                marginTop: '30px'
               }}
             >
               Add marker
@@ -337,7 +333,7 @@ export default function ImagesMap() {
               color="secondary"
               onClick={() => { setIsDeleteMarkerDialogOpen(true) }}
               sx={{
-                marginTop: "30px",
+                marginTop: '30px'
               }}
             >
               Delete marker
@@ -363,7 +359,7 @@ export default function ImagesMap() {
             type="text"
             fullWidth
             onChange={(event) => {
-              setNewUrl(event.target.value);
+              setNewUrl(event.target.value)
             }}
           />
 
@@ -373,7 +369,7 @@ export default function ImagesMap() {
             type="text"
             fullWidth
             onChange={(event) => {
-              setNewLatitude(event.target.value);
+              setNewLatitude(event.target.value)
             }}
           />
 
@@ -383,7 +379,7 @@ export default function ImagesMap() {
             type="text"
             fullWidth
             onChange={(event) => {
-              setNewLongitude(event.target.value);
+              setNewLongitude(event.target.value)
             }}
           />
         </DialogContent>
@@ -421,11 +417,11 @@ export default function ImagesMap() {
               autoHeight={true}
               disableSelectionOnClick={true}
               onCellClick={(params, event) => {
-                if (params.field === '__check__') return;
+                if (params.field === '__check__') return
                 if (params.field === 'deleteField') {
                   // setCurrentSelectedRow(params.row.id);
                   // TODO dialog window with confirmation
-                  const coords = JSON.parse(params.row.id);
+                  const coords = JSON.parse(params.row.id)
                   deleteMarker(coords)
                   // console.log(params.row.id);
                   // setOpenDeleteOwnerConfirmation(true);
@@ -442,5 +438,5 @@ export default function ImagesMap() {
         </DialogActions>
       </Dialog>
     </>
-  );
+  )
 }

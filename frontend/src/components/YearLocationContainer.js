@@ -2,24 +2,25 @@
 import {
   Box,
   Typography
-} from '@mui/material';
+} from '@mui/material'
 
 // * components
-import YearLocationBox from './YearLocationBox';
-import YearLocationAddBox from './YearLocationAddBox';
+import YearLocationBox from './YearLocationBox'
+import YearLocationAddBox from './YearLocationAddBox'
 
-import uniqid from 'uniqid';
+import uniqid from 'uniqid'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 // * images
-import backgroundImage from '../images/footer_lodyas.png';
+import backgroundImage from '../images/footer_lodyas.png'
 
-export default function YearLocationContainer(props) {
-
+export default function YearLocationContainer (props) {
   return (
     <>
       <Typography
         sx={{
-          marginBottom: "30px",
+          marginBottom: '30px'
         }}
         variant="h4"
       >
@@ -28,20 +29,20 @@ export default function YearLocationContainer(props) {
 
       <Box
         sx={{
-          width: "700px",
-          minHeight: "400px",
+          width: '700px',
+          minHeight: '400px',
           // maxHeight: "600px",
-          height: "auto",
-          borderStyle: "solid",
-          borderColor: "white",
-          borderRadius: "5%",
+          height: 'auto',
+          borderStyle: 'solid',
+          borderColor: 'white',
+          borderRadius: '5%',
           backgroundImage: `url(${backgroundImage})`,
 
           // layout
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignContent: "flex-start",
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          alignContent: 'flex-start'
         }}
       >
         {
@@ -58,5 +59,14 @@ export default function YearLocationContainer(props) {
         {props.tokenValue && <YearLocationAddBox action={props.dialogAction} />}
       </Box>
     </>
-  );
+  )
+}
+
+// TODO setup correct prop types
+YearLocationContainer.propTypes = {
+  containerTitle: PropTypes.any,
+  items: PropTypes.any,
+  linkPrefix: PropTypes.any,
+  tokenValue: PropTypes.any,
+  dialogAction: PropTypes.any
 }

@@ -1,37 +1,35 @@
 // * material UI
 import {
-  Box,
-} from '@mui/material';
+  Box
+} from '@mui/material'
 
-import React, { useContext, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 // * components
-import Appbar from './components/Appbar';
-import Footer from './components/Footer';
+import Appbar from './components/Appbar'
+import Footer from './components/Footer'
 
 // * pages
-import Home from './pages/Home';
-import ViewImages from './pages/ViewImages';
-import ChooseYear from './pages/ChooseYear';
-import ChooseLocation from './pages/ChooseLocation';
-import ChooseCategory from './pages/ChooseCategory';
-import ImagesMap from './pages/ImagesMap';
-import Login from './pages/Login';
-import Info from './pages/Info';
-import PageNotFound from './pages/PageNotFound';
+import Home from './pages/Home'
+import ViewImages from './pages/ViewImages'
+import ChooseYear from './pages/ChooseYear'
+import ChooseLocation from './pages/ChooseLocation'
+import ChooseCategory from './pages/ChooseCategory'
+import ImagesMap from './pages/ImagesMap'
+import Login from './pages/Login'
+import Info from './pages/Info'
+import PageNotFound from './pages/PageNotFound'
 
-import { AppContext } from './contexts/AppContext';
+import { AppContext } from './contexts/AppContext'
 
-function App() {
-
-  const { getTokenCookie, tokenValue, setTokenValue } = useContext(AppContext);
+function App () {
+  const { getTokenCookie, tokenValue, setTokenValue } = useContext(AppContext)
 
   // on app load check if token exists in cookie
   useEffect(() => {
-    if (!tokenValue)
-      setTokenValue(getTokenCookie('token'));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    if (!tokenValue) { setTokenValue(getTokenCookie('token')) }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Router>
@@ -39,12 +37,12 @@ function App() {
       <Box
         id="appWraper"
         sx={{
-          textAlign: "center",
-          color: "white",
-          height: "100%",
+          textAlign: 'center',
+          color: 'white',
+          height: '100%',
 
-          display: "flex",
-          flexDirection: "column"
+          display: 'flex',
+          flexDirection: 'column'
         }}
       >
 
@@ -53,24 +51,24 @@ function App() {
         <Box
           id="switchWrapper"
           sx={{
-            width: "100%",
-            height: "auto",
+            width: '100%',
+            height: 'auto',
 
             // * gap between appbar and footer
-            paddingTop: "20px",
-            paddingBottom: "20px",
+            paddingTop: '20px',
+            paddingBottom: '20px',
 
             // * center content
-            marginTop: "auto",
-            marginBottom: "auto",
-            
-            display: "flex",
-            flexFlow: "column",
+            marginTop: 'auto',
+            marginBottom: 'auto',
+
+            display: 'flex',
+            flexFlow: 'column'
           }}
         >
           <Box
             sx={{
-              margin: "auto",
+              margin: 'auto'
               // paddingBottom: "50px"
             }}
           >
@@ -87,19 +85,19 @@ function App() {
               <Route exact path="/pictures/:year/:location/:imgId" component={ViewImages} />
 
               <Route>
-                <PageNotFound/> 
+                <PageNotFound/>
               </Route>
 
             </Switch>
 
           </Box>
         </Box>
-        
+
         <Footer />
 
       </Box>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

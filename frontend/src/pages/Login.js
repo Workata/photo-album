@@ -4,72 +4,69 @@ import {
   Button,
   TextField,
   Typography
-} from '@mui/material';
+} from '@mui/material'
 
 // * images
-import backgroundImage from '../images/footer_lodyas.png';
+import backgroundImage from '../images/footer_lodyas.png'
 
 // * security
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from 'react-google-recaptcha'
 
 //  * others
-import React, { useState, useContext, useRef } from "react";
-import { AppContext } from './../contexts/AppContext';
-import { useHistory } from "react-router-dom";
+import React, { useState, useContext, useRef } from 'react'
+import { AppContext } from './../contexts/AppContext'
+import { useHistory } from 'react-router-dom'
 
-
-export default function Login() {
-  const { setTokenCookie, setTokenValue } = useContext(AppContext);
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [loginError, setLoginError] = useState();
-  const history = useHistory();
-  const reRef = useRef();
+export default function Login () {
+  const { setTokenCookie, setTokenValue } = useContext(AppContext)
+  const [username, setUsername] = useState()
+  const [password, setPassword] = useState()
+  const [loginError, setLoginError] = useState()
+  const history = useHistory()
+  const reRef = useRef()
 
   const handleLoginButton = async () => {
-
-    const recaptchaValue = await reRef.current.executeAsync();
-    reRef.current.reset();  // it allows to re-execute the recaptcha check
+    const recaptchaValue = await reRef.current.executeAsync()
+    reRef.current.reset() // it allows to re-execute the recaptcha check
     // console.log(recaptchaValue);
 
     fetch('/api/auth/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams({
         username: username,
         password: password,
         scope: recaptchaValue
-      }),
+      })
     })
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
         if (data.access_token && typeof data.access_token !== 'undefined') {
           // keep token in both cookie (in case of app exit) and global variable (context)
-          setTokenValue(data.access_token);
-          setTokenCookie('token', data.access_token);   //set cookie
-          history.push('/');      // redirect to home page
-          setLoginError(false);
-        } else setLoginError(data.detail);
+          setTokenValue(data.access_token)
+          setTokenCookie('token', data.access_token) // set cookie
+          history.push('/') // redirect to home page
+          setLoginError(false)
+        } else setLoginError(data.detail)
       })
       .catch((error) => {
-        // console.error(error);
-        setLoginError("Something went wrong!");
-      });
-  };
-
+        console.error(error)
+        setLoginError('Something went wrong!')
+      })
+  }
 
   return (
     <Box
       sx={{
         backgroundImage: `url(${backgroundImage})`,
-        width: "400px",
-        height: "340px",
-        borderRadius: "5%",
-        borderStyle: "solid",
-        borderColor: "white",
+        width: '400px',
+        height: '340px',
+        borderRadius: '5%',
+        borderStyle: 'solid',
+        borderColor: 'white'
       }}
     >
       <ReCAPTCHA
@@ -80,8 +77,8 @@ export default function Login() {
 
       <Typography
         sx={{
-          marginTop: "20px",
-          marginBottom: "20px"
+          marginTop: '20px',
+          marginBottom: '20px'
         }}
         variant='h5'
       >
@@ -92,7 +89,7 @@ export default function Login() {
         sx={{
           color: 'black',
           backgroundColor: 'white',
-          marginBottom: "30px",
+          marginBottom: '30px'
         }}
         color="primary"
         variant="filled"
@@ -101,7 +98,7 @@ export default function Login() {
         type="username"
         fullWidth
         onChange={(event) => {
-          setUsername(event.target.value);
+          setUsername(event.target.value)
         }}
       />
 
@@ -109,7 +106,7 @@ export default function Login() {
         sx={{
           color: 'black',
           backgroundColor: 'white',
-          marginBottom: "15px",
+          marginBottom: '15px'
         }}
         color="primary"
         label="Password"
@@ -118,7 +115,7 @@ export default function Login() {
         type="password"
         fullWidth
         onChange={(event) => {
-          setPassword(event.target.value);
+          setPassword(event.target.value)
         }}
       />
 
@@ -127,11 +124,11 @@ export default function Login() {
         sx={{
           color: 'red',
           lineHeight: '30px',
-          fontWeight: "bold",
-          width: "400px",
-          height: "30px",
-          marginBottom: "15px",
-          textAlign: 'center',
+          fontWeight: 'bold',
+          width: '400px',
+          height: '30px',
+          marginBottom: '15px',
+          textAlign: 'center'
           // backgroundColor: 'yellow'
         }}
       >
@@ -148,5 +145,5 @@ export default function Login() {
         Sign in
       </Button>
     </Box>
-  );
+  )
 }

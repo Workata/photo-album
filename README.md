@@ -120,7 +120,7 @@ Online album to share, categorize and map your images!
 #### Development
 
 * [python](https://www.python.org/) (3.8.10) with [pip](https://pypi.org/) (20.0.2)
-* [node](https://nodejs.org/en/) (10.19.0) with [npm](https://docs.npmjs.com/) (6.14.4)
+* [node](https://nodejs.org/en/) (16.14.0) with [npm](https://docs.npmjs.com/) (8.3.1)
 
 #### Production
 
