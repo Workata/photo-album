@@ -7,8 +7,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle
-}
-  from '@mui/material'
+} from '@mui/material'
 
 // * components
 import YearLocationContainer from '../components/YearLocationContainer'
@@ -27,15 +26,12 @@ export default function ChooseYear () {
 
   const fetchYears = async () => {
     try {
-      const response = await fetch(
-        '/api/locations/years',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
+      const response = await fetch('/api/locations/years', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
         }
-      )
+      })
       const dataYears = await response.json()
       setAvailableYears(dataYears)
       // console.log(dataYears);
@@ -87,13 +83,8 @@ export default function ChooseYear () {
         linkPrefix={'/pictures'}
       />
 
-      <Dialog
-        open={isAddYearDialogOpen}
-        onClose={handleYearDialogExit}
-      >
-        <DialogTitle>
-            Add new year
-        </DialogTitle>
+      <Dialog open={isAddYearDialogOpen} onClose={handleYearDialogExit}>
+        <DialogTitle>Add new year</DialogTitle>
 
         <DialogContent
           sx={{
@@ -102,14 +93,13 @@ export default function ChooseYear () {
           }}
         >
           <TextField
-            sx = {{
+            sx={{
               width: '200px'
             }}
             autoFocus
             margin="dense"
             label="Year"
             type="number"
-
             fullWidth
             onChange={(event) => {
               const value = event.target.value
@@ -117,8 +107,12 @@ export default function ChooseYear () {
               // console.log(typeof value); // string
 
               if (value === '') setYearErrorMsg('')
-              else if (value.includes('-')) // TODO fix this
-              { setYearErrorMsg('Value must be a positive integer!') } else if (parseInt(value) < 1800 || parseInt(value) > 2300) { setYearErrorMsg('Value must be between 1800 and 2300!') } else setYearErrorMsg('')
+              else if (value.includes('-')) {
+                // TODO fix this
+                setYearErrorMsg('Value must be a positive integer!')
+              } else if (parseInt(value) < 1800 || parseInt(value) > 2300) {
+                setYearErrorMsg('Value must be between 1800 and 2300!')
+              } else setYearErrorMsg('')
 
               setNewYearToAdd(value)
             }}
@@ -132,27 +126,17 @@ export default function ChooseYear () {
           >
             {yearErrorMsg}
           </Typography>
-
         </DialogContent>
 
         <DialogActions>
-
-          <Button
-            color="primary"
-            onClick={addNewYear}
-          >
+          <Button color="primary" onClick={addNewYear}>
             Add year
           </Button>
 
-          <Button
-            color="primary"
-            onClick={handleYearDialogExit}
-          >
+          <Button color="primary" onClick={handleYearDialogExit}>
             Close
           </Button>
-
         </DialogActions>
-
       </Dialog>
     </>
   )

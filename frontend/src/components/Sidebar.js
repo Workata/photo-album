@@ -13,6 +13,8 @@ import Thumbnail from './Thumbnail'
 // * images
 import backgroundImage from '../images/footer_lodyas.png'
 
+import PropTypes from 'prop-types'
+
 export default function Sidebar (props) {
   const [thumbnails, setThumbnails] = useState([])
   const [canInsert, setCanInsert] = useState(false)
@@ -91,4 +93,12 @@ export default function Sidebar (props) {
       </Box>
     </Box>
   )
+}
+
+// TODO setup correct prop types
+Sidebar.propTypes = {
+  year: PropTypes.any,
+  location: PropTypes.any,
+  currentImgId: PropTypes.any,
+  numberOfImages: PropTypes.any
 }

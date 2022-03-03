@@ -13,6 +13,7 @@ import Checkbox from '@mui/material/Checkbox'
 
 // * images
 import backgroundImage from '../images/footer_lodyas.png'
+import PropTypes from 'prop-types'
 
 export default function ImageAdminPanel (props) {
   const [landscapeChecked, setLandscapeChecked] = useState(false) // state used for updating category
@@ -41,15 +42,15 @@ export default function ImageAdminPanel (props) {
     }
   }
 
-  const addToCategory = async (category, image_name) => {
-    if (!image_name) {
+  const addToCategory = async (category, imageName) => {
+    if (!imageName) {
       console.log('Image is undefined')
       return
     }
 
     try {
       const response = await fetch(
-        `/api/categories/add/${category}/${props.year}/${props.location}/${image_name}`,
+        `/api/categories/add/${category}/${props.year}/${props.location}/${imageName}`,
         {
           method: 'POST',
           headers: {
@@ -65,15 +66,15 @@ export default function ImageAdminPanel (props) {
     }
   }
 
-  const deleteFromCategory = async (category, image_name) => {
-    if (!image_name) {
+  const deleteFromCategory = async (category, imageName) => {
+    if (!imageName) {
       console.log('Image is undefined')
       return
     }
 
     try {
       const response = await fetch(
-        `/api/categories/delete/${category}/${props.year}/${props.location}/${image_name}`,
+        `/api/categories/delete/${category}/${props.year}/${props.location}/${imageName}`,
         {
           method: 'POST',
           headers: {
@@ -200,4 +201,13 @@ export default function ImageAdminPanel (props) {
       </Button>
     </Box>
   )
+}
+
+// TODO setup correct prop types
+ImageAdminPanel.propTypes = {
+  year: PropTypes.any,
+  location: PropTypes.any,
+  imagesNames: PropTypes.any,
+  currentImgId: PropTypes.any,
+  tokenValue: PropTypes.any
 }

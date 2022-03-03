@@ -2,6 +2,8 @@ import {
   Box
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 export default function YearLocationAddBox (props) {
   return (
@@ -49,4 +51,9 @@ export default function YearLocationAddBox (props) {
       />
     </Box>
   )
+}
+
+// TODO setup correct prop types
+YearLocationAddBox.propTypes = {
+  action: PropTypes.any
 }

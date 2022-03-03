@@ -53,7 +53,7 @@ export default function Login () {
         } else setLoginError(data.detail)
       })
       .catch((error) => {
-        // console.error(error);
+        console.error(error)
         setLoginError('Something went wrong!')
       })
   }

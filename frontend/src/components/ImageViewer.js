@@ -17,6 +17,8 @@ import { useHistory } from 'react-router-dom'
 // * images
 import backgroundImage from '../images/footer_lodyas.png'
 
+import PropTypes from 'prop-types'
+
 export default function ImageViewer (props) {
   const [image, setImage] = useState(backgroundImage)
   const [imageName, setImageName] = useState('')
@@ -217,4 +219,13 @@ export default function ImageViewer (props) {
       </Box>
     </Box>
   )
+}
+
+// TODO setup correct prop types
+ImageViewer.propTypes = {
+  year: PropTypes.any,
+  location: PropTypes.any,
+  currentImgId: PropTypes.any,
+  numberOfImages: PropTypes.any,
+  imagesNames: PropTypes.any
 }

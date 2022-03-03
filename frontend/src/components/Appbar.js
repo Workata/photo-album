@@ -29,25 +29,26 @@ export default function Appbar () {
           }}
         >
 
-          {!tokenValue ? (
-            <Link to="/login" id="adminButtonLink" className="non-edited-link">
-              <Button>
-                Admin
-              </Button>
-            </Link>
-          )
+          { !tokenValue
+            ? (
+              <Link to="/login" id="adminButtonLink" className="non-edited-link">
+                <Button>
+                  Admin
+                </Button>
+              </Link>
+              )
             : (
-            <Link to="/" id="adminButtonLink" className="non-edited-link">
-              <Button
-                color="inherit"
-                onClick={() => {
-                  setTokenValue() // set Token value for undefined
-                  deleteTokenCookie('token', '/')
-                }}
+              <Link to="/" id="adminButtonLink" className="non-edited-link">
+                <Button
+                  color="inherit"
+                  onClick={() => {
+                    setTokenValue() // set Token value for undefined
+                    deleteTokenCookie('token', '/')
+                  }}
                 >
-                Logout
-              </Button>
-            </Link>
+                  Logout
+                </Button>
+              </Link>
               )}
 
           <Typography variant="h5" sx={{ position: 'absolute', left: '48%' }}>
@@ -58,16 +59,16 @@ export default function Appbar () {
 
           {/* Render 'go-back' arrow on every page except root */}
           {currentURL.pathname !== '/' &&
-              <IconButton
-                sx= {{
-                  position: 'absolute',
-                  right: 10,
-                  top: 10
-                }}
-                onClick = {() => { history.goBack() }}
-              >
-                <ArrowBackIcon />
-              </IconButton>
+            <IconButton
+              sx={{
+                position: 'absolute',
+                right: 10,
+                top: 10
+              }}
+              onClick={() => { history.goBack() }}
+            >
+              <ArrowBackIcon />
+            </IconButton>
           }
 
         </Toolbar>

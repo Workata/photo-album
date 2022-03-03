@@ -9,6 +9,8 @@ import YearLocationBox from './YearLocationBox'
 import YearLocationAddBox from './YearLocationAddBox'
 
 import uniqid from 'uniqid'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 // * images
 import backgroundImage from '../images/footer_lodyas.png'
@@ -58,4 +60,13 @@ export default function YearLocationContainer (props) {
       </Box>
     </>
   )
+}
+
+// TODO setup correct prop types
+YearLocationContainer.propTypes = {
+  containerTitle: PropTypes.any,
+  items: PropTypes.any,
+  linkPrefix: PropTypes.any,
+  tokenValue: PropTypes.any,
+  dialogAction: PropTypes.any
 }

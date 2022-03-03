@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 export const AppContext = React.createContext({
   tokenValue: '',
@@ -58,4 +59,9 @@ export default function ContextProvider (props) {
       {props.children}
     </AppContext.Provider>
   )
+}
+
+// TODO setup correct prop types
+ContextProvider.propTypes = {
+  children: PropTypes.any
 }

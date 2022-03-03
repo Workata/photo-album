@@ -8,10 +8,12 @@ import MainMenuButton from '../components/MainMenuButton'
 
 // * images
 import backgroundImage from '../images/footer_lodyas.png'
-import undrawPhotos_1 from '../images/undrawPhotos_1.svg'
-import undrawPhotos_2 from '../images/undrawPhotos_2.svg'
+import undrawPhotos1 from '../images/undrawPhotos_1.svg'
+import undrawPhotos2 from '../images/undrawPhotos_2.svg'
 import undrawAdventure from '../images/undrawAdventure.svg'
 import undrawMyAnswer from '../images/undrawMyAnswer.svg'
+
+import React from 'react'
 
 export default function Home () {
   return (
@@ -34,13 +36,13 @@ export default function Home () {
     >
       <MainMenuButton
         buttonLink={'/pictures'}
-        buttonImage={undrawPhotos_1}
+        buttonImage={undrawPhotos1}
         buttonTitle={'Pictures'}
       />
 
       <MainMenuButton
         buttonLink={'/chooseCategory'}
-        buttonImage={undrawPhotos_2}
+        buttonImage={undrawPhotos2}
         buttonTitle={'Categories'}
       />
 

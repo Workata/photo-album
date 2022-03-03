@@ -8,6 +8,8 @@ import {
 import { Link } from 'react-router-dom'
 import React from 'react'
 
+import PropTypes from 'prop-types'
+
 export default function MainMenuButton (props) {
   return (
     <Link
@@ -68,4 +70,11 @@ export default function MainMenuButton (props) {
       </Box>
     </Link>
   )
+}
+
+// TODO setup correct prop types
+MainMenuButton.propTypes = {
+  buttonLink: PropTypes.any,
+  buttonImage: PropTypes.any,
+  buttonTitle: PropTypes.any
 }

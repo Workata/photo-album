@@ -5,7 +5,7 @@ import {
 
 import React, { useEffect, useState, useContext } from 'react'
 import { AppContext } from '../contexts/AppContext'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
 // * components
 import NoImages from '../components/NoImages'
@@ -14,9 +14,6 @@ import ImageViewer from '../components/ImageViewer'
 import ImageUploader from '../components/ImageUploader'
 import ImageAdminPanel from '../components/ImageAdminPanel'
 import GeneralLoading from '../components/GeneralLoading'
-
-// * navigation
-import { useHistory } from 'react-router-dom'
 
 export default function ImageSlider () {
   // imgId may be undefined, checked in useEffect
