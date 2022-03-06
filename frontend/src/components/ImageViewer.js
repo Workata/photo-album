@@ -18,6 +18,7 @@ import { useHistory } from 'react-router-dom'
 import backgroundImage from '../images/footer_lodyas.png'
 
 import PropTypes from 'prop-types'
+import $ from 'jquery'
 
 export default function ImageViewer (props) {
   const [image, setImage] = useState(backgroundImage)
@@ -28,6 +29,10 @@ export default function ImageViewer (props) {
   const [imagesURLs, setImagesURLs] = useState()
 
   const history = useHistory()
+
+  // * needed for fade in/fade out animation
+  const mainImage = $('#mainImage')
+  const fadeInOutTime = 500
 
   const fetchImageContent = async (imgIdToGet) => {
     // console.log(`Triggered fetchImageContent: ${imgIdToGet}`);
@@ -97,16 +102,17 @@ export default function ImageViewer (props) {
 
     if (imagesURLs) {
       const fetchId = parseInt(props.currentImgId)
-      fetchImageContent(fetchId)
 
+      mainImage.fadeOut(fadeInOutTime, () => {
+        fetchImageContent(fetchId)
+        // * fetch for additional image (preloading one image ahead)
+        fetchId === props.numberOfImages ? fetchImageContent(1) : fetchImageContent(fetchId + 1)
+      })
+      setTimeout(() => { mainImage.fadeIn(fadeInOutTime) }, fadeInOutTime)
       setImageName(props.imagesNames[fetchId - 1])
-
-      // * fetch for additional image
-      fetchId === props.numberOfImages ? fetchImageContent(1) : fetchImageContent(fetchId + 1)
     }
   }, [props.currentImgId, props.numberOfImages, imagesURLs]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // TODO fade in/out animation
   const slideshowIntervalTime = 5000 // number of miliseconds between pictures
 
   const nextImgSimulated = () => {
@@ -146,9 +152,9 @@ export default function ImageViewer (props) {
       <Typography
         variant="h6"
       >
-        {/* {`./${props.year}/${props.location}/`} */}
         {`${props.year} > ${props.location}`}
       </Typography>
+
       <Typography
         sx={{
           marginBottom: '10px'
@@ -181,6 +187,7 @@ export default function ImageViewer (props) {
           }}
           src={image}
           alt="Main content should be here"
+          id="mainImage"
         />
       </Box>
 
