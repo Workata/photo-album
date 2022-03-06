@@ -9,6 +9,7 @@ COPY . ./
 
 # * update system and pip
 RUN apk update && apk upgrade
+RUN apk add build-base
 RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN pip install -U setuptools
 

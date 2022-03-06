@@ -7,8 +7,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle
-}
-  from '@mui/material'
+} from '@mui/material'
 
 // * components
 import YearLocationContainer from '../components/YearLocationContainer'

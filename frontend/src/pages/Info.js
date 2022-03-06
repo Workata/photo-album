@@ -1,8 +1,7 @@
 import {
   Typography,
   Box
-}
-  from '@mui/material'
+} from '@mui/material'
 
 // * images
 import backgroundImage from '../images/footer_lodyas.png'
