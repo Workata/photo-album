@@ -67,8 +67,8 @@ def validate_human(recaptcha_value: str):
     TODO function docstring
     """
     secret_recaptcha_token = os.getenv('SECRET_KEY_GOOGLE_RECAPTCHA')
-    response = requests.post(f""""https://www.google.com/recaptcha/api/
-        siteverify?secret={secret_recaptcha_token}&response={recaptcha_value}""")
+    response = requests.post("https://www.google.com/recaptcha/api/" +
+        f"siteverify?secret={secret_recaptcha_token}&response={recaptcha_value}")
     data = response.json()
     return data["success"]
 
