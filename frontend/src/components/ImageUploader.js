@@ -28,6 +28,7 @@ export default function ImageUploader (props) {
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false)
   const location = useLocation()
+  const maxNumberOfImageToUpload = 1000
 
   const onUploadChange = (imageList, addUpdateIndex) => {
     // data for submit
@@ -81,6 +82,14 @@ export default function ImageUploader (props) {
 
   return (
     <>
+      <Typography
+        sx={{
+          marginBottom: '10px'
+        }}
+        variant="h6"
+      >
+        Max. number of images to upload: {maxNumberOfImageToUpload}
+      </Typography>
       <Box
         sx={{
           width: '900px',
@@ -89,14 +98,13 @@ export default function ImageUploader (props) {
           borderRadius: '5%',
           backgroundImage: `url(${backgroundImage})`
         }}
-        className="center"
       >
         <Box>
           <ImageUploading
             multiple
             value={uploadedImages}
             onChange={onUploadChange}
-            maxNumber={69}
+            maxNumber={maxNumberOfImageToUpload}
             dataURLKey="data_url"
           >
             {({
@@ -126,7 +134,7 @@ export default function ImageUploader (props) {
                   color="secondary"
                   variant="contained"
                 >
-                  Click or Drop here
+                  Add images
                 </Button>
 
                 <Button
@@ -139,7 +147,7 @@ export default function ImageUploader (props) {
                   variant="contained"
                   onClick={onImageRemoveAll}
                 >
-                  Remove all images
+                  Remove images
                 </Button>
 
                 <Box
@@ -194,7 +202,7 @@ export default function ImageUploader (props) {
           variant="contained"
           onClick={uploadImages}
         >
-          Upload images
+          Upload added images
         </Button>
       </Box>
 
