@@ -17,8 +17,6 @@ import PropTypes from 'prop-types'
 
 export default function Sidebar (props) {
   const [thumbnails, setThumbnails] = useState([])
-  const [canInsert, setCanInsert] = useState(false)
-  const thumbs = []
 
   const fetchThumbnail = async (imgIdToGet) => {
     try {
@@ -37,7 +35,12 @@ export default function Sidebar (props) {
       )
       const imgData = await response.blob()
       const thumbUrl = URL.createObjectURL(imgData)
+
+      const thumbs = thumbnails
       thumbs[imgIdToGet - 1] = thumbUrl
+      // * https://stackoverflow.com/questions/50030433/setstate-not-working-for-updating-an-array-in-react
+      setThumbnails([]) // ! workaround
+      setThumbnails(thumbs)
     } catch (error) {
       console.error('Error: ', error)
     };
@@ -45,12 +48,12 @@ export default function Sidebar (props) {
 
   const fetchThumbnailsOneByOne = async () => {
     for (let i = 1; i <= props.numberOfImages; i++) await fetchThumbnail(i)
-    setThumbnails(thumbs)
   }
 
   useEffect(() => {
-    fetchThumbnailsOneByOne()
-    if (props.numberOfImages !== 0) setCanInsert(true)
+    if (props.numberOfImages !== 0) {
+      fetchThumbnailsOneByOne()
+    }
   }, [props.numberOfImages]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -76,7 +79,7 @@ export default function Sidebar (props) {
           overflowY: 'auto' // display scroll bar after overflow
         }}
       >
-        {canInsert &&
+        {
           thumbnails.map((thumbnail, i) => {
             return (
               <Thumbnail
