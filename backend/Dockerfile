@@ -1,4 +1,4 @@
-FROM python:3.9-alpine3.13
+FROM python:3.9-alpine
 
 # * Create new directory for backend
 RUN mkdir backend
