@@ -86,7 +86,7 @@ async def get_image_thumbnail(year : str, location : str, img_id : int):
     return thumbnail_content
 
 @router.post("/upload/{year}/{location}")
-async def upload_images(year : str, location : str,
+def upload_images(year : str, location : str,
  new_pictures: List [UploadFile] = File(...), user: dict = Depends(get_current_user)):
     """
     TODO docstring
