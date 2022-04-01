@@ -4,8 +4,8 @@ import {
 } from '@mui/material'
 
 // * others
-import React from 'react'
-import uniqid from 'uniqid'
+import React, { useState, useEffect } from 'react'
+// import uniqid from 'uniqid'
 
 // * components
 import Thumbnail from './Thumbnail'
@@ -16,6 +16,18 @@ import backgroundImage from '../images/footer_lodyas.png'
 import PropTypes from 'prop-types'
 
 export default function Sidebar (props) {
+  const [thumbnails, setThumbnails] = useState()
+
+  useEffect(() => {
+    if (props.numberOfImages) {
+      const thumbs = []
+      for (let i = 1; i <= props.numberOfImages; i++) {
+        thumbs.push(i)
+      }
+      setThumbnails(thumbs)
+    }
+  }, [props.numberOfImages]) // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <Box
       sx={{
@@ -34,21 +46,20 @@ export default function Sidebar (props) {
     >
       {/* Thumbnail container */}
       <Box
-        id="thumbnailContainer"
         sx={{
           // backgroundColor: "gray",
           overflowY: 'auto' // display scroll bar after overflow
         }}
       >
         {
-          props.numberOfImages &&
-          [...Array(props.numberOfImages)].map((x, i) => {
+          thumbnails &&
+          thumbnails.map((x) => {
             return (
               <Thumbnail
+                key={x}
                 year={props.year}
                 location={props.location}
-                imgNumber={i + 1}
-                key={uniqid()}
+                imgNumber={x}
                 currentImgId={props.currentImgId}
               />
             )

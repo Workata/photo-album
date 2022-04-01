@@ -82,6 +82,5 @@ Thumbnail.propTypes = {
   currentImgId: PropTypes.any,
   imageNumber: PropTypes.any,
   thumbnail: PropTypes.any,
-  imgNumber: PropTypes.any,
-  updateVisibilityInfo: PropTypes.any
+  imgNumber: PropTypes.any
 }
