@@ -21,7 +21,7 @@ export default function Sidebar (props) {
   useEffect(() => {
     if (props.numberOfImages) {
       const thumbs = []
-      for (let i = 1; i < props.numberOfImages; i++) {
+      for (let i = 1; i <= props.numberOfImages; i++) {
         thumbs.push(i)
       }
       setThumbnails(thumbs)
