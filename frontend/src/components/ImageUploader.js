@@ -36,7 +36,7 @@ export default function ImageUploader (props) {
     setUploadedImages(imageList)
   }
 
-  const uploadImages = async () => {
+  const uploadImages = () => {
     setIsUploadDialogOpen(true)
 
     const formData = new FormData()
