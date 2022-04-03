@@ -3,9 +3,9 @@
 """
 import os
 from typing import List
-import shutil
 from fastapi import APIRouter, File, UploadFile, Depends
 from fastapi.responses import FileResponse
+from PIL import Image
 from src.utils.thumbnailsGenerator import create_thumbnails
 from src.utils.general import create_dir_if_not_exists
 from src.routers.auth import get_current_user
@@ -93,13 +93,13 @@ def upload_images(year : str, location : str,
     """
     # print(f"'new_pictures' (List) {new_pictures}")
     for image in new_pictures:
-        print(image.filename)
+        print(image.filename)   # this is ok
 
     path = f"./data/images/{year}/{location}"
     create_dir_if_not_exists(path)
     for image in new_pictures:
-        with open(f"{path}/{image.filename}", "wb") as buffer:
-            shutil.copyfileobj(image.file, buffer)
+        img = Image.open(image.file)
+        img.save(f"{path}/{image.filename}")
 
     create_thumbnails(path)
 
