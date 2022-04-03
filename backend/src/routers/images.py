@@ -1,9 +1,8 @@
 """
     TODO module docstring
 """
-import os
 from typing import List
-from tinydb import TinyDB, where, Query
+from tinydb import TinyDB, Query
 from fastapi import APIRouter, File, UploadFile, Depends
 from fastapi.responses import FileResponse
 from PIL import Image
