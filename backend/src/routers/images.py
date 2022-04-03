@@ -91,6 +91,10 @@ def upload_images(year : str, location : str,
     """
     TODO docstring
     """
+    # print(f"'new_pictures' (List) {new_pictures}")
+    for image in new_pictures:
+        print(image.filename)
+
     path = f"./data/images/{year}/{location}"
     create_dir_if_not_exists(path)
     for image in new_pictures:

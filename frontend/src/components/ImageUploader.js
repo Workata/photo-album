@@ -33,14 +33,21 @@ export default function ImageUploader (props) {
   const onUploadChange = (imageList, addUpdateIndex) => {
     // data for submit
     console.log(imageList, addUpdateIndex)
+    // uploadedImagesList = imageList
     setUploadedImages(imageList)
   }
 
   const uploadImages = () => {
     setIsUploadDialogOpen(true)
 
+    console.log(`'uploadedImages' (state): ${uploadedImages}`)
+    // console.log(`'uploadedImages' (state): ${uploadedImagesList}`)
+
     const formData = new FormData()
     for (let i = 0; i < uploadedImages.length; i++) formData.append('new_pictures', uploadedImages[i].file)
+    // for (let i = 0; i < uploadedImagesList.length; i++) formData.append('new_pictures', uploadedImagesList[i].file)
+
+    console.log(`'formData' (const): ${formData}`)
 
     axios.request({
       method: 'post',
