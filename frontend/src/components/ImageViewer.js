@@ -36,6 +36,8 @@ export default function ImageViewer (props) {
 
   const fetchImageContent = async (imgIdToGet) => {
     // console.log(`Triggered fetchImageContent: ${imgIdToGet}`);
+
+    // * check if image is already preloaded - if yes skip request and set image
     if (imagesURLs[imgIdToGet - 1] !== 0) {
       if (!imageIdInContainer || imageIdInContainer !== parseInt(props.currentImgId)) {
         setImage(imagesURLs[parseInt(props.currentImgId) - 1])
@@ -45,6 +47,7 @@ export default function ImageViewer (props) {
     }
     // console.log(`Not requested so make request for ${imgIdToGet}`);
 
+    // * if not preloaded then make a request
     try {
       let url
       if (props.year === 'categories') url = `/api/categories/content/${props.location}/${imgIdToGet}`
@@ -104,6 +107,9 @@ export default function ImageViewer (props) {
       const fetchId = parseInt(props.currentImgId)
 
       mainImage.fadeOut(fadeInOutTime, () => {
+        // ! set image for background image cause you dont want to show
+        // ! older image while making a requst for newer
+        setImage(backgroundImage)
         fetchImageContent(fetchId)
         // * fetch for additional image (preloading one image ahead)
         fetchId === props.numberOfImages ? fetchImageContent(1) : fetchImageContent(fetchId + 1)
