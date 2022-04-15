@@ -5,39 +5,37 @@ import {
 } from '@mui/material'
 
 // * others
-import { Link } from 'react-router-dom'
 import React from 'react'
-
+import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 export default function MainMenuButton (props) {
+  const history = useHistory()
+
   return (
-    <Link
-      to={props.buttonLink}
-      style={{
-        textDecoration: 'none',
-        margin: '15px'
-      }}
-    >
+    <>
       <Box
         sx={{
-          width: '300px',
-          height: '300px',
+          width: !props.category ? '42%' : '25%', // 300px
+          height: !props.category ? '42%' : '40%',
+          margin: '4%',
           backgroundColor: 'white',
           borderRadius: '10%',
+          cursor: 'pointer',
           transition: 'transform .2s',
 
           '&:hover': {
             transform: 'scale(1.1)'
           }
         }}
+        onClick={() => { history.push(props.buttonLink) }}
       >
         <Box
           sx={{
             // borderStyle: "solid",
             // borderColor: "yellow",
-            width: '300px',
-            height: '250px',
+            width: '100%',
+            height: '80%',
 
             // * Center image inside this div
             display: 'flex',
@@ -49,7 +47,7 @@ export default function MainMenuButton (props) {
           {/* Button image */}
           <img
             style={{
-              width: '230px'
+              height: !props.category ? '70%' : '50%'
             }}
             src={props.buttonImage}
             alt="Button img"
@@ -68,7 +66,7 @@ export default function MainMenuButton (props) {
         </Typography>
 
       </Box>
-    </Link>
+    </>
   )
 }
 
@@ -76,5 +74,6 @@ export default function MainMenuButton (props) {
 MainMenuButton.propTypes = {
   buttonLink: PropTypes.any,
   buttonImage: PropTypes.any,
-  buttonTitle: PropTypes.any
+  buttonTitle: PropTypes.any,
+  category: PropTypes.any
 }

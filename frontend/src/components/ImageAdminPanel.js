@@ -127,7 +127,9 @@ export default function ImageAdminPanel (props) {
         borderRadius: '10px',
         borderWidth: '2px',
         padding: '10px',
-        backgroundImage: `url(${backgroundImage})`
+        backgroundImage: `url(${backgroundImage})`,
+        marginLeft: 'auto',
+        marginRight: 'auto'
       }}
     >
       <FormGroup

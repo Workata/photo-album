@@ -281,24 +281,25 @@ export default function ImagesMap () {
           display: 'flex'
         }}
       >
-        <Box
+        {/* <Box
           sx={{
-            width: '1200px',
-            height: '800px',
+            width: '100%',
+            height: '100%',
             border: 'solid',
             borderRadius: '5px'
           }}
-        >
+        > */}
           {/* map content (div id) is a target for setupMap() */}
           <Box
             sx={{
-              width: '1200px',
-              height: '800px',
-              borderRadius: '5%'
+              width: '90vw',
+              height: '85vh',
+              marginLeft: 'auto',
+              marginRight: 'auto'
             }}
             id="mapContent"
           />
-        </Box>
+        {/* </Box> */}
 
         {tokenValue &&
           <Box

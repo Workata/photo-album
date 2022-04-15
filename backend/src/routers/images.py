@@ -52,6 +52,20 @@ async def get_images_names(year : str, location : str):
 
     return {"img_names": images_names}
 
+@router.get("/count/{year}/{location}")
+async def get_images_count(year : str, location : str):
+    """
+    TODO docstring
+    """
+    images_order_query = IMAGES_ORDER_DB.search(Query().fragment(
+     {'year': year, 'location': location}))
+    if not images_order_query:
+        print("This folder doesn't exist (probably)")
+        return {"img_names": []}
+    images_order = images_order_query[0]['order']
+
+    return {"number_of_images": len(images_order)}
+
 @router.get("/thumbnail/{year}/{location}/{img_id}")
 async def get_image_thumbnail(year : str, location : str, img_id : int):
     """
@@ -94,3 +108,5 @@ def upload_images(year : str, location : str,
     create_thumbnails(path)
 
     return f"Added new photos by {user['username']}"
+
+

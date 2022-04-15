@@ -151,8 +151,10 @@ export default function ImageViewer (props) {
   return (
     <Box
       sx={{
-        width: '910px',
-        height: '700px'
+        width: '95%', // 910px
+        height: '100%' // 700px
+        // borderStyle: 'solid',
+        // borderColor: 'red'
       }}
     >
       <Typography
@@ -172,33 +174,34 @@ export default function ImageViewer (props) {
 
       {/* https://stackoverflow.com/questions/7273338/how-to-vertically-align-an-image-inside-a-div */}
       <Box
+      id="imgWrapper"
         sx={{
-          width: '900px',
-          height: '600px',
-          border: 'solid',
-          borderRadius: '5%',
-          backgroundImage: `url(${backgroundImage})`
+          width: '100%', // 900px
+          height: '70vh'
+          // border: 'solid',
+          // borderRadius: '5%',
+          // backgroundImage: `url(${backgroundImage})`
         }}
       >
         {/* This span is a hack for image aligning, check linked stack post */}
         <span style={{ display: 'inline-block', height: '100%', verticalAlign: 'middle' }} />
         <img
           style={{
-            height: 'auto',
+            height: 'auto', // auto
             width: 'auto',
-            maxWidth: '900px',
-            maxHeight: '600px',
+            maxWidth: '100%', // 900px
+            maxHeight: '100%', // 600px
             borderRadius: '5%',
             verticalAlign: 'middle'
           }}
           src={image}
-          alt="Main content should be here"
+          alt="..."
           id="mainImage"
         />
       </Box>
 
+      {/* Images navigation */}
       <Box>
-
         <IconButton color="secondary" onClick={prevImg}>
           <NavigateBeforeIcon />
         </IconButton>
@@ -228,7 +231,6 @@ export default function ImageViewer (props) {
         >
           <PauseIcon />
         </IconButton>
-
       </Box>
     </Box>
   )

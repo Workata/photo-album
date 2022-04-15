@@ -38,6 +38,10 @@ export default function YearLocationContainer (props) {
           borderRadius: '5%',
           backgroundImage: `url(${backgroundImage})`,
 
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginTop: '5%',
+
           // layout
           display: 'flex',
           flexDirection: 'row',

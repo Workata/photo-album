@@ -91,38 +91,66 @@ export default function ImageSlider () {
 
     return (
       <Box
+        id="viewImagesWrapper"
         sx={{
           display: 'flex',
           flexDirection: 'row',
-          gap: '100px',
-          alignItems: 'center',
-          height: '750px'
+          // gap: '100px',
+          alignItems: 'center', // veritcal alignment
+          height: '100%',
+          width: '100%'
+          // borderStyle: 'solid',
+          // borderColor: 'pink'
         }}
       >
-
-        <Sidebar
-          year={year}
-          location={location}
-          numberOfImages={numberOfImages}
-          currentImgId={imgId}
-        />
-
-        <ImageViewer
-          year={year}
-          location={location}
-          numberOfImages={numberOfImages}
-          imagesNames={imagesNames}
-          currentImgId={imgId}
-        />
-
-        {tokenValue && year !== 'categories' &&
-          <ImageAdminPanel
+        <Box
+          sx={{
+            width: '20%'
+            // borderStyle: 'solid',
+            // borderColor: 'green'
+          }}
+        >
+          <Sidebar
             year={year}
             location={location}
+            numberOfImages={numberOfImages}
+            currentImgId={imgId}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            width: '80%',
+            height: '100%'
+            // borderStyle: 'solid',
+            // borderColor: 'yellow'
+          }}
+        >
+          <ImageViewer
+            year={year}
+            location={location}
+            numberOfImages={numberOfImages}
             imagesNames={imagesNames}
             currentImgId={imgId}
-            tokenValue={tokenValue}
           />
+        </Box>
+
+        {tokenValue && year !== 'categories' &&
+          <Box
+            sx={{
+              width: '20%'
+              // borderStyle: 'solid',
+              // borderColor: 'green'
+            }}
+          >
+              <ImageAdminPanel
+                year={year}
+                location={location}
+                imagesNames={imagesNames}
+                currentImgId={imgId}
+                tokenValue={tokenValue}
+              />
+          </Box>
         }
 
       </Box>
