@@ -108,5 +108,3 @@ def upload_images(year : str, location : str,
     create_thumbnails(path)
 
     return f"Added new photos by {user['username']}"
-
-
