@@ -31,8 +31,11 @@ export default function Sidebar (props) {
   return (
     <Box
       sx={{
-        width: '215px',
-        height: '80%',
+        width: '220px', // 215px
+        height: '70vh', //
+
+        marginLeft: 'auto',
+        marginRight: 'auto',
 
         border: 'solid',
         borderColor: 'white',
@@ -61,6 +64,7 @@ export default function Sidebar (props) {
                 location={props.location}
                 imgNumber={x}
                 currentImgId={props.currentImgId}
+                fromChooseThumbnailPage={false}
               />
             )
           })

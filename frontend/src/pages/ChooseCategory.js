@@ -23,8 +23,8 @@ export default function ChooseCategory () {
   return (
     <Box
       sx={{
-        width: '1050px',
-        height: '660px',
+        width: '70vw',
+        height: '70vh',
         borderStyle: 'solid',
         borderColor: 'white',
         borderRadius: '5%',
@@ -36,7 +36,10 @@ export default function ChooseCategory () {
         alignContent: 'flex-start',
         justifyContent: 'space-evenly',
 
-        padding: '20px'
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '5vh',
+        paddingBottom: '5vh'
       }}
     >
 
@@ -44,30 +47,35 @@ export default function ChooseCategory () {
         buttonLink={'/pictures/categories/landscape'}
         buttonImage={undrawLandscapeMode}
         buttonTitle={'Landscape'}
+        category={true}
       />
 
       <MainMenuButton
         buttonLink={'/pictures/categories/cars'}
         buttonImage={undrawOffRoad}
         buttonTitle={'Cars'}
+        category={true}
       />
 
       <MainMenuButton
         buttonLink={'/pictures/categories/flora'}
         buttonImage={undrawGardening}
         buttonTitle={'Flora'}
+        category={true}
       />
 
       <MainMenuButton
         buttonLink={'/pictures/categories/birds'}
         buttonImage={undrawMusicBird}
         buttonTitle={'Birds'}
+        category={true}
       />
 
       <MainMenuButton
         buttonLink={'/pictures/categories/wildlife'}
         buttonImage={undrawPlayfulCat}
         buttonTitle={'Wildlife'}
+        category={true}
       />
 
     </Box>

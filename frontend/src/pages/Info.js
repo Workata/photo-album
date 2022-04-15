@@ -17,20 +17,23 @@ export default function Info () {
     <Box
       sx={{
         width: '900px',
-        height: '600px',
+        height: '80%',
         border: 'solid',
         borderRadius: '5%',
         backgroundImage: `url(${backgroundImage})`,
         paddingTop: '20px',
         paddingBottom: '15px',
-        paddingLeft: '15px'
+        paddingLeft: '15px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '5vh'
 
       }}
     >
       <Box
         sx={{
           width: '890px',
-          height: '580px',
+          height: '100%',
           paddingRight: '10px',
           overflowY: 'auto' // display scroll bar after overflow
         }}

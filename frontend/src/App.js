@@ -20,6 +20,7 @@ import ImagesMap from './pages/ImagesMap'
 import Login from './pages/Login'
 import Info from './pages/Info'
 import PageNotFound from './pages/PageNotFound'
+import ChooseThumbnail from './pages/ChooseThumbnail'
 
 import { AppContext } from './contexts/AppContext'
 
@@ -52,45 +53,38 @@ function App () {
           id="switchWrapper"
           sx={{
             width: '100%',
-            height: 'auto',
+            height: '90%',
 
             // * gap between appbar and footer
             paddingTop: '20px',
-            paddingBottom: '20px',
+            paddingBottom: '20px'
 
             // * center content
-            marginTop: 'auto',
-            marginBottom: 'auto',
-
-            display: 'flex',
-            flexFlow: 'column'
+            // marginTop: 'auto',
+            // marginBottom: 'auto',
+            // marginLeft: 'auto',
+            // marginRight: 'auto'
           }}
         >
-          <Box
-            sx={{
-              margin: 'auto'
-              // paddingBottom: "50px"
-            }}
-          >
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/info" component={Info} />
-              <Route exact path="/chooseCategory" component={ChooseCategory} />
-              <Route exact path="/map" component={ImagesMap} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/info" component={Info} />
+            <Route exact path="/chooseCategory" component={ChooseCategory} />
+            <Route exact path="/map" component={ImagesMap} />
 
-              <Route exact path="/pictures" component={ChooseYear} />
-              <Route exact path="/pictures/:year" component={ChooseLocation} />
-              <Route exact path="/pictures/:year/:location" component={ViewImages} />
-              <Route exact path="/pictures/:year/:location/:imgId" component={ViewImages} />
+            <Route exact path="/pictures" component={ChooseYear} />
+            <Route exact path="/pictures/:year" component={ChooseLocation} />
+            <Route exact path="/pictures/:year/:location" component={ViewImages} />
+            <Route exact path="/pictures/:year/:location/:imgId" component={ViewImages} />
 
-              <Route>
-                <PageNotFound/>
-              </Route>
+            <Route exact path="/thumbnails/:year/:location" component={ChooseThumbnail} />
 
-            </Switch>
+            <Route>
+              <PageNotFound/>
+            </Route>
 
-          </Box>
+          </Switch>
         </Box>
 
         <Footer />

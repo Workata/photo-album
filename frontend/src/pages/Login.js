@@ -66,7 +66,10 @@ export default function Login () {
         height: '340px',
         borderRadius: '5%',
         borderStyle: 'solid',
-        borderColor: 'white'
+        borderColor: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '15%'
       }}
     >
       <ReCAPTCHA

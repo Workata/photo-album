@@ -19,8 +19,8 @@ export default function Home () {
   return (
     <Box
       sx={{
-        width: '665px',
-        height: '665px',
+        width: '70vh', // 665
+        height: '70vh', // 665
         borderStyle: 'solid',
         borderColor: 'white',
         borderRadius: '5%',
@@ -29,33 +29,42 @@ export default function Home () {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        // gap: '6%',
         alignContent: 'flex-start',
 
-        padding: '20px'
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '5vh'
+
+        // padding: '6%'
       }}
     >
       <MainMenuButton
         buttonLink={'/pictures'}
         buttonImage={undrawPhotos1}
         buttonTitle={'Pictures'}
+        category={false}
       />
 
       <MainMenuButton
         buttonLink={'/chooseCategory'}
         buttonImage={undrawPhotos2}
         buttonTitle={'Categories'}
+        category={false}
       />
 
       <MainMenuButton
         buttonLink={'/map'}
         buttonImage={undrawAdventure}
         buttonTitle={'Map'}
+        category={false}
       />
 
       <MainMenuButton
         buttonLink={'/info'}
         buttonImage={undrawMyAnswer}
         buttonTitle={'Info'}
+        category={false}
       />
     </Box>
   )

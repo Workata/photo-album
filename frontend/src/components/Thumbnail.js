@@ -46,7 +46,7 @@ export default function Thumbnail (props) {
 
   return (
     <Link
-      replace
+      replace={!props.fromChooseThumbnailPage}
       to={`/pictures/${props.year}/${props.location}/${props.imgNumber}`}
     >
       {/* thumbnail wrapper */}
@@ -82,5 +82,6 @@ Thumbnail.propTypes = {
   currentImgId: PropTypes.any,
   imageNumber: PropTypes.any,
   thumbnail: PropTypes.any,
-  imgNumber: PropTypes.any
+  imgNumber: PropTypes.any,
+  fromChooseThumbnailPage: PropTypes.any
 }

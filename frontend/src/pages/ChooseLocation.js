@@ -84,7 +84,7 @@ export default function ChooseLocation () {
         tokenValue={tokenValue}
         dialogAction={setIsAddLocationDialogOpen}
         containerTitle={'Select location'}
-        linkPrefix={`/pictures/${year}`}
+        linkPrefix={`/thumbnails/${year}`}
       />
 
       <Dialog
