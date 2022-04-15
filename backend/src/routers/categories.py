@@ -85,7 +85,7 @@ async def get_images_names_from_category(category : str):
     return {"img_names": image_names}
 
 @router.get("/count/{category}")
-async def get_images_names_from_category(category : str):
+async def get_number_of_images_from_category(category : str):
     """
         TODO docstring
         Get number of images in category
