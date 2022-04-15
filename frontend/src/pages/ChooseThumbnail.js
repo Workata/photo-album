@@ -23,8 +23,11 @@ export default function ChooseThumbnail () {
 
   const fetchNumberOfImages = async () => {
     try {
+      let url
+      if (year === 'categories') url = `/api/categories/count/${location}`
+      else url = `/api/images/count/${year}/${location}`
       const response = await fetch(
-        `/api/images/count/${year}/${location}`,
+        url,
         {
           method: 'GET',
           headers: {

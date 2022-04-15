@@ -44,35 +44,35 @@ export default function ChooseCategory () {
     >
 
       <MainMenuButton
-        buttonLink={'/pictures/categories/landscape'}
+        buttonLink={'/thumbnails/categories/landscape'}
         buttonImage={undrawLandscapeMode}
         buttonTitle={'Landscape'}
         category={true}
       />
 
       <MainMenuButton
-        buttonLink={'/pictures/categories/cars'}
+        buttonLink={'/thumbnails/categories/cars'}
         buttonImage={undrawOffRoad}
         buttonTitle={'Cars'}
         category={true}
       />
 
       <MainMenuButton
-        buttonLink={'/pictures/categories/flora'}
+        buttonLink={'/thumbnails/categories/flora'}
         buttonImage={undrawGardening}
         buttonTitle={'Flora'}
         category={true}
       />
 
       <MainMenuButton
-        buttonLink={'/pictures/categories/birds'}
+        buttonLink={'/thumbnails/categories/birds'}
         buttonImage={undrawMusicBird}
         buttonTitle={'Birds'}
         category={true}
       />
 
       <MainMenuButton
-        buttonLink={'/pictures/categories/wildlife'}
+        buttonLink={'/thumbnails/categories/wildlife'}
         buttonImage={undrawPlayfulCat}
         buttonTitle={'Wildlife'}
         category={true}
